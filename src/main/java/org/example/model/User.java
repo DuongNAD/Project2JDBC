@@ -10,6 +10,8 @@ public class User {
     private String avatarUrl;
     private Boolean isActive;
 
+    public User(){}
+
     public User(String username, String fullname, String email, String passwordHash, String role, Boolean isActive) {
         this.username = username;
         this.fullname = fullname;

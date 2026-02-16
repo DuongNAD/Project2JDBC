@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controller.MyCoursesController">
+
+    <fx:include fx:id="header" source="header.fxml" />
+
+    <ScrollPane fitToWidth="true"
+                style="-fx-background-color: transparent; -fx-background: transparent;"
+                styleClass="edge-to-edge"
+                stylesheets="@../Css/my-courses.css"
+                VBox.vgrow="ALWAYS">
+        <content>
+            <VBox styleClass="my-courses-page">
+
+                <VBox styleClass="page-header-container">
+                    <Label text="🎓 Khóa học của tôi" styleClass="page-title" />
+                    <Label text="Tiếp tục hành trình chinh phục tri thức của bạn." styleClass="page-subtitle" />
+                </VBox>
+
+                <FlowPane fx:id="myCoursesContainer" styleClass="course-list-flow" prefWrapLength="1200" />
+
+            </VBox>
+        </content>
+    </ScrollPane>
+</VBox>

@@ -1,231 +1,421 @@
-/* global.css */
+/* ================================================================= */
+/* 1. CORE & TYPOGRAPHY (CẤU HÌNH CỐT LÕI)                           */
+/* ================================================================= */
 .root {
-    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    -fx-background-color: #f6f7f9; /* Màu nền xám sáng của web */
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+    -fx-background-color: #F8FAFC; /* Nền sáng (Light Mode) */
 }
 
-/* --- 1. HEADER & DASHBOARD (Phần màu tối phía trên) --- */
-.header-background {
-    -fx-background-color: #1a2332; /* Màu xanh đen đặc trưng của CodeLearn */
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: transparent;
 }
 
-.brand-logo {
+/* --- Typography Mặc định (Light Mode) --- */
+.header-title, .hero-title, .section-header, .course-title {
     -fx-font-size: 24px;
-    -fx-font-weight: 900;
-    -fx-text-fill: white; /* Chữ CườngLearn màu trắng */
-}
-.brand-logo-accent {
-    -fx-text-fill: #5d78ff; /* Chữ Learn màu xanh (nếu muốn tách màu) */
+    -fx-font-weight: 800;
+    -fx-text-fill: #0F172A; /* Đen đậm */
 }
 
-.nav-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #b0b5c1; /* Màu chữ menu xám nhạt */
+.text, .label, .lesson-title { -fx-text-fill: #334155; }
+
+.header-subtitle, .text-description, .news-desc, .news-meta {
+    -fx-text-fill: #64748B; /* Xám trung tính */
+}
+
+.article-tag {
+    -fx-text-fill: #3B82F6;
     -fx-font-weight: bold;
-    -fx-font-size: 14px;
-    -fx-cursor: hand;
-}
-.nav-button:hover {
-    -fx-text-fill: white;
 }
 
-/* Phần User Info (Avatar + Progress) */
-.user-dashboard {
-    -fx-background-color: #242f41; /* Màu nền box user sáng hơn nền header 1 chút */
-    -fx-background-radius: 12;
-    -fx-padding: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 4);
-}
-
-.progress-bar-track {
-    -fx-background-color: #3a4a63; /* Màu đường ray tối */
-    -fx-background-radius: 10;
-}
-.progress-bar-fill {
-    -fx-background-color: #00d285; /* Màu xanh lá chuẩn CodeLearn */
-    -fx-background-radius: 10;
-}
-
-.stat-value {
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #eab308; /* Màu vàng số lượng khóa học */
-}
-.stat-label {
-    -fx-text-fill: #b0b5c1;
-    -fx-font-size: 13px;
-}
-
-/* --- 2. COURSE TABS (Thanh tab Gợi ý / Đang học) --- */
-.course-tab-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #5e6e82;
-    -fx-font-weight: bold;
-    -fx-font-size: 16px;
-    -fx-border-color: transparent transparent transparent transparent;
-    -fx-border-width: 0 0 3 0;
-    -fx-cursor: hand;
-    -fx-padding: 10 20;
-}
-.course-tab-button:hover {
-    -fx-text-fill: #1a2332;
-}
-.course-tab-button.active {
-    -fx-text-fill: #1a2332;
-    -fx-border-color: transparent transparent #5d78ff transparent; /* Gạch chân xanh */
-}
-
-/* --- 3. COURSE CARDS (Thẻ khóa học rực rỡ) --- */
-.course-card {
-    -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 2);
-    -fx-cursor: hand;
-}
-.course-card:hover {
-    -fx-translate-y: -5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 15, 0, 0, 5);
-}
-
-/* Các banner màu sắc giống ảnh mẫu */
-.banner-blue { -fx-background-color: linear-gradient(to bottom right, #0056D2, #00419e); }
-.banner-green { -fx-background-color: linear-gradient(to bottom right, #28a745, #218838); }
-.banner-yellow { -fx-background-color: linear-gradient(to bottom right, #ffc107, #d39e00); }
-.banner-purple { -fx-background-color: linear-gradient(to bottom right, #6f42c1, #59359a); }
-
-.card-title {
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #1a2332;
-}
-/* Reset cơ bản */
-.root {
-    -fx-font-family: 'Segoe UI', sans-serif;
-}
-
-/* --- SIDEBAR (Thanh bên trái) --- */
-.sidebar {
-    -fx-background-color: #1A202C; /* Màu đen xanh hiện đại */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
-}
-
-.logo-label {
-    -fx-text-fill: white;
-    -fx-font-weight: 900;
-    -fx-font-size: 26px;
-    -fx-effect: dropshadow(gaussian, rgba(99, 179, 237, 0.5), 10, 0, 0, 0); /* Hiệu ứng phát sáng nhẹ */
-}
-
-/* Style chung cho các nút ở Sidebar */
-.nav-btn {
-    -fx-background-color: transparent;
-    -fx-text-fill: #A0AEC0; /* Màu xám nhạt */
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-alignment: BASELINE_LEFT; /* Căn chữ sang trái */
-    -fx-padding: 12 25;
-    -fx-cursor: hand;
-    -fx-background-radius: 0 30 30 0; /* Bo tròn góc bên phải cho mềm mại */
-    -fx-border-width: 0 0 0 0;
-}
-
-/* Hiệu ứng khi di chuột vào (Hover) */
-.nav-btn:hover {
-    -fx-background-color: #2D3748;
-    -fx-text-fill: white;
-    -fx-padding: 12 25 12 35; /* Dịch chữ sang phải một chút tạo hiệu ứng chuyển động */
-}
-
-/* Style cho nút ĐANG ĐƯỢC CHỌN (Active) */
-.nav-btn-active {
-    -fx-background-color: linear-gradient(to right, #2b6cb0, #2D3748); /* Màu gradient */
-    -fx-text-fill: white;
-    -fx-border-color: #63B3ED; /* Viền xanh sáng bên trái */
-    -fx-border-width: 0 0 0 4;
-}
-
-/* --- MAIN CONTENT (Phần nội dung chính) --- */
-.content-area {
-    -fx-background-color: #F7FAFC; /* Màu nền xám trắng sạch sẽ */
-}
-/* Nút Hamburger (Toggle Sidebar) */
-.btn-hamburger {
-    -fx-background-color: transparent;
-    -fx-text-fill: #1A202C; /* Màu chữ đen xanh */
-    -fx-font-size: 24px;   /* Kích thước icon to rõ */
-    -fx-font-weight: bold;
-    -fx-cursor: hand;
-    -fx-padding: 5 10;
-    -fx-border-color: #E2E8F0;
-    -fx-border-radius: 5;
+/* ================================================================= */
+/* 2. HEADER & SEARCH BAR (FIX LỖI VIỀN ĐEN/TRẮNG)                   */
+/* ================================================================= */
+.global-header {
+    -fx-background-color: rgba(255, 255, 255, 0.95);
+    -fx-effect: dropshadow(three-pass-box, rgba(148, 163, 184, 0.15), 15, 0, 0, 4);
+    -fx-padding: 15 30;
+    -fx-border-color: transparent transparent #E2E8F0 transparent;
     -fx-border-width: 1;
 }
 
-.btn-hamburger:hover {
-    -fx-background-color: #EDF2F7; /* Màu nền xám nhẹ khi di chuột */
-    -fx-text-fill: #3182CE; /* Đổi màu xanh khi hover */
+/* Khung bao ngoài của ô tìm kiếm (Bo tròn) */
+.chat-input-area-big {
+    -fx-background-color: #F1F5F9;
+    -fx-background-radius: 25; /* Bo tròn nhiều hơn */
+    -fx-border-radius: 25;
+    -fx-padding: 5 15;
+    -fx-border-color: #E2E8F0;
+    -fx-border-width: 1;
 }
 
-/* Nút thu gọn nhỏ xinh ở Sidebar */
-.btn-mini-toggle {
+/* Ô nhập liệu bên trong (XÓA SẠCH VIỀN) */
+.header-search-field,
+.header-search-field:focused {
     -fx-background-color: transparent;
-    -fx-text-fill: #A0AEC0; /* Màu chữ xám nhạt */
+    -fx-background-insets: 0; /* Quan trọng: Xóa viền focus mặc định */
+    -fx-border-width: 0;
+    -fx-text-fill: #0F172A;
+    -fx-prompt-text-fill: #94A3B8;
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-cursor: hand;
-
-    /* Tạo hình tròn nhỏ */
-    -fx-min-width: 30px;
-    -fx-min-height: 30px;
-    -fx-max-width: 30px;
-    -fx-max-height: 30px;
-    -fx-background-radius: 50%;
-
-    /* Viền mỏng cho tinh tế */
-    -fx-border-color: #4A5568;
-    -fx-border-radius: 50%;
 }
 
-.btn-mini-toggle:hover {
-    -fx-background-color: #2D3748; /* Nền xám đậm khi hover */
-    -fx-text-fill: white;            /* Chữ trắng */
-    -fx-border-color: #CBD5E0;       /* Viền sáng hơn */
-}
-/* Nút Đóng (<) nằm giữa Sidebar */
-.btn-sidebar-close {
-    -fx-background-color: rgba(255, 255, 255, 0.1); /* Nền mờ nhẹ */
-    -fx-text-fill: #A0AEC0;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-cursor: hand;
-    -fx-min-width: 30px;
-    -fx-min-height: 40px; /* Cao hơn chút cho dễ bấm */
-    -fx-background-radius: 5px 0 0 5px; /* Bo góc bên trái */
-}
-.btn-sidebar-close:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.2);
+/* ================================================================= */
+/* 3. BUTTONS (NÚT BẤM - FIX DARK/LIGHT MODE)                        */
+/* ================================================================= */
+
+/* --- Nút Chính (Xanh dương) --- */
+.btn-hero-primary, .btn-buy-now {
+    -fx-background-color: #3B82F6;
     -fx-text-fill: white;
+    -fx-font-weight: 800;
+    -fx-background-radius: 12;
+    -fx-padding: 10 24;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.3), 10, 0, 0, 4);
+}
+.btn-hero-primary:hover, .btn-buy-now:hover {
+    -fx-background-color: #2563EB;
+    -fx-translate-y: -2;
 }
 
-/* Nút Mở (>>>) trôi ở góc dưới màn hình */
-.btn-floating-open {
+/* --- Nút Quay Lại (FIX LỖI DARK MODE) --- */
+.btn-back-stylish {
     -fx-background-color: white;
-    -fx-text-fill: #2D3748;
-    -fx-font-size: 16px;
+    -fx-text-fill: #64748B;
     -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-background-radius: 20;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 20;
+    -fx-padding: 8 20;
     -fx-cursor: hand;
-
-    /* Hiệu ứng bóng đổ để nút nổi lên */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 2);
-
-    /* Hình tròn */
-    -fx-min-width: 45px;
-    -fx-min-height: 45px;
-    -fx-max-width: 45px;
-    -fx-max-height: 45px;
-    -fx-background-radius: 50%;
+    -fx-alignment: CENTER_LEFT;
 }
-.btn-floating-open:hover {
-    -fx-background-color: #3182CE; /* Màu xanh khi hover */
+.btn-back-stylish:hover {
+    -fx-background-color: #F8FAFC;
+    -fx-text-fill: #0F172A;
+    -fx-border-color: #CBD5E1;
+}
+
+/* --- Nút Sidebar --- */
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94A3B8;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 25;
+    -fx-cursor: hand;
+    -fx-background-radius: 0 30 30 0;
+    -fx-alignment: BASELINE_LEFT;
+}
+.nav-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.05);
     -fx-text-fill: white;
 }
+.nav-btn-active {
+    -fx-background-color: rgba(59, 130, 246, 0.1); /* Nền xanh mờ */
+    -fx-text-fill: #60A5FA; /* Chữ xanh sáng */
+    -fx-border-color: #3B82F6;
+    -fx-border-width: 0 0 0 4;
+}
+
+/* ================================================================= */
+/* 4. CARDS & CONTAINERS                                             */
+/* ================================================================= */
+.content-card, .news-card-vertical, .course-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(148, 163, 184, 0.1), 20, 0, 0, 5);
+    -fx-border-color: #F1F5F9;
+    -fx-border-radius: 16;
+    -fx-transition: all 0.3s;
+}
+
+.news-card-vertical:hover, .course-card:hover {
+    -fx-translate-y: -5;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.25), 30, 0, 0, 10);
+    -fx-cursor: hand;
+}
+
+/* ================================================================= */
+/* 5. PROGRESS BAR (THANH TIẾN ĐỘ ĐẸP)                               */
+/* ================================================================= */
+.progress-bar { -fx-min-height: 8px; -fx-pref-height: 8px; }
+.progress-bar > .track {
+    -fx-background-color: #E2E8F0;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+}
+.progress-bar > .bar {
+    -fx-background-color: linear-gradient(to right, #3B82F6, #60A5FA);
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-padding: 4;
+}
+
+/* ================================================================= */
+/* 6. ACCORDION (DANH SÁCH BÀI HỌC)                                  */
+/* ================================================================= */
+.course-section-pane > .title {
+    -fx-background-color: white;
+    -fx-border-color: #E2E8F0;
+    -fx-text-fill: #0F172A;
+    -fx-cursor: hand;
+}
+.course-section-pane > .content {
+    -fx-background-color: #F8FAFC;
+    -fx-border-color: #E2E8F0;
+}
+.lesson-item:hover {
+    -fx-background-color: #EFF6FF; /* Xanh nhạt khi hover bài học */
+}
+
+/* ================================================================= */
+/* 7. DARK MODE OVERRIDES (CHẾ ĐỘ TỐI - FIX TOÀN BỘ)                 */
+/* ================================================================= */
+.dark-theme {
+    -fx-background-color: #0F172A; /* Nền tối (Slate 900) */
+}
+
+/* --- Dark Typography --- */
+.dark-theme .header-title,
+.dark-theme .hero-title,
+.dark-theme .section-header,
+.dark-theme .course-title {
+    -fx-text-fill: #F8FAFC; /* Trắng sáng */
+}
+
+.dark-theme .label, .dark-theme .text,
+.dark-theme .text-description, .dark-theme .news-desc {
+    -fx-text-fill: #CBD5E1; /* Xám sáng dễ đọc */
+}
+
+/* --- Dark Header & Search --- */
+.dark-theme .global-header {
+    -fx-background-color: #1E293B;
+    -fx-border-color: transparent transparent #334155 transparent;
+}
+.dark-theme .chat-input-area-big {
+    -fx-background-color: #0F172A;
+    -fx-border-color: #334155;
+}
+.dark-theme .header-search-field,
+.dark-theme .header-search-field:focused {
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #64748B;
+}
+
+/* --- Dark Buttons (FIX NÚT BACK) --- */
+.dark-theme .btn-back-stylish {
+    -fx-background-color: #1E293B; /* Nền tối */
+    -fx-text-fill: #94A3B8;        /* Chữ xám */
+    -fx-border-color: #334155;     /* Viền tối */
+}
+.dark-theme .btn-back-stylish:hover {
+    -fx-background-color: #334155; /* Sáng hơn khi hover */
+    -fx-text-fill: white;          /* Chữ trắng khi hover */
+}
+
+/* --- Dark Cards --- */
+.dark-theme .content-card,
+.dark-theme .news-card-vertical,
+.dark-theme .course-card {
+    -fx-background-color: #1E293B;
+    -fx-border-color: #334155;
+}
+.dark-theme .news-card-vertical:hover, .dark-theme .course-card:hover {
+    -fx-border-color: #38BDF8; /* Viền sáng khi hover */
+    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.3), 30, 0, 0, 0);
+}
+
+/* --- Dark Accordion (Bài học) --- */
+.dark-theme .course-section-pane > .title {
+    -fx-background-color: #334155;
+    -fx-border-color: #475569;
+}
+.dark-theme .course-section-pane > .title .text {
+    -fx-fill: #F8FAFC !important; /* Ép chữ tiêu đề màu trắng */
+}
+.dark-theme .course-section-pane > .content {
+    -fx-background-color: #0F172A;
+    -fx-border-color: #475569;
+}
+.dark-theme .lesson-title {
+    -fx-text-fill: #CBD5E1;
+}
+.dark-theme .lesson-item:hover {
+    -fx-background-color: #1E293B;
+}
+
+/* --- Dark Progress Bar --- */
+.dark-theme .progress-bar > .track { -fx-background-color: #334155; }
+.dark-theme .progress-bar > .bar {
+    -fx-background-color: linear-gradient(to right, #3B82F6, #93C5FD);
+    -fx-effect: dropshadow(three-pass-box, rgba(96, 165, 250, 0.5), 10, 0, 0, 0);
+}
+/* --- Sidebar Logo (EduPath) --- */
+.logo-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: 900; /* Chữ siêu đậm */
+    -fx-font-family: "Segoe UI Black", "Arial Black", sans-serif;
+    -fx-text-fill: #FFFFFF; /* Màu trắng tinh */
+    /* Hiệu ứng đổ bóng phát sáng màu xanh (Neon Glow) */
+    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.6), 15, 0, 0, 0);
+}
+
+/* --- Sidebar Subtitle (System) --- */
+.logo-subtitle {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #94A3B8; /* Màu xám xanh nhạt */
+    -fx-padding: -5 0 0 0; /* Đẩy sát lên trên một chút */
+}
+/* ================================================================= */
+/* NÚT HERO CHÍNH (KHÁM PHÁ NGAY) - PHIÊN BẢN CAO CẤP                */
+/* ================================================================= */
+
+/* 1. Trạng thái bình thường */
+.btn-hero-primary {
+    /* Dùng Gradient chuyển từ xanh sáng sang xanh đậm để tạo chiều sâu */
+    -fx-background-color: linear-gradient(to bottom right, #60A5FA, #2563EB);
+    -fx-text-fill: white;
+    -fx-font-weight: 900; /* Chữ siêu đậm */
+    -fx-font-size: 15px;
+    -fx-background-radius: 30; /* Bo tròn hình viên thuốc */
+    -fx-padding: 12 32; /* Kích thước lớn hơn, sang hơn */
+    -fx-cursor: hand;
+
+    /* Đổ bóng màu xanh dương nhẹ bên dưới (Colored Shadow) */
+    -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.4), 15, 0, 0, 5);
+}
+
+/* 2. Trạng thái khi di chuột vào (Hover) */
+.btn-hero-primary:hover {
+    /* Đổi sang gradient sáng hơn */
+    -fx-background-color: linear-gradient(to bottom right, #93C5FD, #3B82F6);
+
+    /* Hiệu ứng nâng nút lên (Lift Effect) */
+    -fx-translate-y: -3;
+
+    /* Bóng đổ đậm hơn và xa hơn, tạo cảm giác nút đang bay lên */
+    -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.7), 25, 0, 0, 8);
+}
+
+/* 3. Trạng thái khi nhấn giữ chuột (Pressed) */
+.btn-hero-primary:pressed {
+    -fx-translate-y: 1; /* Nút lún xuống nhẹ */
+    -fx-background-color: #1E40AF; /* Màu tối lại */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2); /* Bóng thu nhỏ lại */
+}
+/* ================================================================= */
+/* 🔔 NOTIFICATION POPUP (THÔNG BÁO)                                 */
+/* ================================================================= */
+
+/* 1. Cái khung chứa (ContextMenu) */
+.notification-context-menu {
+    -fx-background-color: transparent; /* Để background do VBox bên trong quản lý */
+    -fx-padding: 5; /* Để chừa chỗ cho bóng đổ */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 15, 0, 2, 5);
+}
+
+/* 2. Container chính */
+.notification-container {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-min-width: 320px;
+    -fx-max-width: 320px;
+}
+
+/* 3. Header (Tiêu đề "Thông báo") */
+.notification-header {
+    /* Gradient xanh giống nút Hero */
+    -fx-background-color: linear-gradient(to right, #3B82F6, #2563EB);
+    -fx-background-radius: 12 12 0 0;
+    -fx-padding: 12 15;
+}
+
+.notification-header-label {
+    -fx-text-fill: white;
+    -fx-font-weight: 800;
+    -fx-font-size: 14px;
+}
+
+/* 4. Từng dòng thông báo (Item) */
+.notification-item {
+    -fx-background-color: transparent;
+    -fx-padding: 12 15;
+    -fx-border-color: transparent transparent #F1F5F9 transparent;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
+
+.notification-item:hover {
+    -fx-background-color: #F8FAFC; /* Màu nền khi di chuột */
+}
+
+/* Nội dung text bên trong */
+.notif-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-text-fill: #1E293B;
+}
+
+.notif-msg {
+    -fx-font-size: 12px;
+    -fx-text-fill: #475569;
+    -fx-wrap-text: true;
+}
+
+.notif-time {
+    -fx-font-size: 10px;
+    -fx-text-fill: #94A3B8;
+}
+
+/* Icon trạng thái (Check xanh, Info đỏ...) */
+.notif-icon-box {
+    -fx-alignment: top-center;
+    -fx-padding: 2 0 0 0;
+}
+
+/* 5. Footer (Đánh dấu đã đọc) */
+.notification-footer {
+    -fx-padding: 10;
+    -fx-alignment: center;
+    -fx-background-radius: 0 0 12 12;
+}
+
+.btn-mark-read {
+    -fx-background-color: transparent;
+    -fx-text-fill: #3B82F6;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}
+.btn-mark-read:hover {
+    -fx-underline: true;
+    -fx-text-fill: #2563EB;
+}
+
+/* ================================================================= */
+/* 🌙 DARK MODE NOTIFICATION                                         */
+/* ================================================================= */
+
+.dark-theme .notification-container {
+    -fx-background-color: #2D3748; /* Nền tối */
+    -fx-border-color: #4A5568;
+    -fx-border-width: 1;
+}
+
+.dark-theme .notification-item {
+    -fx-border-color: transparent transparent #4A5568 transparent;
+}
+
+.dark-theme .notification-item:hover {
+    -fx-background-color: #353F50;
+}
+
+.dark-theme .notif-title { -fx-text-fill: #F8FAFC; }
+.dark-theme .notif-msg { -fx-text-fill: #CBD5E0; }
+.dark-theme .notif-time { -fx-text-fill: #718096; }

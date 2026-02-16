@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: #F7F9FC;"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <ProgressIndicator style="-fx-progress-color: #3182CE;" prefWidth="50" prefHeight="50"/>
+    <Label text="Đang tải dữ liệu..." style="-fx-text-fill: #718096; -fx-font-weight: bold;"/>
+</VBox>

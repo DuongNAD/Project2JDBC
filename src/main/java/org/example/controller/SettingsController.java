@@ -19,15 +19,18 @@ import java.util.ResourceBundle;
 
 public class SettingsController implements Initializable {
 
-    @FXML private TextField tfFullName;
-    @FXML private TextField tfEmail;
+    @FXML private TextField txtFullName;
+    @FXML private TextField txtEmail;
     @FXML private ImageView avatarPreview;
     @FXML private Button btnUploadAvatar;
+    @FXML private ScrollPane settingsScrollPane;
 
-    @FXML private PasswordField pfCurrentPass;
-    @FXML private PasswordField pfNewPass;
-    @FXML private PasswordField pfConfirmPass;
-    @FXML private Label lblMessage;
+    @FXML private PasswordField txtCurrentPass;
+    @FXML private PasswordField txtNewPass;
+    @FXML private PasswordField txtConfirmPass;
+
+    @FXML private Label lblProfileMessage;
+    @FXML private Label lblPasswordMessage;
 
     private UserDao userDao = new UserDao();
     private String currentAvatarUrl = "";
@@ -35,6 +38,7 @@ public class SettingsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadUserProfile();
+        org.example.util.ScrollUtil.applySmoothScrolling(settingsScrollPane);
 
         if (btnUploadAvatar != null) {
             btnUploadAvatar.setOnAction(e -> handleUploadAvatar());
@@ -44,15 +48,21 @@ public class SettingsController implements Initializable {
     private void loadUserProfile() {
         User user = UserSession.getInstance().getUser();
         if (user != null) {
-            tfFullName.setText(user.getFullname());
-            tfEmail.setText(user.getEmail());
+            // Cập nhật tên biến mới
+            if (txtFullName != null) txtFullName.setText(user.getFullname());
+            if (txtEmail != null) txtEmail.setText(user.getEmail());
+
             currentAvatarUrl = user.getAvatarUrl();
 
             try {
                 if (currentAvatarUrl != null && !currentAvatarUrl.isEmpty()) {
-                    avatarPreview.setImage(new Image(currentAvatarUrl, 100, 100, true, true));
+                    avatarPreview.setImage(new Image(currentAvatarUrl, 120, 120, true, true));
+                } else {
+                    // Ảnh mặc định nếu chưa có
+                    avatarPreview.setImage(new Image("https://i.pravatar.cc/150?img=12", 120, 120, true, true));
                 }
             } catch (Exception e) {
+                System.err.println("Lỗi load ảnh avatar: " + e.getMessage());
             }
         }
     }
@@ -64,89 +74,87 @@ public class SettingsController implements Initializable {
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
 
-        Stage stage = (Stage) tfFullName.getScene().getWindow();
+        Stage stage = (Stage) txtFullName.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
             currentAvatarUrl = selectedFile.toURI().toString();
-            avatarPreview.setImage(new Image(currentAvatarUrl, 100, 100, true, true));
+            avatarPreview.setImage(new Image(currentAvatarUrl, 120, 120, true, true));
         }
     }
 
     @FXML
     void handleSaveProfile(ActionEvent event) {
-        String newName = tfFullName.getText();
+        String newName = txtFullName.getText(); // Dùng biến mới
 
         if (newName.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Vui lòng nhập họ tên.");
+            setProfileMessage("Vui lòng nhập họ tên.", true);
             return;
         }
 
         User currentUser = UserSession.getInstance().getUser();
 
+        // Giả sử hàm updateProfile của anh nhận (id, name, avatar)
         boolean success = userDao.updateProfile(currentUser.getId(), newName, currentAvatarUrl);
 
         if (success) {
             currentUser.setFullname(newName);
             currentUser.setAvatarUrl(currentAvatarUrl);
-
-            showAlert(Alert.AlertType.INFORMATION, "Cập nhật thông tin thành công!");
+            setProfileMessage("Cập nhật thông tin thành công!", false);
         } else {
-            showAlert(Alert.AlertType.ERROR, "Lỗi kết nối CSDL, không thể lưu.");
+            setProfileMessage("Lỗi kết nối CSDL, không thể lưu.", true);
         }
     }
 
     @FXML
     void handleChangePassword(ActionEvent event) {
-        String current = pfCurrentPass.getText();
-        String newVal = pfNewPass.getText();
-        String confirm = pfConfirmPass.getText();
+        // Dùng biến mới
+        String current = txtCurrentPass.getText();
+        String newVal = txtNewPass.getText();
+        String confirm = txtConfirmPass.getText();
 
         if (current.isEmpty() || newVal.isEmpty() || confirm.isEmpty()) {
-            setMessage("Vui lòng nhập đầy đủ thông tin.", true);
+            setPasswordMessage("Vui lòng nhập đầy đủ thông tin.", true);
             return;
         }
 
         if (!Validator.isValidPassword(newVal)) {
-            setMessage("Mật khẩu mới quá yếu! (Cần >6 ký tự, có chữ hoa, số...)", true);
+            setPasswordMessage("Mật khẩu yếu! (Cần >6 ký tự, có chữ hoa, số...)", true);
             return;
         }
 
         if (!newVal.equals(confirm)) {
-            setMessage("Mật khẩu xác nhận không khớp.", true);
+            setPasswordMessage("Mật khẩu xác nhận không khớp.", true);
             return;
         }
 
         User currentUser = UserSession.getInstance().getUser();
 
         if (userDao.checkPassword(currentUser.getId(), current)) {
-
             boolean success = userDao.changePassword(currentUser.getId(), newVal);
 
             if (success) {
-                setMessage("Đổi mật khẩu thành công!", false);
+                setPasswordMessage("Đổi mật khẩu thành công!", false);
                 // Clear ô nhập
-                pfCurrentPass.clear();
-                pfNewPass.clear();
-                pfConfirmPass.clear();
+                txtCurrentPass.clear();
+                txtNewPass.clear();
+                txtConfirmPass.clear();
             } else {
-                setMessage("Lỗi hệ thống, vui lòng thử lại.", true);
+                setPasswordMessage("Lỗi hệ thống, vui lòng thử lại.", true);
             }
         } else {
-            setMessage("Mật khẩu hiện tại không đúng.", true);
+            setPasswordMessage("Mật khẩu hiện tại không đúng.", true);
         }
     }
 
-    private void setMessage(String msg, boolean isError) {
-        lblMessage.setText(msg);
-        lblMessage.setStyle(isError ? "-fx-text-fill: #E53E3E;" : "-fx-text-fill: #38A169;");
+    // --- Hàm hỗ trợ hiển thị thông báo đẹp ---
+    private void setProfileMessage(String msg, boolean isError) {
+        lblProfileMessage.setText(msg);
+        lblProfileMessage.setStyle(isError ? "-fx-text-fill: #EF4444;" : "-fx-text-fill: #10B981;");
     }
 
-    private void showAlert(Alert.AlertType type, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle("Thông báo");
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+    private void setPasswordMessage(String msg, boolean isError) {
+        lblPasswordMessage.setText(msg);
+        lblPasswordMessage.setStyle(isError ? "-fx-text-fill: #EF4444;" : "-fx-text-fill: #10B981;");
     }
 }

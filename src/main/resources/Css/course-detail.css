@@ -1,109 +1,257 @@
-/* course-detail.css */
-
-/* Container chính bên trái */
-.main-content-container {
-    -fx-padding: 30px 40px;
-    -fx-background-color: -background-color;
-}
-
-.breadcrumb {
-    -fx-text-fill: -text-secondary;
-    -fx-font-size: 12px;
-}
-
-.short-description {
-    -fx-font-size: 16px;
-    -fx-text-fill: -text-primary;
-    -fx-padding: 0 0 10 0;
-}
-
-.instructor-avatar {
-    -fx-background-radius: 50%; /* Làm tròn ảnh avatar */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 0, 1);
-}
-
-.instructor-name {
-    -fx-font-weight: bold;
-    -fx-text-fill: -primary-color;
-    -fx-font-size: 14px;
-}
-
-.rating-text {
-    -fx-text-fill: -secondary-color; /* Màu vàng cam cho rating */
-    -fx-font-weight: bold;
-    -fx-font-size: 13px;
-}
-
-.main-course-image {
-    -fx-background-radius: -border-radius;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
-}
-
-/* --- Tùy chỉnh TabPane cho giống web --- */
-.tab-pane .tab-header-area .tab-header-background {
-    -fx-background-color: transparent; /* Ẩn nền xám mặc định của header tab */
-}
-
-.tab-pane .tab {
+/* Nút Back */
+.btn-back {
     -fx-background-color: transparent;
-    -fx-text-fill: -text-secondary;
+    -fx-text-fill: #718096;
     -fx-font-weight: bold;
-    -fx-font-size: 15px;
-    -fx-padding: 10 20;
-    -fx-border-color: transparent transparent transparent transparent;
-    -fx-border-width: 0 0 3px 0; /* Chỉ hiện viền dưới khi chọn */
+    -fx-cursor: hand;
+    -fx-padding: 0;
 }
+.btn-back:hover { -fx-text-fill: #2D3748; -fx-underline: true; }
 
-.tab-pane .tab:selected {
-    -fx-text-fill: -primary-color;
-    -fx-border-color: transparent transparent -primary-color transparent; /* Viền dưới màu xanh khi chọn */
-}
-
-.tab-pane .tab:hover {
-    -fx-text-fill: -primary-hover;
-}
-.tab-content-area {
-    -fx-background-color: transparent;
-    -fx-padding: 20px 0;
-}
-
-
-/* --- Sidebar Buy Box (Bên phải) --- */
-.buy-box {
-    /* Ghi đè style card mặc định để nó nổi hơn */
+/* Hero Card */
+.course-hero-card {
     -fx-background-color: white;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 15, 0, 0, 5);
-    -fx-padding: 24px;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4);
+    -fx-padding: 25;
 }
 
-.preview-image {
-    -fx-background-radius: -border-radius;
-    /* Hiệu ứng giả nút play video ở giữa ảnh nếu muốn (phức tạp hơn chút) */
+.hero-image {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-background-radius: 10;
+}
+
+.badge-category {
+    -fx-background-color: #EBF8FF;
+    -fx-text-fill: #3182CE;
+    -fx-background-radius: 4;
+    -fx-padding: 4 8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.course-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 900; /* Extra Bold */
+    -fx-text-fill: #2D3748;
 }
 
 .price-label {
-    -fx-font-size: 32px;
+    -fx-font-size: 28px;
     -fx-font-weight: 900;
-    -fx-text-fill: -text-primary;
+    -fx-text-fill: #E53E3E; /* Màu đỏ giá */
 }
 
-.enroll-button-large {
-    /* Kế thừa .button nhưng to hơn */
+.btn-buy-now {
+    -fx-background-color: #3182CE;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 12 30;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(49, 130, 206, 0.4), 10, 0, 0, 4);
+}
+.btn-buy-now:hover { -fx-background-color: #2c5282; }
+
+/* Tab Pane */
+.modern-tab-pane .tab-header-area .tab-header-background { -fx-background-color: transparent; }
+.modern-tab-pane .tab {
+    -fx-background-color: transparent;
+    -fx-text-fill: #718096;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-border-color: transparent transparent #E2E8F0 transparent;
+    -fx-border-width: 2;
+}
+.modern-tab-pane .tab:selected {
+    -fx-text-fill: #3182CE;
+    -fx-border-color: transparent transparent #3182CE transparent;
+}
+
+.section-header {
     -fx-font-size: 18px;
-    -fx-padding: 12 24;
-    -fx-background-color: #D32F2F; /* Màu đỏ cam nổi bật cho nút mua (ví dụ) */
-}
-.enroll-button-large:hover {
-    -fx-background-color: #b71c1c;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D3748;
 }
 
-.guarantee-text {
-    -fx-text-fill: -text-secondary;
-    -fx-font-size: 12px;
-}
-
-.feature-list Label {
-    -fx-text-fill: -text-primary;
+.text-description {
+    -fx-fill: #4A5568;
     -fx-font-size: 14px;
-    -fx-graphic-text-gap: 10px;
+    -fx-line-spacing: 5;
+}
+
+.curriculum-item {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 8;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 8;
+}
+/* --- STYLE CHO DANH SÁCH CHƯƠNG HỌC (ACCORDION) --- */
+
+/* Xóa nền mặc định */
+.accordion {
+    -fx-background-color: transparent;
+}
+
+/* Khung của từng Chương (TitledPane) */
+.course-section-pane {
+    -fx-text-fill: #2D3748;
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 15 0; /* Khoảng cách giữa các chương */
+}
+
+/* --- PHẦN TIÊU ĐỀ (HEADER) CỦA CHƯƠNG --- */
+.course-section-pane > .title {
+    -fx-background-color: white;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 12 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 5, 0, 3, 0); /* Đổ bóng nhẹ */
+    -fx-cursor: hand;
+}
+
+/* Khi di chuột vào tiêu đề */
+.course-section-pane > .title:hover {
+    -fx-background-color: #F7FAFC;
+    -fx-border-color: #CBD5E0;
+}
+
+/* Khi chương ĐANG MỞ (Expanded): Bo góc trên, dưới vuông để nối với nội dung */
+.course-section-pane:expanded > .title {
+    -fx-background-radius: 10 10 0 0;
+    -fx-background-insets: 0;
+    -fx-border-radius: 10 10 0 0;
+    -fx-border-width: 1 1 0 1; /* Bỏ viền dưới để liền mạch */
+}
+
+/* Chỉnh mũi tên (Arrow) sang bên phải hoặc đổi màu */
+.course-section-pane > .title > .arrow-button .arrow {
+    -fx-background-color: #718096;
+    -fx-scale-x: 0.8;
+    -fx-scale-y: 0.8;
+}
+
+/* --- PHẦN NỘI DUNG (DANH SÁCH BÀI HỌC) --- */
+.course-section-pane > .content {
+    -fx-background-color: white;
+    -fx-border-color: #E2E8F0;
+    -fx-border-width: 0 1 1 1; /* Viền trái, phải, dưới */
+    -fx-background-radius: 0 0 10 10;
+    -fx-border-radius: 0 0 10 10;
+    -fx-padding: 0; /* Xóa padding mặc định để tự quản lý */
+}
+
+/* --- TỪNG DÒNG BÀI HỌC (LESSON ITEM) --- */
+.lesson-item {
+    -fx-padding: 12 20;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #EDF2F7 transparent; /* Gạch ngang mờ ngăn cách */
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* Dòng cuối cùng không cần gạch ngang */
+.lesson-item:last-child {
+    -fx-border-color: transparent;
+}
+
+/* Hiệu ứng khi di chuột vào bài học */
+.lesson-item:hover {
+    -fx-background-color: #F0F9FF; /* Xanh rất nhạt */
+}
+
+.lesson-item:hover .lesson-title {
+    -fx-text-fill: #3182CE; /* Chữ chuyển xanh */
+}
+
+.lesson-title {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4A5568;
+    -fx-font-weight: normal;
+}
+
+.lesson-icon {
+    -fx-fill: #CBD5E0; /* Màu icon play mặc định */
+    -fx-font-size: 10px;
+}
+
+.lesson-item:hover .lesson-icon {
+    -fx-fill: #3182CE; /* Icon chuyển xanh khi hover */
+}
+/* Style nút Quay lại xịn sò */
+.btn-back-stylish {
+    -fx-background-color: white;
+    -fx-text-fill: #718096;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-background-radius: 20; /* Bo tròn như viên thuốc */
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 20;
+    -fx-padding: 8 16; /* Khoảng cách đệm */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 3, 0, 0, 2);
+    -fx-alignment: CENTER_LEFT;
+}
+
+.btn-back-stylish:hover {
+    -fx-background-color: #EDF2F7; /* Xám nhẹ khi di chuột */
+    -fx-text-fill: #2D3748;
+    -fx-border-color: #CBD5E0;
+    -fx-translate-x: -3; /* Hiệu ứng lùi nhẹ sang trái */
+}
+/* ... Các code cũ giữ nguyên ... */
+
+/* ================================================================= */
+/* DARK MODE CHO TRANG CHI TIẾT                        */
+/* ================================================================= */
+
+/* Khung thông tin khóa học (Hero Card) */
+.dark-theme .course-hero-card {
+    -fx-background-color: #2D3748;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 4);
+}
+
+.dark-theme .section-header {
+    -fx-text-fill: white;
+}
+
+/* Tab Pane (Giới thiệu / Chương trình học) */
+.dark-theme .modern-tab-pane .tab {
+    -fx-text-fill: #A0AEC0;
+}
+.dark-theme .modern-tab-pane .tab:selected {
+    -fx-text-fill: #63B3ED;
+    -fx-border-color: transparent transparent #63B3ED transparent;
+}
+
+/* Danh sách chương (Accordion) */
+.dark-theme .course-section-pane > .title {
+    -fx-background-color: #2D3748; /* Nền tiêu đề chương tối */
+    -fx-border-color: #4A5568;      /* Viền xám tối */
+    -fx-text-fill: white;
+}
+
+.dark-theme .course-section-pane > .title:hover {
+    -fx-background-color: #4A5568;
+}
+
+/* Nội dung bài học (Lesson List) */
+.dark-theme .course-section-pane > .content {
+    -fx-background-color: #1A202C; /* Nền danh sách bài học tối thẫm */
+    -fx-border-color: #4A5568;
+}
+
+.dark-theme .lesson-title {
+    -fx-text-fill: #CBD5E0;
+}
+
+.dark-theme .lesson-item:hover {
+    -fx-background-color: #2D3748;
+}
+
+.dark-theme .lesson-item:hover .lesson-title {
+    -fx-text-fill: #63B3ED;
 }

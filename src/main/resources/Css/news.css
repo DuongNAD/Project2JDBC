@@ -1,0 +1,15 @@
+/* news.css - Chỉ chứa layout, không chứa màu sắc */
+
+/* Container chính của danh sách tin */
+.news-container-flow {
+    -fx-hgap: 20;
+    -fx-vgap: 20;
+    -fx-padding: 0 0 50 0;
+    -fx-alignment: top-left;
+}
+
+/* Container bao quanh toàn bộ nội dung */
+.news-page-container {
+    -fx-padding: 30;
+    -fx-spacing: 20;
+}

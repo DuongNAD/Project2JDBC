@@ -1,0 +1,73 @@
+/* Header tối màu */
+.learning-header {
+    -fx-background-color: #1E293B; /* Slate 800 */
+    -fx-border-color: #334155;
+    -fx-border-width: 0 0 1 0;
+}
+
+.course-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #F8FAFC;
+}
+
+.btn-back {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94A3B8;
+    -fx-font-weight: bold;
+    -fx-border-color: #475569;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+.btn-back:hover {
+    -fx-text-fill: white;
+    -fx-border-color: white;
+}
+
+/* Sidebar danh sách bài học */
+.sidebar-container {
+    -fx-background-color: #F1F5F9;
+}
+.sidebar-title {
+    -fx-padding: 15;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+}
+
+/* Các nút điều khiển video dưới đáy */
+.video-controls {
+    -fx-background-color: #0F172A;
+    -fx-padding: 15;
+}
+.btn-control {
+    -fx-background-color: #3B82F6;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 20;
+    -fx-padding: 8 20;
+}
+.btn-control:hover { -fx-background-color: #2563EB; }
+
+/* --- Style cho từng bài học trong danh sách --- */
+.lesson-item {
+    -fx-padding: 12 15;
+    -fx-background-color: white;
+    -fx-border-color: #E2E8F0;
+    -fx-border-width: 0 0 1 0;
+    -fx-cursor: hand;
+}
+.lesson-item:hover {
+    -fx-background-color: #E2E8F0;
+}
+.lesson-item-active {
+    -fx-background-color: #DBEAFE; /* Xanh nhạt khi đang học */
+    -fx-border-left-color: #3B82F6;
+    -fx-border-left-width: 4;
+}
+
+/* Dark mode support (nếu app đang ở chế độ tối) */
+.root {
+    -fx-base: #1E293B; /* Ép toàn bộ giao diện sang tông tối */
+}

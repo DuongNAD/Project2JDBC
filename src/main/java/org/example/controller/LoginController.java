@@ -67,15 +67,22 @@ public class LoginController {
                     code = query.split("code=")[1].split("&")[0];
                 }
 
-                String response = "<html><body><h1>Đăng nhập thành công. Vui lòng quay lại Desktop App</h1></body></html>";
+                String response = "<html><body><h1 style='text-align:center;'>Dang nhap thanh cong! Ban co the tat tab nay.</h1></body></html>";
+                exchange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
                 exchange.sendResponseHeaders(200, response.length());
-                OutputStream os = exchange.getResponseBody();
-                os.write(response.getBytes());
-                os.close();
-                server.stop(0);
+
+                try (OutputStream os = exchange.getResponseBody()) {
+                    os.write(response.getBytes(StandardCharsets.UTF_8));
+                }
 
                 if (code != null) {
-                    handleGoogleOAuthCode(code);
+                    String finalCode = code;
+                    new Thread(() -> {
+                        handleGoogleOAuthCode(finalCode);
+                        server.stop(0);
+                    }).start();
+                } else {
+                    server.stop(0);
                 }
             });
             server.start();
@@ -136,16 +143,47 @@ public class LoginController {
 
                 String name = userInfo.has("name") ? userInfo.get("name").getAsString() : "Google User";
                 String email = userInfo.has("email") ? userInfo.get("email").getAsString() : "";
+                String pictureUrl = userInfo.has("picture") ? userInfo.get("picture").getAsString() : "";
 
                 Platform.runLater(() -> {
-                    showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xin chào: " + name + "\nEmail: " + email);
-                    switchToHome();
+
+                    User user = userDao.getUserByEmail(email);
+
+                    if (user == null) {
+                        User newUser = new User();
+                        newUser.setUsername(email);
+                        newUser.setFullname(name);
+                        newUser.setEmail(email);
+                        newUser.setPasswordHash("GOOGLE_LOGIN_AUTH");
+                        newUser.setRole("Student");
+                        newUser.setAvatarUrl(pictureUrl);
+
+                        boolean isRegistered = userDao.register(newUser);
+                        if (isRegistered) {
+                            user = userDao.getUserByEmail(email);
+                        } else {
+                            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tạo tài khoản mới từ Google!");
+                            return;
+                        }
+                    }
+
+                    if (user != null) {
+                        if (Boolean.FALSE.equals(user.getIsActive())) {
+                            showAlert(Alert.AlertType.ERROR, "Lỗi", "Tài khoản này đã bị khóa!");
+                            return;
+                        }
+
+                        UserSession.getInstance().setUser(user);
+
+                        showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xin chào: " + user.getFullname());
+                        switchToHome();
+                    }
                 });
 
             } else {
                 System.out.println("Lỗi Token Response: " + tokenResponse.body());
                 Platform.runLater(() -> {
-                    showAlert(Alert.AlertType.ERROR, "Lỗi Đăng Nhập", "Google từ chối xác thực.\nChi tiết: " + tokenResponse.body());
+                    showAlert(Alert.AlertType.ERROR, "Lỗi Đăng Nhập", "Google từ chối xác thực.\n" + tokenJson.toString());
                     googleLoginButton.setDisable(false);
                 });
             }
@@ -153,7 +191,7 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
             Platform.runLater(() -> {
-                showAlert(Alert.AlertType.ERROR, "Lỗi Hệ Thống", "Lỗi: " + e.getMessage());
+                showAlert(Alert.AlertType.ERROR, "Lỗi Hệ Thống", "Exception: " + e.getMessage());
                 googleLoginButton.setDisable(false);
             });
         }

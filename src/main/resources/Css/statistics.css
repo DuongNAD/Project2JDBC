@@ -1,0 +1,246 @@
+/* ================================================================= */
+/* STYLE CHO TRANG THỐNG KÊ (STATISTICS)                             */
+/* ================================================================= */
+
+.statistics-page {
+    -fx-padding: 30 40;
+    -fx-spacing: 30;
+    -fx-background-color: transparent;
+}
+
+/* --- 1. SUMMARY CARDS (THẺ CHỈ SỐ) --- */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4);
+    -fx-padding: 20;
+    -fx-min-width: 220;
+}
+
+/* Các biến thể màu sắc (Gradient) */
+.card-blue {
+    -fx-background-color: linear-gradient(to bottom right, #3B82F6, #2563EB);
+}
+.card-green {
+    -fx-background-color: linear-gradient(to bottom right, #10B981, #059669);
+}
+.card-purple {
+    -fx-background-color: linear-gradient(to bottom right, #8B5CF6, #7C3AED);
+}
+.card-orange {
+    -fx-background-color: linear-gradient(to bottom right, #F59E0B, #D97706);
+}
+
+.stat-value {
+    -fx-font-size: 32px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.stat-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(255, 255, 255, 0.8);
+}
+
+.stat-icon {
+    -fx-font-size: 24px;
+    -fx-text-fill: rgba(255, 255, 255, 0.9);
+}
+
+/* --- 2. CHART CONTAINERS --- */
+.chart-container {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4);
+    -fx-padding: 20;
+}
+
+.chart-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1E293B;
+    -fx-padding: 0 0 10 0;
+}
+
+/* --- 3. CUSTOM CHARTS STYLE --- */
+/* Xóa nền mặc định của Chart */
+.chart {
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+}
+.chart-content {
+    -fx-padding: 10;
+}
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+/* Màu chữ trục (Axis) */
+.axis {
+    -fx-tick-label-fill: #64748B;
+    -fx-font-size: 11px;
+}
+.axis-label {
+    -fx-text-fill: #64748B;
+}
+
+/* Màu các cột (Bar Chart) */
+.default-color0.chart-bar { -fx-bar-fill: #3B82F6; }
+.default-color1.chart-bar { -fx-bar-fill: #10B981; }
+.default-color2.chart-bar { -fx-bar-fill: #F59E0B; }
+
+/* Pie Chart Legend */
+.chart-legend {
+    -fx-background-color: transparent;
+}
+.chart-legend-item-symbol {
+    -fx-background-radius: 4;
+}
+.chart-legend-item {
+    -fx-text-fill: #475569;
+}
+
+/* ================================================================= */
+/* 🌙 DARK MODE STATISTICS                                           */
+/* ================================================================= */
+
+.dark-theme .chart-container {
+    -fx-background-color: #1E293B; /* Slate 800 */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 4);
+}
+
+.dark-theme .chart-title {
+    -fx-text-fill: #F8FAFC;
+}
+
+.dark-theme .axis {
+    -fx-tick-label-fill: #CBD5E1;
+}
+.dark-theme .chart-legend-item {
+    -fx-text-fill: #CBD5E1;
+}
+
+/* ================================================================= */
+/* 🌙 DARK MODE STATISTICS (FIX CHART COLORS)                        */
+/* ================================================================= */
+
+.dark-theme .chart-container {
+    -fx-background-color: #1E293B; /* Slate 800 */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 4);
+}
+
+.dark-theme .chart-title {
+    -fx-text-fill: #F8FAFC; /* Tiêu đề trắng */
+}
+
+/* --- FIX BAR CHART (Biểu đồ cột) --- */
+/* Màu chữ trục X và Y */
+.dark-theme .axis {
+    -fx-tick-label-fill: #CBD5E1; /* Màu số trên trục (Xám sáng) */
+}
+/* Màu tên trục (nếu có) */
+.dark-theme .axis-label {
+    -fx-text-fill: #E2E8F0;
+}
+/* Màu đường kẻ lưới (Grid lines) - Làm mờ đi cho đỡ rối */
+.dark-theme .chart-vertical-grid-lines,
+.dark-theme .chart-horizontal-grid-lines {
+    -fx-stroke: #334155;
+}
+
+/* --- FIX PIE CHART (Biểu đồ tròn) --- */
+/* Màu chữ chú thích (Legend) */
+.dark-theme .chart-legend-item {
+    -fx-text-fill: #E2E8F0 !important; /* Quan trọng: Ép màu trắng */
+}
+/* Màu chữ nhãn trên biểu đồ (Labels) */
+.dark-theme .chart-pie-label {
+    -fx-fill: #F8FAFC;
+    -fx-font-weight: bold;
+}
+/* Màu đường nối nhãn */
+.dark-theme .chart-pie-label-line {
+    -fx-stroke: #64748B;
+}
+
+/* --- Cập nhật màu nền Chart --- */
+.dark-theme .chart-plot-background {
+    -fx-background-color: transparent;
+}
+.dark-theme .chart-content {
+    -fx-background-color: transparent;
+}
+/* ================================================================= */
+/* 📊 CHART STYLING - FIX LỖI DARK/LIGHT MODE                        */
+/* ================================================================= */
+
+/* --- 1. TRẠNG THÁI MẶC ĐỊNH (LIGHT MODE) - PHẢI KHAI BÁO RÕ --- */
+/* (Quan trọng: Phải set màu cứng ở đây để khi tắt Dark Mode nó biết đường quay về) */
+
+.chart-title {
+    -fx-text-fill: #1E293B; /* Màu tiêu đề đậm (Đen xanh) */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.axis {
+    -fx-tick-label-fill: #64748B; /* Màu số trục (Xám đậm) */
+    -fx-font-size: 11px;
+}
+
+.axis-label {
+    -fx-text-fill: #64748B; /* Tên trục */
+}
+
+.chart-legend-item {
+    -fx-text-fill: #475569 !important; /* Màu chú thích (Legend) */
+}
+
+.chart-pie-label {
+    -fx-fill: #334155; /* Màu nhãn PieChart */
+    -fx-font-weight: bold;
+}
+
+/* Nền trong suốt để ăn theo nền cha */
+.chart-plot-background, .chart-content {
+    -fx-background-color: transparent;
+}
+
+/* --- 2. TRẠNG THÁI DARK MODE (OVERRIDE) --- */
+
+.dark-theme .chart-container {
+    -fx-background-color: #1E293B; /* Nền card tối */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 4);
+}
+
+.dark-theme .chart-title {
+    -fx-text-fill: #F8FAFC; /* Tiêu đề trắng */
+}
+
+/* Ép màu trắng cho trục */
+.dark-theme .axis {
+    -fx-tick-label-fill: #CBD5E1;
+}
+.dark-theme .axis-label {
+    -fx-text-fill: #E2E8F0;
+}
+
+/* Ép màu trắng cho Legend */
+.dark-theme .chart-legend-item {
+    -fx-text-fill: #E2E8F0 !important;
+}
+
+/* Ép màu trắng cho Pie Label */
+.dark-theme .chart-pie-label {
+    -fx-fill: #F8FAFC;
+}
+.dark-theme .chart-pie-label-line {
+    -fx-stroke: #64748B;
+}
+
+/* Làm mờ lưới kẻ ngang dọc */
+.dark-theme .chart-vertical-grid-lines,
+.dark-theme .chart-horizontal-grid-lines {
+    -fx-stroke: #334155;
+}

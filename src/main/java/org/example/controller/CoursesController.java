@@ -1,26 +1,27 @@
 package org.example.controller;
 
+import javafx.animation.FadeTransition;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import javafx.util.StringConverter;
 import org.example.dao.CategoryDao;
 import org.example.dao.CourseDao;
-import org.example.dao.UserDao;
 import org.example.model.Category;
 import org.example.model.Course;
-import org.example.model.User;
-import org.example.util.UserSession;
-import javafx.animation.FadeTransition;
-import javafx.util.Duration;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,31 +29,38 @@ import java.util.ResourceBundle;
 public class CoursesController implements Initializable {
 
     @FXML private FlowPane coursesContainer;
-    @FXML private ImageView userAvatar;
-    @FXML private Label userNameLabel;
     @FXML private HBox chipsContainer;
     @FXML private ScrollPane mainScrollPane;
     @FXML private ComboBox<Category> categoryComboBox;
     @FXML private VBox rootPane;
-    @FXML private Button themeBtn;
-    @FXML private ImageView themeIcon;
+    @FXML private HeaderController headerController;
 
     private boolean isDarkMode = false;
-
     private CourseDao courseDao = new CourseDao();
-    private UserDao userDao = new UserDao();
     private CategoryDao categoryDao = new CategoryDao();
     private Button currentActiveBtn = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadCoursesAsync(0);
-        loadUserInfo();
         renderCategories();
-        setupSmoothScrolling();
+        org.example.util.ScrollUtil.applySmoothScrolling(mainScrollPane);
 
-        if(themeIcon != null) {
-            updateThemeIcon();
+        if (headerController != null) {
+            headerController.setTitle("Cửa hàng khóa học");
+            headerController.showThemeButton(true);
+        }
+
+        if (rootPane.getScene() != null) {
+            org.example.util.ThemeManager.applyTheme(rootPane.getScene().getRoot());
+        } else {
+            rootPane.sceneProperty().addListener((obs, oldScene, newScene) -> {
+                if (newScene != null) {
+                    javafx.application.Platform.runLater(() ->
+                            org.example.util.ThemeManager.applyTheme(newScene.getRoot())
+                    );
+                }
+            });
         }
     }
 
@@ -147,34 +155,6 @@ public class CoursesController implements Initializable {
         }
     }
 
-    public void loadUserInfo() {
-        User sessionUser = UserSession.getInstance().getUser();
-        if (sessionUser == null) return;
-        User currentUser = userDao.getUserByEmail(sessionUser.getEmail());
-        if (currentUser != null) {
-            userNameLabel.setText(currentUser.getFullname());
-            String avatarUrl = currentUser.getAvatarUrl();
-            if (avatarUrl != null && !avatarUrl.equals("default.png") && !avatarUrl.isEmpty()) {
-                try {
-                    userAvatar.setImage(new Image(avatarUrl, 100, 100, true, true));
-                } catch (Exception e) {
-                    setDefaultAvatar();
-                }
-            } else {
-                setDefaultAvatar();
-            }
-        }
-    }
-
-    private void setDefaultAvatar() {
-        try {
-            String path = getClass().getResource("/View/avatar.jpg").toExternalForm();
-            userAvatar.setImage(new Image(path));
-        } catch (Exception e) {
-            System.err.println("Default avatar not found.");
-        }
-    }
-
     private VBox createCourseCard(Course course) {
         VBox card = new VBox();
         card.setPrefWidth(260);
@@ -228,7 +208,8 @@ public class CoursesController implements Initializable {
         Button btnDetail = new Button("Xem chi tiết");
         btnDetail.setMaxWidth(Double.MAX_VALUE);
         btnDetail.getStyleClass().add("btn-view-detail");
-        btnDetail.setOnAction(e -> GoToDetail(e));
+
+        btnDetail.setOnAction(e -> goToDetail(course, e));
 
         content.getChildren().addAll(categoryLabel, titleLabel, priceLabel, btnDetail);
         card.getChildren().addAll(imageContainer, content);
@@ -236,46 +217,35 @@ public class CoursesController implements Initializable {
         return card;
     }
 
-    private void setupSmoothScrolling() {
-        final double SPEED_MULTIPLIER = 2.0;
-        if (mainScrollPane == null) return; // Kiểm tra null để tránh lỗi
-
-        mainScrollPane.addEventFilter(ScrollEvent.SCROLL, event -> {
-            if (event.getDeltaY() != 0) {
-                double delta = event.getDeltaY() * SPEED_MULTIPLIER;
-                // Kiểm tra content null trước khi dùng
-                if (mainScrollPane.getContent() != null) {
-                    double contentHeight = mainScrollPane.getContent().getBoundsInLocal().getHeight();
-                    double scrollPaneHeight = mainScrollPane.getViewportBounds().getHeight();
-                    double scrollAmount = delta / (contentHeight - scrollPaneHeight);
-                    mainScrollPane.setVvalue(mainScrollPane.getVvalue() - scrollAmount);
-                }
-                event.consume();
-            }
-        });
-    }
-
-    @FXML
     private void toggleTheme(ActionEvent event) {
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(150), rootPane);
+        // Lấy Scene hiện tại (Cửa sổ ứng dụng)
+        Scene scene = rootPane.getScene();
+        if (scene == null) return;
+
+        Parent root = scene.getRoot(); // Lấy cái gốc to nhất (chứa cả Sidebar + Content)
+
+        isDarkMode = !isDarkMode;
+
+        // Hiệu ứng mờ dần cho mượt
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(150), root);
         fadeOut.setFromValue(1.0);
-        fadeOut.setToValue(0.1);
+        fadeOut.setToValue(0.2);
 
         fadeOut.setOnFinished(e -> {
-            isDarkMode = !isDarkMode;
-            if (rootPane != null) {
-                if (isDarkMode) {
-                    if (!rootPane.getStyleClass().contains("dark-theme")) {
-                        rootPane.getStyleClass().add("dark-theme");
-                    }
-                } else {
-                    rootPane.getStyleClass().remove("dark-theme");
+            // Logic Add/Remove class vào ROOT to nhất
+            if (isDarkMode) {
+                if (!root.getStyleClass().contains("dark-theme")) {
+                    root.getStyleClass().add("dark-theme");
                 }
+            } else {
+                root.getStyleClass().remove("dark-theme");
             }
+
             updateThemeIcon();
 
-            FadeTransition fadeIn = new FadeTransition(Duration.millis(200), rootPane);
-            fadeIn.setFromValue(0.1);
+            // Hiện lại
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(200), root);
+            fadeIn.setFromValue(0.2);
             fadeIn.setToValue(1.0);
             fadeIn.play();
         });
@@ -284,21 +254,26 @@ public class CoursesController implements Initializable {
     }
 
     private void updateThemeIcon() {
-        if (themeIcon == null) return; // Nếu chưa load được ảnh thì bỏ qua
+        if (headerController == null || headerController.iconTheme == null) return;
 
         String iconUrl = isDarkMode
-                ? "https://img.icons8.com/ios-glyphs/30/ffffff/sun--v1.png"  // Icon Mặt trời (Trắng)
-                : "https://img.icons8.com/ios-glyphs/30/000000/moon-symbol.png"; // Icon Mặt trăng (Đen)
+                ? "https://img.icons8.com/ios-glyphs/30/ffffff/sun--v1.png"
+                : "https://img.icons8.com/ios-glyphs/30/000000/moon-symbol.png";
 
         try {
-            themeIcon.setImage(new Image(iconUrl));
+            headerController.iconTheme.setImage(new Image(iconUrl));
         } catch (Exception e) {
-            System.err.println("Lỗi load icon theme: " + e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
-    @FXML
-    public void GoToDetail(ActionEvent event) {
-        System.out.println("Switching to Detail Screen...");
+    private void goToDetail(Course course, javafx.event.Event event) {
+        org.example.util.Navigation.to(
+                event,
+                org.example.util.Navigation.COURSE_DETAIL_VIEW,
+                (org.example.controller.CourseDetailController controller) -> {
+                    controller.setCourseData(course);
+                }
+        );
     }
 }

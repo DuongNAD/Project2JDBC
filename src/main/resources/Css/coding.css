@@ -1,0 +1,62 @@
+.root {
+    -fx-background-color: #F3F4F6;
+}
+
+.coding-header {
+    -fx-background-color: #1E293B; /* Dark Header */
+    -fx-padding: 10 20;
+    -fx-border-color: #334155;
+    -fx-border-width: 0 0 1 0;
+}
+
+.task-title {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+/* Button styles */
+.btn-back {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94A3B8;
+    -fx-border-color: #475569;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+.btn-back:hover { -fx-text-fill: white; -fx-border-color: white; }
+
+.btn-run {
+    -fx-background-color: #3B82F6; /* Xanh dương */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+.btn-run:hover { -fx-background-color: #2563EB; }
+
+.btn-submit {
+    -fx-background-color: #10B981; /* Xanh lá */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+.btn-submit:hover { -fx-background-color: #059669; }
+
+/* Console Output */
+.console-box {
+    -fx-background-color: #1E1E1E;
+}
+.console-header {
+    -fx-background-color: #2D2D2D;
+    -fx-text-fill: #CCCCCC;
+    -fx-padding: 5 10;
+    -fx-font-size: 12px;
+}
+.console-text {
+    -fx-control-inner-background: #1E1E1E;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Consolas", "Monospace";
+    -fx-font-size: 14px;
+    -fx-background-insets: 0;
+}

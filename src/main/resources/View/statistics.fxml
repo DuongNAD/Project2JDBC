@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controller.StatisticsController">
+
+    <fx:include fx:id="header" source="header.fxml" />
+
+    <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;"
+                styleClass="edge-to-edge"
+                stylesheets="@../Css/global.css, @../Css/statistics.css"
+                VBox.vgrow="ALWAYS">
+        <content>
+            <VBox styleClass="statistics-page">
+
+                <VBox spacing="5.0">
+                    <Label styleClass="page-title" text="📊 Thống kê học tập" />
+                    <Label styleClass="page-subtitle" text="Theo dõi tiến độ và hiệu suất của bạn." />
+                </VBox>
+
+                <HBox spacing="20.0">
+                    <VBox styleClass="stat-card, card-blue" HBox.hgrow="ALWAYS">
+                        <Label styleClass="stat-icon" text="⏰" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Label fx:id="lblTotalHours" styleClass="stat-value" text="0" />
+                        <Label styleClass="stat-label" text="Giờ đã học" />
+                    </VBox>
+
+                    <VBox styleClass="stat-card, card-green" HBox.hgrow="ALWAYS">
+                        <Label styleClass="stat-icon" text="✅" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Label fx:id="lblCompletedCourses" styleClass="stat-value" text="0" />
+                        <Label styleClass="stat-label" text="Khóa hoàn thành" />
+                    </VBox>
+
+                    <VBox styleClass="stat-card, card-orange" HBox.hgrow="ALWAYS">
+                        <Label styleClass="stat-icon" text="📖" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Label fx:id="lblInProgress" styleClass="stat-value" text="0" />
+                        <Label styleClass="stat-label" text="Đang học" />
+                    </VBox>
+
+                    <VBox styleClass="stat-card, card-purple" HBox.hgrow="ALWAYS">
+                        <Label styleClass="stat-icon" text="🏆" />
+                        <Region VBox.vgrow="ALWAYS" />
+                        <Label fx:id="lblAvgScore" styleClass="stat-value" text="0.0" />
+                        <Label styleClass="stat-label" text="Điểm trung bình" />
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="20.0" VBox.vgrow="ALWAYS">
+
+                    <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
+                        <Label styleClass="chart-title" text="Thời gian học 7 ngày qua (Giờ)" />
+                        <BarChart fx:id="barChartActivity" legendVisible="false" minHeight="350.0">
+                            <xAxis>
+                                <CategoryAxis label="Ngày" side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Giờ" side="LEFT" />
+                            </yAxis>
+                        </BarChart>
+                    </VBox>
+
+                    <VBox styleClass="chart-container" HBox.hgrow="ALWAYS" maxWidth="450">
+                        <Label styleClass="chart-title" text="Phân bố môn học" />
+                        <PieChart fx:id="pieChartSubjects" labelsVisible="true" minHeight="350.0" />
+                    </VBox>
+
+                </HBox>
+
+            </VBox>
+        </content>
+    </ScrollPane>
+</VBox>

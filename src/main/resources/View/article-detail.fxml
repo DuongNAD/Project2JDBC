@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox stylesheets="@../Css/global.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controller.ArticleDetailController">
+
+    <fx:include fx:id="header" source="header.fxml" />
+
+    <ScrollPane fx:id="mainScrollPane" fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+        <content>
+            <VBox spacing="25.0" style="-fx-padding: 40;">
+                <children>
+                    <Button onAction="#handleBack" styleClass="btn-back-stylish" text="❮  Quay lại tin tức" />
+
+                    <VBox spacing="10.0">
+                        <Label fx:id="lblTitle" styleClass="hero-title" text="Tiêu đề bài báo..." wrapText="true" />
+                        <Label fx:id="lblMeta" styleClass="news-meta" style="-fx-font-size: 14px;" text="#Tags • Thời gian" />
+                    </VBox>
+
+                    <StackPane alignment="CENTER" style="-fx-padding: 10 0;">
+                        <ImageView fx:id="imgCover" fitHeight="400.0" fitWidth="800.0" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);" />
+                    </StackPane>
+
+                    <VBox styleClass="content-card" style="-fx-padding: 30;">
+                        <Label fx:id="lblContent" styleClass="text-description" style="-fx-font-size: 16px; -fx-line-spacing: 1.5em;" text="Nội dung chi tiết..." wrapText="true" />
+
+                        <Label fx:id="lblTags" style="-fx-text-fill: #3B82F6; -fx-font-weight: bold; -fx-padding: 20 0 0 0;" text="" />
+                    </VBox>
+                </children>
+            </VBox>
+        </content>
+    </ScrollPane>
+</VBox>

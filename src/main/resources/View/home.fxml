@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controller.HomeController">
+
+    <fx:include fx:id="header" source="header.fxml" />
+
+    <ScrollPane fx:id="mainScrollPane" fitToWidth="true"
+                styleClass="edge-to-edge"
+                stylesheets="@../Css/global.css, @../Css/home.css"
+                VBox.vgrow="ALWAYS">
+        <content>
+            <VBox spacing="35.0">
+                <padding>
+                    <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                </padding>
+                <children>
+
+                    <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="hero-banner">
+                        <children>
+                            <VBox spacing="10.0">
+                                <children>
+                                    <Label fx:id="lblWelcome" styleClass="hero-title" text="Xin chào..." />
+                                    <Label styleClass="hero-subtitle" text="Cập nhật những xu hướng công nghệ mới nhất hôm nay." />
+                                    <HBox spacing="10.0">
+                                        <Button styleClass="btn-hero-primary" text="Khám phá ngay" />
+                                        <Button styleClass="btn-hero-secondary" text="Thống kê cá nhân" />
+                                    </HBox>
+                                </children>
+                            </VBox>
+                            <Region HBox.hgrow="ALWAYS" />
+                            <ImageView fitHeight="140.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="https://img.freepik.com/free-vector/rocket-concept-illustration_114360-1763.jpg" />
+                                </image>
+                            </ImageView>
+                        </children>
+                        <padding>
+                            <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+                        </padding>
+                    </HBox>
+
+                    <VBox spacing="20.0">
+                        <children>
+                            <HBox alignment="CENTER_LEFT">
+                                <children>
+                                    <Label styleClass="section-header" text="🔥 Xu hướng &amp; Bài viết nổi bật" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Button onAction="#handleViewAllNews" styleClass="btn-view-all" text="Xem tất cả &gt;&gt;" />
+                                </children>
+                            </HBox>
+
+                            <HBox fx:id="newsContainer" spacing="20.0">
+                                <VBox styleClass="news-card-vertical" HBox.hgrow="ALWAYS">
+                                    <ImageView fitHeight="180.0" fitWidth="350.0" styleClass="news-img-top">
+                                        <image><Image url="https://img.freepik.com/free-photo/ai-technology-brain-background-digital-transformation-concept_53876-124672.jpg" /></image>
+                                    </ImageView>
+                                    <VBox spacing="8.0" style="-fx-padding: 15;">
+                                        <Label styleClass="news-title" text="DeepSeek-R1: Kẻ thách thức GPT-4?" wrapText="true"/>
+                                        <Label styleClass="news-desc" text="Phân tích mô hình AI mới..." wrapText="true" VBox.vgrow="ALWAYS"/>
+                                        <Label styleClass="news-meta" text="#AI News • 2 giờ trước" />
+                                    </VBox>
+                                </VBox>
+                            </HBox>
+                        </children>
+                    </VBox>
+
+                    <Separator style="-fx-opacity: 0.5;" />
+
+                    <VBox spacing="15.0" styleClass="big-chat-container">
+                        <children>
+                            <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                <Label style="-fx-font-size: 22px;" text="💬" />
+                                <VBox>
+                                    <Label styleClass="section-header" text="Đại sảnh thảo luận chung" />
+                                    <Label styleClass="text-description" text="Nơi trao đổi kiến thức, hỏi đáp và kết nối với mọi người." />
+                                </VBox>
+                                <Region HBox.hgrow="ALWAYS" />
+
+                                <HBox alignment="CENTER" spacing="5" styleClass="online-badge-container">
+                                    <Circle radius="5.0" styleClass="online-dot" />
+                                    <Label fx:id="lblOnlineCount" styleClass="online-text" text="... người đang online" />
+                                </HBox>
+                            </HBox>
+
+                            <ScrollPane fx:id="chatScrollPane" fitToWidth="true" hbarPolicy="NEVER" prefHeight="500.0"
+                                        styleClass="chat-scroll-pane">
+                                <content>
+                                    <VBox fx:id="chatContainer" spacing="15.0" styleClass="chat-list-container" />
+                                </content>
+                            </ScrollPane>
+
+                            <HBox spacing="10.0" styleClass="chat-input-area-big" alignment="CENTER_LEFT">
+                                <TextField fx:id="txtChatInput"
+                                           promptText="Viết gì đó để tham gia thảo luận..."
+                                           styleClass="chat-input-home"
+                                           HBox.hgrow="ALWAYS" />
+                                <Button onAction="#handleSendMessage" styleClass="btn-send-big" text="Gửi tin nhắn ➤" />
+                            </HBox>
+                        </children>
+                        <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        </padding>
+                    </VBox>
+
+                    <VBox styleClass="footer-contact">
+                        <children>
+                            <Label styleClass="footer-title" text="📞 Thông tin liên hệ &amp; Hỗ trợ" />
+                            <Separator style="-fx-opacity: 0.3;" />
+
+                            <HBox alignment="CENTER" spacing="0.0">
+                                <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Label style="-fx-font-size: 24px;" text="📧" />
+                                        <VBox>
+                                            <Label styleClass="contact-label" text="Email hỗ trợ" />
+                                            <Label styleClass="contact-value" text="support@edupath.com" />
+                                            <Label styleClass="contact-value" text="duong.nguyen@tech.vn" />
+                                        </VBox>
+                                    </HBox>
+
+                                    <Region HBox.hgrow="ALWAYS" />
+
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Label style="-fx-font-size: 24px;" text="☎️" />
+                                        <VBox>
+                                            <Label styleClass="contact-label" text="Hotline (24/7)" />
+                                            <Label styleClass="contact-value" text="1900 123 456" />
+                                            <Label styleClass="contact-value" text="(+84) 909 000 111" />
+                                        </VBox>
+                                    </HBox>
+
+                                    <Region HBox.hgrow="ALWAYS" />
+
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Label style="-fx-font-size: 24px;" text="🏢" />
+                                        <VBox>
+                                            <Label styleClass="contact-label" text="Văn phòng" />
+                                            <Label styleClass="contact-value" text="Tầng 12, Tòa nhà TechHub" />
+                                            <Label styleClass="contact-value" text="Quận Cầu Giấy, Hà Nội" />
+                                        </VBox>
+                                    </HBox>
+                                </children>
+                                <VBox.margin>
+                                    <Insets top="15.0" />
+                                </VBox.margin>
+                            </HBox>
+                        </children>
+                        <padding>
+                            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                        </padding>
+                    </VBox>
+
+                </children>
+            </VBox>
+        </content>
+    </ScrollPane>
+</VBox>

@@ -10,58 +10,65 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" stylesheets="@/Css/settings.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.SettingsController">
+<ScrollPane fx:id="settingsScrollPane" fitToWidth="true" hbarPolicy="NEVER"
+            style="-fx-background-color: transparent; -fx-background: transparent;"
+            stylesheets="@../Css/settings.css"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.controller.SettingsController">
     <content>
-        <VBox spacing="30.0" style="-fx-background-color: #F7F9FC;">
+        <VBox spacing="35.0">
             <padding>
                 <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
             </padding>
             <children>
                 <VBox spacing="5.0">
                     <children>
-                        <Label styleClass="page-title" text="Cài đặt tài khoản" />
+                        <Label styleClass="page-title" text="⚙ Cài đặt tài khoản" />
                         <Label styleClass="page-subtitle" text="Quản lý thông tin cá nhân và bảo mật của bạn" />
                     </children>
                 </VBox>
 
                 <VBox styleClass="settings-card">
                     <children>
-                        <Label styleClass="card-title" text="Thông tin chung" />
+                        <HBox alignment="CENTER_LEFT">
+                            <Label styleClass="card-title" text="Thông tin cá nhân" />
+                            <Region HBox.hgrow="ALWAYS"/>
+                        </HBox>
+
                         <Separator styleClass="card-separator" />
 
-                        <HBox alignment="CENTER_LEFT" spacing="30.0">
+                        <HBox alignment="TOP_LEFT" spacing="40.0">
                             <children>
-                                <VBox alignment="CENTER" spacing="15.0">
+                                <VBox alignment="TOP_CENTER" spacing="15.0">
                                     <children>
-                                        <ImageView fx:id="avatarPreview" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="https://i.pravatar.cc/150?img=12" />
-                                            </image>
-                                            <clip>
-                                                <Circle centerX="50" centerY="50" radius="50" />
-                                            </clip>
-                                        </ImageView>
-                                        <Button fx:id="btnUploadAvatar" styleClass="btn-secondary" text="Đổi ảnh đại diện" />
+                                        <ImageView fx:id="avatarPreview" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                                            <image><Image url="https://i.pravatar.cc/150?img=12" /></image>
+                                            <clip><Circle centerX="60" centerY="60" radius="60" /></clip> </ImageView>
+                                        <Button fx:id="btnUploadAvatar" styleClass="btn-secondary" text="📷 Đổi ảnh" />
                                     </children>
                                 </VBox>
 
-                                <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+                                <VBox spacing="20.0" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <VBox spacing="5.0">
-                                            <Label styleClass="input-label" text="Họ và tên" />
-                                            <TextField fx:id="tfFullName" promptText="Nhập họ tên của bạn" styleClass="input-field" />
+                                        <VBox spacing="8.0">
+                                            <Label styleClass="input-label" text="Họ và tên hiển thị" />
+                                            <TextField fx:id="txtFullName" promptText="VD: Nguyễn Anh Dương" styleClass="settings-input" />
                                         </VBox>
-                                        <VBox spacing="5.0">
-                                            <Label styleClass="input-label" text="Email" />
-                                            <TextField fx:id="tfEmail" disable="true" promptText="email@example.com" styleClass="input-field" />
-                                            <Label style="-fx-text-fill: #A0AEC0; -fx-font-size: 11px;" text="Email không thể thay đổi vì lý do bảo mật." />
+
+                                        <VBox spacing="8.0">
+                                            <Label styleClass="input-label" text="Địa chỉ Email" />
+                                            <TextField fx:id="txtEmail" disable="true" text="duong.nguyen@example.com" styleClass="settings-input" />
+                                            <Label styleClass="helper-text" text="🔒 Email không thể thay đổi vì lý do bảo mật." />
                                         </VBox>
-                                        <VBox alignment="CENTER_RIGHT">
-                                            <Button onAction="#handleSaveProfile" styleClass="btn-primary" text="Lưu thay đổi" />
-                                        </VBox>
+
+                                        <HBox alignment="CENTER_RIGHT" spacing="10">
+                                            <Label fx:id="lblProfileMessage" styleClass="msg-success" text="" />
+                                            <Button onAction="#handleSaveProfile" styleClass="btn-primary" text="Lưu thông tin" />
+                                        </HBox>
                                     </children>
                                 </VBox>
                             </children>
@@ -74,23 +81,27 @@
                         <Label styleClass="card-title" text="Bảo mật &amp; Mật khẩu" />
                         <Separator styleClass="card-separator" />
 
-                        <VBox spacing="15.0" maxWidth="500">
+                        <VBox spacing="20.0" maxWidth="600">
                             <children>
-                                <VBox spacing="5.0">
+                                <VBox spacing="8.0">
                                     <Label styleClass="input-label" text="Mật khẩu hiện tại" />
-                                    <PasswordField fx:id="pfCurrentPass" styleClass="input-field" />
+                                    <PasswordField fx:id="txtCurrentPass" promptText="••••••••" styleClass="settings-input" />
                                 </VBox>
-                                <VBox spacing="5.0">
-                                    <Label styleClass="input-label" text="Mật khẩu mới" />
-                                    <PasswordField fx:id="pfNewPass" styleClass="input-field" />
-                                </VBox>
-                                <VBox spacing="5.0">
-                                    <Label styleClass="input-label" text="Nhập lại mật khẩu mới" />
-                                    <PasswordField fx:id="pfConfirmPass" styleClass="input-field" />
-                                </VBox>
-                                <HBox spacing="10.0">
+
+                                <HBox spacing="20.0">
+                                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                                        <Label styleClass="input-label" text="Mật khẩu mới" />
+                                        <PasswordField fx:id="txtNewPass" promptText="Tối thiểu 6 ký tự" styleClass="settings-input" />
+                                    </VBox>
+                                    <VBox spacing="8.0" HBox.hgrow="ALWAYS">
+                                        <Label styleClass="input-label" text="Xác nhận mật khẩu mới" />
+                                        <PasswordField fx:id="txtConfirmPass" promptText="Nhập lại mật khẩu mới" styleClass="settings-input" />
+                                    </VBox>
+                                </HBox>
+
+                                <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-padding: 10 0 0 0;">
                                     <Button onAction="#handleChangePassword" styleClass="btn-primary" text="Đổi mật khẩu" />
-                                    <Label fx:id="lblMessage" text="" style="-fx-text-fill: green;"/>
+                                    <Label fx:id="lblPasswordMessage" styleClass="msg-success" text=""/>
                                 </HBox>
                             </children>
                         </VBox>

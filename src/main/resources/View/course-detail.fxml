@@ -5,101 +5,103 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<HBox prefHeight="768.0"
-      prefWidth="1200.0"
-      spacing="0.0"
-      stylesheets="@/Css/global.css"
-      xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.controller.CourseDetailController">
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" stylesheets="@../Css/course-detail.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.CourseDetailController">
+    <content>
+        <VBox spacing="30.0" >
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="30.0" />
+            </padding>
+            <children>
 
-    <ScrollPane fitToWidth="true" style="-fx-background: #f4f7f6; -fx-background-color: transparent;" HBox.hgrow="ALWAYS">
-        <content>
-            <VBox spacing="0.0">
-                <children>
-                    <StackPane alignment="BOTTOM_LEFT" prefHeight="300.0" style="-fx-background-color: #1a202c;">
-                        <children>
-                            <ImageView fitHeight="300.0" fitWidth="900.0" opacity="0.4" pickOnBounds="true" preserveRatio="false">
-                                <image>
-                                    <Image url="https://codelearn.io/Themes/TheCodeCamp/Resources/Images/Course/HtmlCss/banner-html-css-min.jpg" />
-                                </image>
+                <Button onAction="#handleBack" styleClass="btn-back-stylish" text="❮  Quay lại danh sách" />
+
+                <HBox spacing="40.0" styleClass="course-hero-card">
+                    <children>
+                        <VBox styleClass="hero-image-container">
+                            <ImageView fx:id="imgThumbnail" fitHeight="250.0" fitWidth="420.0" preserveRatio="false" styleClass="hero-image">
+                                <image><Image url="https://via.placeholder.com/420x250" /></image>
                             </ImageView>
-                            <VBox spacing="10.0" style="-fx-padding: 40;">
-                                <children>
-                                    <Label style="-fx-background-color: #5d78ff; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 10; -fx-background-radius: 4;" text="Phát triển Web" />
-                                    <Label style="-fx-font-size: 32px; -fx-font-weight: 900; -fx-text-fill: white;" text="HTML5 &amp; CSS3: Từ cơ bản đến nâng cao" wrapText="true" />
-                                    <Label style="-fx-font-size: 16px; -fx-text-fill: #e2e8f0;" text="Lộ trình bài bản nhất để trở thành Frontend Developer chuyên nghiệp." />
-                                    <HBox spacing="15.0">
-                                        <Label style="-fx-text-fill: #f6e05e; -fx-font-weight: bold;" text="4.8 ★★★★★" />
-                                        <Label style="-fx-text-fill: white;" text="(1,500 học viên)" />
-                                    </HBox>
-                                </children>
-                            </VBox>
-                        </children>
-                    </StackPane>
+                        </VBox>
 
-                    <HBox spacing="0.0" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 1 0;">
-                        <children>
-                            <Button fx:id="overviewTabButton" onAction="#handleTabSelection" prefHeight="50.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #5d78ff; -fx-border-color: #5d78ff; -fx-border-width: 0 0 3 0;" text="Tổng quan" />
-                            <Button fx:id="curriculumTabButton" onAction="#handleTabSelection" prefHeight="50.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #718096;" text="Nội dung khóa học" />
-                            <Button fx:id="reviewsTabButton" onAction="#handleTabSelection" prefHeight="50.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #718096;" text="Đánh giá" />
-                        </children>
-                        <padding>
-                            <Insets left="40.0" right="40.0" />
-                        </padding>
-                    </HBox>
+                        <VBox spacing="15.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label fx:id="lblCategory" styleClass="badge-category" text="LẬP TRÌNH WEB" />
+                                <Label fx:id="lblTitle" styleClass="course-title" text="Khóa học Java Spring Boot Fullstack từ Zero đến Hero" wrapText="true" />
 
-                    <StackPane fx:id="contentPane" style="-fx-padding: 40;">
-                        <children>
-                            <fx:include fx:id="overviewContent" source="course-overview.fxml" />
-                        </children>
-                    </StackPane>
-                </children>
-            </VBox>
-        </content>
-    </ScrollPane>
+                                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                            <ImageView fitHeight="30" fitWidth="30"><image><Image url="https://i.pravatar.cc/150?img=68"/></image><clip><Circle centerX="15" centerY="15" radius="15"/></clip></ImageView>
+                                            <VBox>
+                                                <Label styleClass="text-description" style="-fx-font-size: 11px;" text="Giảng viên" />
+                                                <Label fx:id="lblInstructor" styleClass="text" style="-fx-font-weight: bold;" text="Đang tải..." />
+                                            </VBox>
+                                        </HBox>
 
-    <VBox prefWidth="350.0" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 0 1;">
-        <children>
-            <VBox spacing="20.0" style="-fx-padding: 30;">
-                <children>
-                    <Label style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: #2d3748;" text="999.000 đ" />
-                    <Button maxWidth="Infinity" styleClass="btn-primary" style="-fx-font-size: 16px; -fx-padding: 12;" text="Đăng ký học ngay" />
-                    <Button maxWidth="Infinity" styleClass="btn-outline" text="Thêm vào giỏ hàng" />
-                    <Label alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #718096; -fx-font-size: 12px;" text="Hoàn tiền trong 30 ngày nếu không hài lòng" />
+                                        <Separator orientation="VERTICAL" />
 
-                    <Separator />
+                                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                            <Label fx:id="lblRating" text="⭐ 0.0" style="-fx-font-weight: bold; -fx-text-fill: #F6AD55;" />
+                                            <Label fx:id="lblReviewCount" text="(0 đánh giá)" styleClass="text-description" />
+                                        </HBox>
+                                    </children>
+                                </HBox>
 
-                    <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Khóa học này bao gồm:" />
-                    <VBox spacing="12.0">
-                        <children>
-                            <HBox spacing="10.0">
-                                <ImageView fitHeight="20.0" fitWidth="20.0"><Image url="https://img.icons8.com/ios-filled/50/5d78ff/video-call.png" /></ImageView>
-                                <Label text="32 giờ video theo yêu cầu" />
-                            </HBox>
-                            <HBox spacing="10.0">
-                                <ImageView fitHeight="20.0" fitWidth="20.0"><Image url="https://img.icons8.com/ios-filled/50/5d78ff/document--v1.png" /></ImageView>
-                                <Label text="15 bài viết chuyên sâu" />
-                            </HBox>
-                            <HBox spacing="10.0">
-                                <ImageView fitHeight="20.0" fitWidth="20.0"><Image url="https://img.icons8.com/ios-filled/50/5d78ff/source-code.png" /></ImageView>
-                                <Label text="20 bài tập Coding" />
-                            </HBox>
-                            <HBox spacing="10.0">
-                                <ImageView fitHeight="20.0" fitWidth="20.0"><Image url="https://img.icons8.com/ios-filled/50/5d78ff/infinity.png" /></ImageView>
-                                <Label text="Truy cập trọn đời" />
-                            </HBox>
-                        </children>
-                    </VBox>
-                </children>
-            </VBox>
-        </children>
-    </VBox>
-</HBox>
+                                <Region VBox.vgrow="ALWAYS" />
+
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox>
+                                            <Label styleClass="text-description" style="-fx-text-decoration: line-through;" text="2.500.000 đ" />
+                                            <Label fx:id="lblPrice" styleClass="price-label" text="1.290.000 đ" />
+                                        </VBox>
+                                        <Button fx:id="btnEnroll" onAction="#handleEnroll" maxWidth="Infinity" styleClass="btn-buy-now" text="Đăng ký học ngay" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <TabPane styleClass="modern-tab-pane" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="Giới thiệu">
+                            <content>
+                                <VBox spacing="15.0" style="-fx-padding: 20 0;">
+                                    <children>
+                                        <Label styleClass="section-header" text="Bạn sẽ học được gì?" />
+                                        <TextFlow>
+                                            <Text fx:id="txtDescription" styleClass="text-description" text="Mô tả chi tiết khóa học..." />
+                                        </TextFlow>
+                                    </children>
+                                </VBox>
+                            </content>
+                        </Tab>
+                        <Tab text="Chương trình học">
+                            <content>
+                                <VBox spacing="10.0" style="-fx-padding: 20 0;">
+                                    <Label styleClass="section-header" text="Nội dung khóa học" />
+
+                                    <VBox fx:id="curriculumContainer" spacing="10" />
+
+                                </VBox>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+
+            </children>
+        </VBox>
+    </content>
+</ScrollPane>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" spacing="20.0" styleClass="payment-modal" stylesheets="@../Css/payment.css"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controller.PaymentController">
+
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+    </padding>
+
+    <Label styleClass="modal-title" text="Xác nhận thanh toán" />
+
+    <HBox spacing="15.0" styleClass="course-summary-box">
+        <ImageView fx:id="imgThumbnail" fitHeight="80.0" fitWidth="140.0" styleClass="rounded-img">
+            <image><Image url="https://via.placeholder.com/140x80" /></image>
+        </ImageView>
+        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblCourseTitle" styleClass="summary-title" text="Tên khóa học..." wrapText="true" />
+            <Label fx:id="lblPrice" styleClass="summary-price" text="0 đ" />
+        </VBox>
+    </HBox>
+
+    <Separator />
+
+    <VBox spacing="12.0" alignment="CENTER_LEFT">
+        <Label styleClass="section-label" text="Chọn phương thức thanh toán:" />
+
+        <VBox spacing="10.0" styleClass="payment-methods-container">
+            <RadioButton fx:id="rdMomo" selected="true" styleClass="payment-method" text="Ví MoMo / Quét mã QR">
+                <toggleGroup><ToggleGroup fx:id="paymentGroup" /></toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="rdBank" styleClass="payment-method" text="Chuyển khoản Ngân hàng" toggleGroup="$paymentGroup" />
+            <RadioButton fx:id="rdCredit" styleClass="payment-method" text="Thẻ tín dụng quốc tế (Visa/Master)" toggleGroup="$paymentGroup" />
+        </VBox>
+    </VBox>
+
+    <VBox alignment="CENTER" spacing="12.0" styleClass="qr-box">
+        <Label text="Quét mã để thanh toán nhanh:" styleClass="qr-label" />
+        <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" styleClass="qr-image">
+            <image>
+                <Image url="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=EduPath_Payment_Demo" />
+            </image>
+        </ImageView>
+    </VBox>
+
+    <Separator />
+
+    <HBox spacing="15.0" alignment="CENTER">
+        <Button fx:id="btnCancel" styleClass="btn-cancel" text="Hủy bỏ" />
+        <Button fx:id="btnConfirm" styleClass="btn-confirm" text="Xác nhận đã chuyển tiền" />
+    </HBox>
+
+</VBox>

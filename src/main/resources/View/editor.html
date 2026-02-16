@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css" media="screen">
+        body { margin: 0; overflow: hidden; background-color: #1e1e1e; }
+        #editor {
+            position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="editor">public class Main {
+    public static void main(String[] args) {
+    // Viết code của bạn ở đây
+    System.out.println("Hello EduPath!");
+    }
+    }</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai"); // Giao diện tối
+    editor.session.setMode("ace/mode/java"); // Hỗ trợ Java
+    editor.setShowPrintMargin(false);
+
+    // Hàm để Java gọi lấy code về
+    function getCode() {
+        return editor.getValue();
+    }
+
+    // Hàm để Java set code vào (nếu cần load bài cũ)
+    function setCode(code) {
+        editor.setValue(code, 1);
+    }
+</script>
+</body>
+</html>

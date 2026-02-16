@@ -1,0 +1,376 @@
+/* ================================================================= */
+/* 1. HERO SECTION (BANNER CHÀO MỪNG)                                */
+/* ================================================================= */
+.hero-banner {
+    /* Gradient từ Xanh đậm sang Xanh ngọc */
+    -fx-background-color: linear-gradient(to right, #2c3e50, #4ca1af);
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(44, 62, 80, 0.4), 10, 0, 0, 5);
+}
+
+.hero-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white;
+}
+
+.hero-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #E2E8F0;
+}
+
+/* Nút Chính (Khám phá ngay) */
+.btn-hero-primary {
+    -fx-background-color: white;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 10 25;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 0, 1);
+}
+.btn-hero-primary:hover {
+    -fx-background-color: #F7FAFC;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Nút Phụ (Thống kê) */
+.btn-hero-secondary {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-border-color: white;
+    -fx-border-radius: 20;
+    -fx-padding: 9 24;
+    -fx-cursor: hand;
+}
+.btn-hero-secondary:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Nút Xem tất cả (Tin tức) */
+.btn-view-all {
+    -fx-background-color: transparent;
+    -fx-text-fill: #3182CE;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-padding: 5 10;
+}
+.btn-view-all:hover {
+    -fx-underline: true;
+    -fx-text-fill: #2c5282;
+}
+
+/* ================================================================= */
+/* 2. NEWS CARD (THẺ TIN TỨC DỌC)                                    */
+/* ================================================================= */
+.news-card-vertical {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 8, 0, 0, 3);
+    -fx-cursor: hand;
+}
+.news-card-vertical:hover {
+    -fx-translate-y: -5;
+    -fx-effect: dropshadow(three-pass-box, rgba(49, 130, 206, 0.25), 15, 0, 0, 5);
+}
+
+.news-img-top {
+    -fx-background-radius: 12 12 0 0;
+}
+
+.news-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A202C;
+}
+
+.news-desc {
+    -fx-text-fill: #718096;
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+}
+
+.news-meta {
+    -fx-font-size: 11px;
+    -fx-text-fill: #3182CE;
+    -fx-font-weight: bold;
+}
+
+/* ================================================================= */
+/* 3. BIG CHAT (KHUNG CHAT LỚN) - FIX TRIỆT ĐỂ VIỀN & MÀU            */
+/* ================================================================= */
+
+/* --- Khung bao ngoài cùng --- */
+.big-chat-container {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 15, 0, 0, 5);
+    -fx-border-width: 0;
+}
+
+/* --- ScrollPane (Quan trọng: !important để xóa nền xám) --- */
+.chat-scroll-pane,
+.chat-scroll-pane > .viewport {
+    -fx-background-color: transparent !important;
+    -fx-background-insets: 0 !important;
+    -fx-padding: 0;
+}
+
+/* --- Danh sách tin nhắn --- */
+.chat-list-container {
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+}
+
+/* --- Badge Online --- */
+.online-badge-container {
+    -fx-background-color: #DCFCE7; /* Nền xanh lá nhạt */
+    -fx-background-radius: 15;
+    -fx-padding: 5 12;
+}
+.online-dot {
+    -fx-fill: #16A34A; /* Xanh đậm */
+}
+.online-text {
+    -fx-text-fill: #166534; /* Chữ xanh đậm */
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+/* --- Khu vực nhập liệu (Thanh ngang dưới) --- */
+.chat-input-area-big {
+    -fx-background-color: #F1F5F9; /* Xám nhạt làm nền */
+    -fx-background-radius: 30;     /* Bo tròn */
+    -fx-padding: 5 10;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 30;
+    -fx-alignment: center-left;
+}
+
+/* --- Ô nhập text (TextField) --- */
+.chat-input-home {
+    /* Làm trong suốt để ăn theo màu container */
+    -fx-background-color: transparent !important;
+    -fx-background-insets: 0 !important;
+    -fx-border-width: 0 !important;
+
+    -fx-text-fill: #1E293B; /* Chữ màu đen xám */
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #94A3B8;
+}
+/* Xóa viền xanh mặc định khi click */
+.chat-input-home:focused {
+    -fx-background-color: transparent !important;
+    -fx-background-insets: 0 !important;
+}
+
+/* --- Nút Gửi --- */
+.btn-send-big {
+    -fx-background-color: #3B82F6;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-cursor: hand;
+    -fx-padding: 8 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.3), 5, 0, 0, 2);
+}
+.btn-send-big:hover {
+    -fx-background-color: #2563EB;
+    -fx-scale-x: 1.05;
+}
+
+/* ================================================================= */
+/* 4. FOOTER (CHÂN TRANG)                                            */
+/* ================================================================= */
+.footer-contact {
+    -fx-background-color: white;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
+}
+
+.footer-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #2D3748;
+}
+
+.contact-label {
+    -fx-text-fill: #A0AEC0;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-transform: uppercase;
+}
+
+.contact-value {
+    -fx-text-fill: #2D3748;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* ================================================================= */
+/* 🌙 DARK MODE OVERRIDES (TOÀN BỘ)                                  */
+/* ================================================================= */
+
+/* --- News Card Dark --- */
+.dark-theme .news-card-vertical {
+    -fx-background-color: #2D3748; /* Card tối màu */
+}
+.dark-theme .news-title {
+    -fx-text-fill: #E2E8F0;
+}
+.dark-theme .news-desc {
+    -fx-text-fill: #A0AEC0;
+}
+.dark-theme .news-meta {
+    -fx-text-fill: #63B3ED;
+}
+
+/* --- Chat Dark Mode --- */
+/* 1. Nền khung chat */
+.dark-theme .big-chat-container {
+    -fx-background-color: #1E293B; /* Slate 800 - Xanh đen */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 20, 0, 0, 5);
+}
+
+/* 2. Badge Online */
+.dark-theme .online-badge-container {
+    -fx-background-color: #064E3B; /* Xanh lá đậm */
+}
+.dark-theme .online-dot {
+    -fx-fill: #4ADE80; /* Chấm xanh phát sáng */
+}
+.dark-theme .online-text {
+    -fx-text-fill: #4ADE80;
+}
+
+/* 3. Khu vực nhập liệu */
+.dark-theme .chat-input-area-big {
+    -fx-background-color: #0F172A; /* Nền rất tối */
+    -fx-border-color: #334155;
+}
+
+/* 4. Ô nhập text */
+.dark-theme .chat-input-home {
+    -fx-text-fill: white !important;
+    -fx-prompt-text-fill: #64748B !important;
+}
+
+/* --- Footer Dark --- */
+.dark-theme .footer-contact {
+    -fx-background-color: #2D3748;
+}
+.dark-theme .footer-title,
+.dark-theme .contact-value {
+    -fx-text-fill: #E2E8F0;
+}
+/* ================================================================= */
+/* 5. CHAT BUBBLES (BONG BÓNG TIN NHẮN) - NEW ADDITION               */
+/* ================================================================= */
+
+/* --- Cấu hình chung cho dòng tin nhắn (HBox chứa bubble) --- */
+.msg-row {
+    -fx-padding: 2 0; /* Khoảng cách nhỏ giữa các dòng tin */
+}
+
+/* --- 1. TIN NHẮN GỬI ĐI (Bên Phải - Màu Xanh) --- */
+.msg-bubble-sent {
+    -fx-background-color: #3B82F6; /* Xanh dương Messenger */
+    -fx-background-radius: 18 18 2 18; /* Bo tròn 3 góc, góc dưới phải nhọn */
+    -fx-padding: 10 14;            /* Khoảng cách từ chữ đến viền bubble */
+    -fx-max-width: 400px;          /* Chiều rộng tối đa của tin nhắn */
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.2), 5, 0, 0, 1);
+}
+
+.msg-text-sent {
+    -fx-text-fill: white;         /* Chữ màu trắng */
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;          /* Tự động xuống dòng nếu tin dài */
+}
+
+/* --- 2. TIN NHẮN NHẬN ĐƯỢC (Bên Trái - Màu Xám) --- */
+.msg-bubble-received {
+    -fx-background-color: #F1F5F9; /* Xám nhạt */
+    -fx-background-radius: 18 18 18 2; /* Bo tròn 3 góc, góc dưới trái nhọn */
+    -fx-padding: 10 14;
+    -fx-max-width: 400px;
+}
+
+.msg-text-received {
+    -fx-text-fill: #1E293B;       /* Chữ màu đen xám */
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+}
+
+/* ================================================================= */
+/* 🌙 DARK MODE OVERRIDES (CHAT BUBBLES)                             */
+/* ================================================================= */
+
+/* Tin gửi đi trong Dark Mode (Giữ nguyên màu xanh nhưng đổi bóng) */
+.dark-theme .msg-bubble-sent {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 1);
+}
+
+/* Tin nhận được trong Dark Mode (Đổi nền xám sang màu tối hơn) */
+.dark-theme .msg-bubble-received {
+    -fx-background-color: #334155; /* Slate 700 */
+}
+.dark-theme .msg-text-received {
+    -fx-text-fill: #F8FAFC;       /* Chữ chuyển sang màu trắng sáng */
+}
+/* ================================================================= */
+/* 5. CHAT BUBBLES (BONG BÓNG TIN NHẮN) - NEW ADDITION               */
+/* ================================================================= */
+
+/* --- Cấu hình chung cho dòng tin nhắn (HBox chứa bubble) --- */
+.msg-row {
+    -fx-padding: 2 0; /* Khoảng cách nhỏ giữa các dòng tin */
+}
+
+/* --- 1. TIN NHẮN GỬI ĐI (Bên Phải - Màu Xanh) --- */
+.msg-bubble-sent {
+    -fx-background-color: #3B82F6; /* Xanh dương Messenger */
+    -fx-background-radius: 18 18 2 18; /* Bo tròn 3 góc, góc dưới phải nhọn */
+    -fx-padding: 10 14;            /* Khoảng cách từ chữ đến viền bubble */
+    -fx-max-width: 400px;          /* Chiều rộng tối đa của tin nhắn */
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.2), 5, 0, 0, 1);
+}
+
+.msg-text-sent {
+    -fx-text-fill: white;         /* Chữ màu trắng */
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;          /* Tự động xuống dòng nếu tin dài */
+}
+
+/* --- 2. TIN NHẮN NHẬN ĐƯỢC (Bên Trái - Màu Xám) --- */
+.msg-bubble-received {
+    -fx-background-color: #F1F5F9; /* Xám nhạt */
+    -fx-background-radius: 18 18 18 2; /* Bo tròn 3 góc, góc dưới trái nhọn */
+    -fx-padding: 10 14;
+    -fx-max-width: 400px;
+}
+
+.msg-text-received {
+    -fx-text-fill: #1E293B;       /* Chữ màu đen xám */
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+}
+
+/* ================================================================= */
+/* 🌙 DARK MODE OVERRIDES (CHAT BUBBLES)                             */
+/* ================================================================= */
+
+/* Tin gửi đi trong Dark Mode (Giữ nguyên màu xanh nhưng đổi bóng) */
+.dark-theme .msg-bubble-sent {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 1);
+}
+
+/* Tin nhận được trong Dark Mode (Đổi nền xám sang màu tối hơn) */
+.dark-theme .msg-bubble-received {
+    -fx-background-color: #334155; /* Slate 700 */
+}
+.dark-theme .msg-text-received {
+    -fx-text-fill: #F8FAFC;       /* Chữ chuyển sang màu trắng sáng */
+}

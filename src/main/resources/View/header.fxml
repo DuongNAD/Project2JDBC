@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.Circle?>
+
+<?import javafx.scene.layout.StackPane?>
+<HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="global-header"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controller.HeaderController">
+
+    <children>
+        <Label fx:id="lblPageTitle" styleClass="header-title" text="Khám phá" />
+
+        <Region HBox.hgrow="ALWAYS" />
+
+        <HBox alignment="CENTER_LEFT" styleClass="chat-input-area-big" style="-fx-padding: 5 15; -fx-background-radius: 20; -fx-border-radius: 20;">
+            <Label styleClass="text-description" style="-fx-font-size: 14px; -fx-padding: 0 5 0 0;" text="🔍" />
+
+            <TextField promptText="Tìm kiếm..." styleClass="header-search-field" HBox.hgrow="ALWAYS" />
+        </HBox>
+
+        <Button fx:id="btnThemeToggle" visible="false" managed="false" style="-fx-background-color: transparent; -fx-cursor: hand;">
+            <graphic>
+                <ImageView fx:id="iconTheme" fitHeight="20" fitWidth="20">
+                    <image><Image url="https://img.icons8.com/ios-glyphs/30/000000/moon-symbol.png"/></image>
+                </ImageView>
+            </graphic>
+        </Button>
+
+        <StackPane style="-fx-cursor: hand;">
+
+            <StackPane styleClass="icon-container-circle">
+                <ImageView fx:id="iconBell" fitHeight="22" fitWidth="22" preserveRatio="true">
+                    <image>
+                        <Image url="https://img.icons8.com/ios-filled/50/334155/bell.png"/>
+                    </image>
+                </ImageView>
+            </StackPane>
+
+            <Label fx:id="lblUnreadCount" text="9+" visible="false"
+                   StackPane.alignment="TOP_RIGHT"
+                   style="-fx-background-color: #EF4444; -fx-text-fill: white; -fx-font-size: 10px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 2 5; -fx-min-width: 18; -fx-alignment: center; -fx-border-color: white; -fx-border-width: 1.5; -fx-border-radius: 10;">
+                <StackPane.margin>
+                    <Insets top="-2" right="-2"/>
+                </StackPane.margin>
+            </Label>
+
+            <HBox.margin>
+                <Insets right="10.0" />
+            </HBox.margin>
+        </StackPane>
+
+        <HBox alignment="CENTER" spacing="10">
+            <ImageView fx:id="imgUserAvatar" fitHeight="36" fitWidth="36">
+                <image><Image url="https://via.placeholder.com/36"/></image>
+                <clip><Circle centerX="18" centerY="18" radius="18"/></clip>
+            </ImageView>
+
+            <Label fx:id="lblUserName" style="-fx-font-weight: bold;" styleClass="text" text="User" />
+        </HBox>
+    </children>
+</HBox>
