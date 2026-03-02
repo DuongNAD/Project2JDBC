@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CourseDao {
 
-    // --- 1. CÁC HÀM LẤY KHÓA HỌC (GIỮ NGUYÊN) ---
+    
 
     public List<Course> getAllCourses() {
         List<Course> list = new ArrayList<>();
@@ -137,7 +137,7 @@ public class CourseDao {
         return list;
     }
 
-    // Hàm phụ trợ để map dữ liệu Course cho gọn code
+    
     private Course mapCourse(ResultSet rs) throws SQLException {
         Course c = new Course();
         c.setCourseId(rs.getInt("course_id"));
@@ -152,7 +152,7 @@ public class CourseDao {
             String catName = rs.getString("category_name");
             c.setCategoryName(catName != null ? catName : "Chưa phân loại");
         } catch (SQLException ignored) {
-        } // Bỏ qua nếu không có cột này
+        } 
 
         if (c.getThumbnailUrl() == null || c.getThumbnailUrl().isEmpty()) {
             c.setThumbnailUrl(getClass().getResource("/Images/default.png").toExternalForm());
@@ -160,7 +160,7 @@ public class CourseDao {
         return c;
     }
 
-    // --- 2. CÁC HÀM XỬ LÝ NỘI DUNG KHÓA HỌC (Video, Đăng ký) ---
+    
 
     public List<Section> getCurriculum(int courseId) {
         List<Section> sections = new ArrayList<>();
@@ -210,7 +210,7 @@ public class CourseDao {
             ResultSet rs = psCheck.executeQuery();
 
             if (rs.next() && rs.getInt(1) > 0) {
-                return false; // Đã đăng ký rồi
+                return false; 
             }
 
             PreparedStatement psInsert = conn.prepareStatement(insertSql);
@@ -226,9 +226,9 @@ public class CourseDao {
         }
     }
 
-    // --- 3. CÁC HÀM XỬ LÝ BÀI TẬP CODING (QUAN TRỌNG) ---
+    
 
-    // Lấy danh sách bài tập của khóa học
+    
     public List<CodingExercise> getExercises(int courseId) {
         List<CodingExercise> list = new ArrayList<>();
         String sql = "SELECT * FROM coding_exercises WHERE course_id = ?";
@@ -244,10 +244,10 @@ public class CourseDao {
                 if (lang == null || lang.isEmpty())
                     lang = "java";
 
-                // Sử dụng Constructor đầy đủ (bao gồm course_id và language)
+                
                 list.add(new CodingExercise(
                         rs.getInt("exercise_id"),
-                        rs.getInt("course_id"), // Lấy course_id từ DB
+                        rs.getInt("course_id"), 
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getString("starter_code"),
@@ -260,7 +260,7 @@ public class CourseDao {
         return list;
     }
 
-    // [MỚI] Tìm bài tập tiếp theo để chuyển bài
+    
     public CodingExercise getNextExercise(int currentCourseId, int currentExerciseId) {
         String sql = "SELECT * FROM coding_exercises WHERE course_id = ? AND exercise_id > ? ORDER BY exercise_id ASC LIMIT 1";
 
@@ -420,14 +420,14 @@ public class CourseDao {
 
         int total = 0;
         try (Connection conn = DatabaseConnect.getConnection()) {
-            // Đếm video
+            
             try (PreparedStatement ps1 = conn.prepareStatement(sqlVideo)) {
                 ps1.setInt(1, courseId);
                 ResultSet rs1 = ps1.executeQuery();
                 if (rs1.next())
                     total += rs1.getInt(1);
             }
-            // Đếm bài code
+            
             try (PreparedStatement ps2 = conn.prepareStatement(sqlCode)) {
                 ps2.setInt(1, courseId);
                 ResultSet rs2 = ps2.executeQuery();
@@ -463,7 +463,7 @@ public class CourseDao {
         }
     }
 
-    // --- 4. CÁC HÀM XỬ LÝ ĐÁNH GIÁ KHÓA HỌC ---
+    
     public int getCourseRating(int userId, int courseId) {
         String sql = "SELECT rating FROM enrollments WHERE user_id = ? AND course_id = ?";
         try (Connection conn = DatabaseConnect.getConnection();
@@ -477,7 +477,7 @@ public class CourseDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0; // 0 means not rated yet or error
+        return 0; 
     }
 
     public boolean updateCourseRating(int userId, int courseId, int rating) {

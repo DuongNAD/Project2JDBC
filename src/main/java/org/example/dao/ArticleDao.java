@@ -21,7 +21,7 @@ public class ArticleDao {
 
             while (rs.next()) {
                 Article a = new Article();
-                // Các hàm này giờ đã có trong Article.java nên sẽ không báo đỏ nữa
+                
                 a.setId(rs.getInt("article_id"));
                 a.setTitle(rs.getString("title"));
                 a.setDescription(rs.getString("description"));

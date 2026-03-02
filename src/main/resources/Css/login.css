@@ -1,17 +1,17 @@
-/* Tổng thể khung nền - Gradient xanh sang trọng */
+
 .root {
     -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     -fx-background-color: linear-gradient(to bottom right, #1a305e, #365499);
 }
 
-/* --- TabPane (Đăng nhập / Đăng ký) --- */
+
 .custom-tab-pane {
     -fx-tab-max-width: 120px;
     -fx-tab-min-width: 120px;
 }
 
 .custom-tab-pane .tab-header-area {
-    -fx-padding: 0 0 15 0; /* Khoảng cách dưới tab */
+    -fx-padding: 0 0 15 0; 
 }
 
 .custom-tab-pane .tab-header-background {
@@ -32,22 +32,22 @@
 }
 
 .custom-tab-pane .tab-label {
-    -fx-text-fill: #a0a0a0; /* Màu xám khi chưa chọn */
+    -fx-text-fill: #a0a0a0; 
     -fx-font-size: 15px;
     -fx-font-weight: bold;
 }
 
 .custom-tab-pane .tab:selected .tab-label {
-    -fx-text-fill: #5d78ff; /* Màu xanh khi chọn */
+    -fx-text-fill: #5d78ff; 
 }
 
-/* --- Input Fields (Ô nhập liệu) --- */
+
 .input-field {
     -fx-background-color: #f8f9fa;
     -fx-border-color: #e0e0e0;
-    -fx-border-radius: 25; /* Bo tròn kiểu viên thuốc (Pill shape) */
+    -fx-border-radius: 25; 
     -fx-background-radius: 25;
-    -fx-padding: 12 20; /* Tăng padding để text thoáng hơn */
+    -fx-padding: 12 20; 
     -fx-font-size: 14px;
     -fx-text-fill: #333333;
 }
@@ -58,7 +58,7 @@
     -fx-effect: dropshadow(three-pass-box, rgba(93, 120, 255, 0.25), 8, 0, 0, 0);
 }
 
-/* --- Login Button (Nút Đăng nhập) --- */
+
 .login-button {
     -fx-background-color: #5d78ff;
     -fx-text-fill: white;
@@ -66,13 +66,13 @@
     -fx-font-size: 16px;
     -fx-background-radius: 25;
     -fx-cursor: hand;
-    /* Bóng đổ tạo độ nổi */
+    
     -fx-effect: dropshadow(three-pass-box, rgba(93, 120, 255, 0.4), 10, 0, 0, 3);
 }
 
 .login-button:hover {
     -fx-background-color: #4a62e0;
-    -fx-translate-y: -2; /* Hiệu ứng nảy lên nhẹ khi di chuột */
+    -fx-translate-y: -2; 
 }
 
 .login-button:pressed {
@@ -81,7 +81,7 @@
     -fx-effect: dropshadow(three-pass-box, rgba(93, 120, 255, 0.2), 5, 0, 0, 1);
 }
 
-/* --- Social Buttons (Nút MXH) --- */
+
 .social-button {
     -fx-background-color: white;
     -fx-border-color: #eeeeee;
@@ -97,7 +97,7 @@
     -fx-border-color: #d0d7ff;
 }
 
-/* --- Hyperlink --- */
+
 .hyperlink {
     -fx-text-fill: #5d78ff;
     -fx-underline: false;

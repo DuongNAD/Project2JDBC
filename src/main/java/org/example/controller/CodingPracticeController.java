@@ -32,7 +32,7 @@ public class CodingPracticeController implements Initializable {
     private CodingExercise currentExercise;
     private CodeCompiler compiler = new CodeCompiler();
 
-    // Gọi DAO
+    
     private CourseDao courseDao = new CourseDao();
 
     @Override
@@ -51,7 +51,7 @@ public class CodingPracticeController implements Initializable {
     public void setExerciseData(CodingExercise exercise) {
         this.currentExercise = exercise;
 
-        // CSS cho đẹp
+        
         String css = """
             <style>
                 body { font-family: 'Segoe UI', sans-serif; padding: 20px; color: #334155; }
@@ -80,13 +80,13 @@ public class CodingPracticeController implements Initializable {
         });
     }
 
-    // --- NÚT CHẠY THỬ (Chỉ check) ---
+    
     @FXML
     void handleRunCode(ActionEvent event) {
         runCodeAndCheck(false);
     }
 
-    // --- NÚT NỘP BÀI (Lưu điểm + Next bài) ---
+    
     @FXML
     void handleSubmit(ActionEvent event) {
         runCodeAndCheck(true);
@@ -114,29 +114,29 @@ public class CodingPracticeController implements Initializable {
             String actual = result.trim();
 
             if (actual.equals(expected)) {
-                // ✅ ĐÚNG
+                
                 if (isSubmit) {
                     txtOutput.setText("✅ CHÍNH XÁC! \n+10 Điểm thành tích \nĐang chuyển bài...");
                     txtOutput.setStyle("-fx-text-fill: #4ADE80; -fx-control-inner-background: #1E1E1E; -fx-font-weight: bold;");
 
-                    // 1. Lưu vào Database
+                    
                     User currentUser = UserSession.getInstance().getUser();
                     if (currentUser != null) {
                         courseDao.handleExerciseCompletion(
                                 currentUser.getId(),
                                 currentExercise.getId(),
                                 currentExercise.getCourseId(),
-                                10 // Cộng 10 điểm
+                                10 
                         );
                     }
-                    // 2. Chuyển bài
+                    
                     showCongratulationAndNext();
                 } else {
                     txtOutput.setText("✅ KẾT QUẢ ĐÚNG! \n(Bấm 'Nộp bài' để ghi nhận điểm)\n\n-------------------------\nOUTPUT:\n" + result);
                     txtOutput.setStyle("-fx-text-fill: #4ADE80; -fx-control-inner-background: #1E1E1E; -fx-font-weight: bold;");
                 }
             } else {
-                // ❌ SAI
+                
                 txtOutput.setText("❌ SAI KẾT QUẢ\n\n-------------------------\nTHỰC TẾ:\n" + result + "\n\nMONG ĐỢI:\n" + expected);
                 txtOutput.setStyle("-fx-text-fill: #F87171; -fx-control-inner-background: #1E1E1E; -fx-font-weight: bold;");
             }
@@ -162,7 +162,7 @@ public class CodingPracticeController implements Initializable {
         CodingExercise nextExe = courseDao.getNextExercise(currentExercise.getCourseId(), currentExercise.getId());
 
         if (nextExe != null) {
-            setExerciseData(nextExe); // Load bài mới
+            setExerciseData(nextExe); 
             txtOutput.clear();
             txtOutput.setStyle("-fx-control-inner-background: #1E1E1E;");
         } else {

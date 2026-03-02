@@ -3,7 +3,7 @@
 }
 
 .coding-header {
-    -fx-background-color: #1E293B; /* Dark Header */
+    -fx-background-color: #1E293B; 
     -fx-padding: 10 20;
     -fx-border-color: #334155;
     -fx-border-width: 0 0 1 0;
@@ -15,7 +15,7 @@
     -fx-font-size: 16px;
 }
 
-/* Button styles */
+
 .btn-back {
     -fx-background-color: transparent;
     -fx-text-fill: #94A3B8;
@@ -26,7 +26,7 @@
 .btn-back:hover { -fx-text-fill: white; -fx-border-color: white; }
 
 .btn-run {
-    -fx-background-color: #3B82F6; /* Xanh dương */
+    -fx-background-color: #3B82F6; 
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
@@ -35,7 +35,7 @@
 .btn-run:hover { -fx-background-color: #2563EB; }
 
 .btn-submit {
-    -fx-background-color: #10B981; /* Xanh lá */
+    -fx-background-color: #10B981; 
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
@@ -43,7 +43,7 @@
 }
 .btn-submit:hover { -fx-background-color: #059669; }
 
-/* Console Output */
+
 .console-box {
     -fx-background-color: #1E1E1E;
 }

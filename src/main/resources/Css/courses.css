@@ -1,6 +1,6 @@
-/* ================================================================= */
-/* 1. CẤU HÌNH GỐC (ROOT)                                            */
-/* ================================================================= */
+
+
+
 .root {
     -fx-font-family: "Segoe UI", "Inter", sans-serif;
 }
@@ -14,11 +14,11 @@
     -fx-background-color: transparent;
 }
 
-/* ================================================================= */
-/* 2. HEADER & SEARCH BAR                                            */
-/* ================================================================= */
 
-/* Header riêng của trang Cửa hàng (nếu không dùng Header chung) */
+
+
+
+
 .modern-header {
     -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 15, 0.1, 0, 2);
@@ -39,7 +39,7 @@
     -fx-font-weight: 500;
 }
 
-/* Thanh tìm kiếm */
+
 .modern-search-bar {
     -fx-background-color: #F7FAFC;
     -fx-background-radius: 12;
@@ -61,7 +61,7 @@
     -fx-font-weight: 500;
 }
 
-/* Nút icon (Chuông, Theme...) */
+
 .btn-icon-gray {
     -fx-background-color: transparent;
     -fx-text-fill: #718096;
@@ -77,9 +77,9 @@
     -fx-text-fill: #2D3748;
 }
 
-/* ================================================================= */
-/* 3. BỘ LỌC & DANH MỤC (CHIPS)                                      */
-/* ================================================================= */
+
+
+
 .filter-chip {
     -fx-background-color: #F8FAFC;
     -fx-text-fill: #64748B;
@@ -116,9 +116,9 @@
     -fx-cursor: hand;
 }
 
-/* ================================================================= */
-/* 4. THẺ KHÓA HỌC (COURSE CARD)                                     */
-/* ================================================================= */
+
+
+
 .course-card {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 16;
@@ -189,17 +189,17 @@
     -fx-background-radius: 4;
 }
 
-/* ================================================================= */
-/* 5. DARK MODE (CHẾ ĐỘ TỐI)                                         */
-/* ================================================================= */
 
-/* Nền tổng thể tối */
+
+
+
+
 .dark-theme .root-pane {
     -fx-background-color: #0B0F19;
-    /* Màu than chì đậm */
+    
 }
 
-/* Header & Search */
+
 .dark-theme .modern-header {
     -fx-background-color: rgba(15, 23, 42, 0.95);
     -fx-border-color: transparent transparent #1E293B transparent;
@@ -226,7 +226,7 @@
     -fx-text-fill: #94A3B8;
 }
 
-/* Chips & Combo */
+
 .dark-theme .filter-chip {
     -fx-background-color: #1E293B;
     -fx-text-fill: #94A3B8;
@@ -250,10 +250,10 @@
     -fx-background-color: #1E293B;
 }
 
-/* Course Card Dark Mode */
+
 .dark-theme .course-card {
     -fx-background-color: #1A2235;
-    /* Card xám đậm */
+    
     -fx-border-color: #2A3447;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 5);
 }
@@ -271,7 +271,7 @@
     -fx-text-fill: #60A5FA;
 }
 
-/* Giá màu xanh sáng */
+
 
 .dark-theme .course-category {
     -fx-background-color: rgba(59, 130, 246, 0.2);
@@ -290,7 +290,7 @@
     -fx-border-color: #475569;
 }
 
-/* Scrollbar Dark Mode */
+
 .dark-theme .scroll-bar:vertical .thumb {
     -fx-background-color: #4A5568;
 }

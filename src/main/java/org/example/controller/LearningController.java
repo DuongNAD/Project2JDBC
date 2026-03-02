@@ -59,7 +59,7 @@ public class LearningController implements Initializable {
 
     private static class LessonItem {
         String title;
-        String type; // "VIDEO" hoặc "CODE"
+        String type; 
         Object data;
 
         public LessonItem(String title, String type, Object data) {
@@ -90,7 +90,7 @@ public class LearningController implements Initializable {
 
         if (!allLessons.isEmpty()) {
             currentIndex = 0;
-            // Lúc init chưa có sự kiện click/button nào -> truyền null
+            
             playLessonAtIndex(currentIndex, null);
         }
 
@@ -159,7 +159,7 @@ public class LearningController implements Initializable {
 
         row.getChildren().addAll(icon, lbl);
 
-        // --- QUAN TRỌNG: Truyền sự kiện 'e' vào hàm playLessonAtIndex ---
+        
         row.setOnMouseClicked(e -> {
             currentIndex = index;
             playLessonAtIndex(currentIndex, e);
@@ -168,7 +168,7 @@ public class LearningController implements Initializable {
         return row;
     }
 
-    // --- CẬP NHẬT: Thêm tham số Event event vào hàm này ---
+    
     private void playLessonAtIndex(int index, Event event) {
         if (index < 0 || index >= allLessons.size())
             return;
@@ -187,7 +187,7 @@ public class LearningController implements Initializable {
                 webEngine.load(null);
 
             CodingExercise exe = (CodingExercise) item.data;
-            // Bây giờ event đã được truyền vào đúng chuẩn
+            
             openCodingPractice(exe, event);
         }
 
@@ -201,7 +201,7 @@ public class LearningController implements Initializable {
     void handlePrevLesson(ActionEvent event) {
         if (currentIndex > 0) {
             currentIndex--;
-            playLessonAtIndex(currentIndex, event); // Truyền event nút bấm
+            playLessonAtIndex(currentIndex, event); 
         }
     }
 
@@ -210,7 +210,7 @@ public class LearningController implements Initializable {
         markCurrentLessonAsDone();
         if (currentIndex < allLessons.size() - 1) {
             currentIndex++;
-            playLessonAtIndex(currentIndex, event); // Truyền event nút bấm
+            playLessonAtIndex(currentIndex, event); 
         }
     }
 
@@ -227,13 +227,13 @@ public class LearningController implements Initializable {
         }).start();
     }
 
-    // --- CẬP NHẬT: Xử lý trường hợp event bị null ---
+    
     private void openCodingPractice(CodingExercise exe, Event event) {
         try {
             if (webEngine != null)
                 webEngine.load(null);
 
-            // Trường hợp 1: Có sự kiện (Click chuột hoặc Nút bấm) -> Dùng Navigation chuẩn
+            
             if (event != null) {
                 org.example.util.Navigation.toSync(
                         event,
@@ -242,28 +242,28 @@ public class LearningController implements Initializable {
                             controller.setExerciseData(exe);
                         });
             }
-            // Trường hợp 2: Event bị null (VD: Load bài code ngay khi mở màn hình)
-            // Ta phải "chữa cháy" bằng cách tìm Stage thông qua 1 Node có sẵn trên màn hình
+            
+            
             else {
                 System.out.println("⚠️ Cảnh báo: Event null, đang thử lấy Stage thủ công...");
                 if (lblCourseTitle.getScene() != null) {
                     Stage stage = (Stage) lblCourseTitle.getScene().getWindow();
 
-                    // Tự gọi logic load thủ công (giống Navigation.toSync nhưng không cần event)
+                    
                     javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
                             getClass().getResource(org.example.util.Navigation.CODING_VIEW));
                     javafx.scene.Parent root = loader.load();
 
                     org.example.util.ThemeManager.applyTheme(root);
 
-                    // Thay thế nội dung trong ContentArea
+                    
                     javafx.scene.layout.StackPane contentArea = (javafx.scene.layout.StackPane) stage.getScene()
                             .lookup("#contentArea");
                     if (contentArea != null) {
                         contentArea.getChildren().clear();
                         contentArea.getChildren().add(root);
 
-                        // Callback truyền dữ liệu
+                        
                         org.example.controller.CodingPracticeController controller = loader.getController();
                         controller.setExerciseData(exe);
                     }

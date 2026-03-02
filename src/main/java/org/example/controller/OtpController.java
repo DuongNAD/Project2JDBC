@@ -215,17 +215,17 @@ public class OtpController {
             Path targetPath = uploadPath.resolve(fileName);
 
             if (this.avatarFile != null) {
-                // Copy ảnh do user chọn
+                
                 Files.copy(this.avatarFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
             } else {
-                // Copy ảnh default
+                
                 InputStream defaultAvatarStream = getClass().getResourceAsStream("/avatar.jpg");
                 if (defaultAvatarStream != null) {
                     Files.copy(defaultAvatarStream, targetPath, StandardCopyOption.REPLACE_EXISTING);
                 }
             }
 
-            // Lưu đường dẫn tương đối vào database
+            
             String relativeUrl = "/userAvatar/" + fileName;
             userDao.updateProfile(userId, registeredUser.getFullname(), relativeUrl);
 

@@ -171,7 +171,7 @@ public class CoursesController implements Initializable {
         card.setPrefWidth(260);
         card.getStyleClass().add("course-card");
 
-        // Bật Cache để giảm lag khi cuộn (quan trọng cho Shadow CSS)
+        
         card.setCache(true);
         card.setCacheHint(javafx.scene.CacheHint.SPEED);
 
@@ -188,7 +188,7 @@ public class CoursesController implements Initializable {
 
         try {
             if (course.getThumbnailUrl() != null && !course.getThumbnailUrl().isEmpty()) {
-                // Thêm true ở cuối để bật tải ảnh ngầm (background loading), không làm đơ UI
+                
                 imageView.setImage(new Image(course.getThumbnailUrl(), 400, 0, true, true, true));
             } else {
                 imageView.setImage(new Image(getClass().getResource("/View/avatar.jpg").toExternalForm(), 400, 0, true,

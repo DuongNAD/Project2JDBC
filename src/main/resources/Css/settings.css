@@ -1,8 +1,8 @@
-/* ================================================================= */
-/* FILE CSS RIÊNG CHO TRANG CÀI ĐẶT (SETTINGS)                       */
-/* ================================================================= */
 
-/* --- TYPOGRAPHY (CHỮ NGHĨA) --- */
+
+
+
+
 .page-title {
     -fx-font-size: 28px;
     -fx-font-weight: 900;
@@ -33,11 +33,11 @@
 }
 
 .msg-success {
-    -fx-text-fill: #10B981; /* Màu xanh lá thông báo thành công */
+    -fx-text-fill: #10B981; 
     -fx-font-weight: bold;
 }
 
-/* --- CARDS (KHUNG CHỨA) --- */
+
 .settings-card {
     -fx-background-color: white;
     -fx-background-radius: 16;
@@ -51,31 +51,31 @@
     -fx-pref-height: 1px;
 }
 
-/* --- INPUTS (Ô NHẬP LIỆU - FIX LỖI ĐEN SÌ) --- */
+
 .settings-input {
-    -fx-background-color: #F8FAFC; /* Nền xám rất nhạt */
-    -fx-border-color: #CBD5E1;     /* Viền xám nhẹ */
+    -fx-background-color: #F8FAFC; 
+    -fx-border-color: #CBD5E1;     
     -fx-border-radius: 8;
     -fx-background-radius: 8;
     -fx-padding: 10 12;
     -fx-font-size: 14px;
-    -fx-text-fill: #1E293B;        /* Chữ màu tối */
+    -fx-text-fill: #1E293B;        
 }
 
-/* Khi bấm vào nhập liệu (Focus) */
+
 .settings-input:focused {
     -fx-background-color: white;
-    -fx-border-color: #3B82F6;     /* Viền xanh dương */
+    -fx-border-color: #3B82F6;     
     -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.2), 5, 0, 0, 0);
 }
 
-/* Input bị Disable (như Email) */
+
 .settings-input:disabled {
     -fx-background-color: #F1F5F9;
     -fx-opacity: 0.8;
 }
 
-/* --- BUTTONS (NÚT BẤM) --- */
+
 .btn-primary {
     -fx-background-color: #3B82F6;
     -fx-text-fill: white;
@@ -105,16 +105,16 @@
 }
 
 
-/* ================================================================= */
-/* 🌙 DARK MODE (CHẾ ĐỘ TỐI)                                         */
-/* ================================================================= */
+
+
+
 
 .dark-theme .page-title { -fx-text-fill: #F8FAFC; }
 .dark-theme .card-title { -fx-text-fill: #F1F5F9; }
 .dark-theme .input-label { -fx-text-fill: #CBD5E1; }
 
 .dark-theme .settings-card {
-    -fx-background-color: #1E293B; /* Slate 800 */
+    -fx-background-color: #1E293B; 
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 15, 0, 0, 4);
 }
 
@@ -123,11 +123,11 @@
     -fx-border-color: #334155;
 }
 
-/* Input Dark Mode (Quan trọng: Sửa lỗi đen sì) */
+
 .dark-theme .settings-input {
-    -fx-background-color: #0F172A; /* Nền rất tối (Slate 900) */
-    -fx-border-color: #334155;     /* Viền xám tối */
-    -fx-text-fill: white;          /* Chữ trắng */
+    -fx-background-color: #0F172A; 
+    -fx-border-color: #334155;     
+    -fx-text-fill: white;          
     -fx-prompt-text-fill: #64748B;
 }
 

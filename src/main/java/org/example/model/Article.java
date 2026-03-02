@@ -3,7 +3,7 @@ package org.example.model;
 import java.sql.Timestamp;
 
 public class Article {
-    private int id; // Đặt tên là id cho gọn, khớp với DAO
+    private int id; 
     private String title;
     private String description;
     private String content;
@@ -22,7 +22,7 @@ public class Article {
         this.tags = tags;
         this.createdAt = new Timestamp(System.currentTimeMillis());
     }
-    // Getters
+    
     public int getId() { return id; }
     public String getTitle() { return title; }
     public String getDescription() { return description; }
@@ -31,7 +31,7 @@ public class Article {
     public Timestamp getCreatedAt() { return createdAt; }
     public String getContent() { return content; }
 
-    // Setters
+    
     public void setId(int id) { this.id = id; }
     public void setTitle(String title) { this.title = title; }
     public void setDescription(String description) { this.description = description; }

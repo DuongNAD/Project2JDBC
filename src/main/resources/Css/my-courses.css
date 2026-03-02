@@ -1,23 +1,23 @@
-/* ================================================================= */
-/* STYLE RIÊNG CHO TRANG "KHÓA HỌC CỦA TÔI"                          */
-/* ================================================================= */
 
-/* 1. Container bao quanh toàn bộ */
+
+
+
+
 .my-courses-page {
-    -fx-padding: 30 40; /* Căn lề thoáng đãng */
+    -fx-padding: 30 40; 
     -fx-spacing: 20;
     -fx-background-color: transparent;
 }
 
-/* 2. Lưới chứa các thẻ khóa học */
+
 .course-list-flow {
-    -fx-hgap: 25; /* Khoảng cách ngang */
-    -fx-vgap: 25; /* Khoảng cách dọc */
+    -fx-hgap: 25; 
+    -fx-vgap: 25; 
     -fx-padding: 10 0 50 0;
     -fx-alignment: top-left;
 }
 
-/* 3. Tiêu đề trang */
+
 .page-title {
     -fx-font-size: 28px;
     -fx-font-weight: 900;
@@ -29,7 +29,7 @@
     -fx-text-fill: #64748B;
 }
 
-/* 4. Thẻ thông báo rỗng */
+
 .empty-state-label {
     -fx-font-size: 16px;
     -fx-text-fill: #64748B;
@@ -38,29 +38,29 @@
     -fx-font-style: italic;
 }
 
-/* ================================================================= */
-/* 💎 THẺ KHÓA HỌC (CARD STYLE)                                      */
-/* ================================================================= */
 
-/* --- Trạng thái Sáng (Light Mode) --- */
+
+
+
+
 .my-course-card {
     -fx-background-color: white;
     -fx-background-radius: 16;
     -fx-border-radius: 16;
     -fx-effect: dropshadow(three-pass-box, rgba(148, 163, 184, 0.15), 10, 0, 0, 4);
     -fx-cursor: hand;
-    -fx-padding: 0; /* Để ảnh tràn viền trên */
+    -fx-padding: 0; 
     -fx-border-color: #F1F5F9;
     -fx-border-width: 1;
 }
 
 .my-course-card:hover {
-    -fx-translate-y: -5; /* Bay lên nhẹ */
+    -fx-translate-y: -5; 
     -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.25), 20, 0, 0, 8);
-    -fx-border-color: #3B82F6; /* Viền xanh khi hover */
+    -fx-border-color: #3B82F6; 
 }
 
-/* Font chữ bên trong Card */
+
 .course-title-text {
     -fx-font-size: 15px;
     -fx-font-weight: 800;
@@ -72,7 +72,7 @@
     -fx-text-fill: #64748B;
 }
 
-/* Thanh tiến độ (Progress Bar) */
+
 .course-progress-bar .track {
     -fx-background-color: #F1F5F9;
     -fx-background-radius: 10;
@@ -82,7 +82,7 @@
     -fx-background-radius: 10;
 }
 
-/* Nút "Vào học ngay" */
+
 .btn-enter-course {
     -fx-background-color: #3B82F6;
     -fx-text-fill: white;
@@ -96,45 +96,45 @@
     -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.3), 8, 0, 0, 2);
 }
 
-/* ================================================================= */
-/* 🌙 DARK MODE OVERRIDES (SỬA LỖI CARD TRẮNG Ở ĐÂY)                 */
-/* ================================================================= */
 
-/* 1. Tiêu đề trang Dark Mode */
+
+
+
+
 .dark-theme .page-title { -fx-text-fill: #F8FAFC; }
 .dark-theme .page-subtitle { -fx-text-fill: #94A3B8; }
 
-/* 2. Card Dark Mode (Quan trọng nhất) */
+
 .dark-theme .my-course-card {
-    -fx-background-color: #1E293B; /* Nền xanh đen (Slate 800) */
-    -fx-border-color: #334155;     /* Viền xám tối */
+    -fx-background-color: #1E293B; 
+    -fx-border-color: #334155;     
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 12, 0, 0, 4);
 }
 
 .dark-theme .my-course-card:hover {
-    -fx-border-color: #38BDF8; /* Viền sáng xanh khi hover */
-    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.3), 20, 0, 0, 0); /* Glow nhẹ */
+    -fx-border-color: #38BDF8; 
+    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.3), 20, 0, 0, 0); 
 }
 
-/* 3. Chữ trong Card Dark Mode */
+
 .dark-theme .course-title-text {
-    -fx-text-fill: #F8FAFC; /* Chuyển thành trắng sáng */
+    -fx-text-fill: #F8FAFC; 
 }
 
 .dark-theme .course-progress-text {
-    -fx-text-fill: #CBD5E1; /* Chuyển thành xám sáng */
+    -fx-text-fill: #CBD5E1; 
 }
 
-/* 4. Thanh tiến độ Dark Mode */
+
 .dark-theme .course-progress-bar .track {
-    -fx-background-color: #0F172A; /* Rãnh tối màu */
+    -fx-background-color: #0F172A; 
 }
 .dark-theme .course-progress-bar .bar {
-    -fx-background-color: linear-gradient(to right, #3B82F6, #38BDF8); /* Gradient sáng hơn */
-    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.5), 8, 0, 0, 0); /* Thanh phát sáng */
+    -fx-background-color: linear-gradient(to right, #3B82F6, #38BDF8); 
+    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.5), 8, 0, 0, 0); 
 }
 
-/* 5. Nút bấm Dark Mode */
+
 .dark-theme .btn-enter-course {
     -fx-background-color: #2563EB;
 }

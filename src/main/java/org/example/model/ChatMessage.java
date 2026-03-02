@@ -5,7 +5,7 @@ public class ChatMessage {
     private String senderName;
     private String senderAvatar;
     private String message;
-    private boolean isMyMessage; // Để xác định tin nhắn của mình hay người khác
+    private boolean isMyMessage;
 
     public ChatMessage(int id, String senderName, String senderAvatar, String message, boolean isMyMessage) {
         this.id = id;

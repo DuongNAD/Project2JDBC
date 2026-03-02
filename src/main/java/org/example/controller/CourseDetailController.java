@@ -44,7 +44,7 @@ public class CourseDetailController implements Initializable {
 
     private CourseDao courseDao = new CourseDao();
 
-    // 1. THÊM BIẾN NÀY ĐỂ LƯU KHÓA HỌC HIỆN TẠI
+    
     private Course currentCourse;
 
     @Override
@@ -61,7 +61,7 @@ public class CourseDetailController implements Initializable {
     public void setCourseData(Course course) {
         if (course == null) return;
 
-        // 2. LƯU DỮ LIỆU VÀO BIẾN TOÀN CỤC
+        
         this.currentCourse = course;
 
         lblTitle.setText(course.getTitle());
@@ -81,17 +81,17 @@ public class CourseDetailController implements Initializable {
                 imgThumbnail.setImage(new Image(course.getThumbnailUrl(), 420, 250, false, true));
             }
         } catch (Exception e) {
-            // Có thể set ảnh mặc định nếu lỗi
+            
         }
 
         loadCurriculum(course.getCourseId());
     }
 
-    // 3. THÊM HÀM XỬ LÝ SỰ KIỆN NÚT "ĐĂNG KÝ HỌC NGAY"
+    
     @FXML
     void handleEnroll(ActionEvent event) {
         try {
-            // Kiểm tra Login
+            
             if (UserSession.getInstance().getUser() == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Yêu cầu đăng nhập");
@@ -101,24 +101,24 @@ public class CourseDetailController implements Initializable {
                 return;
             }
 
-            // Load Popup Thanh toán
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/payment.fxml"));
             Parent root = loader.load();
 
-            // Truyền dữ liệu khóa học sang PaymentController
+            
             PaymentController controller = loader.getController();
             controller.setPaymentData(this.currentCourse);
 
-            // Tạo cửa sổ mới (Stage) dạng Modal (Cửa sổ con)
+            
             Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL); // Chặn không cho bấm cửa sổ chính khi chưa đóng popup
+            stage.initModality(Modality.APPLICATION_MODAL); 
             stage.setTitle("Thanh toán - EduPath");
 
-            // Áp dụng Theme cho Popup để đồng bộ
+            
             ThemeManager.applyTheme(root);
 
             stage.setScene(new Scene(root));
-            stage.showAndWait(); // Chờ người dùng thanh toán xong mới chạy tiếp
+            stage.showAndWait(); 
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,7 +129,7 @@ public class CourseDetailController implements Initializable {
     @FXML
     void handleBack(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/courses.fxml")); // Hoặc home.fxml tùy logic của anh
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/courses.fxml")); 
             Parent view = loader.load();
             StackPane contentArea = (StackPane) lblTitle.getScene().lookup("#contentArea");
 

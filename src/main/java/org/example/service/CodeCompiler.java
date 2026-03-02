@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CodeCompiler {
 
-    // --- HÀM ĐIỀU PHỐI CHÍNH ---
+    
     public String runCode(String userCode, String language) {
         if (language == null || language.isEmpty()) language = "java";
 
@@ -24,19 +24,19 @@ public class CodeCompiler {
         }
     }
 
-    // --- 1. XỬ LÝ JAVA (ĐÃ PHỤC HỒI CODE) ---
+    
     private String runJavaCode(String userCode) {
         StringBuilder output = new StringBuilder();
         File sourceFile = new File("Main.java");
         File classFile = new File("Main.class");
 
         try {
-            // B1: Ghi file
+            
             FileWriter writer = new FileWriter(sourceFile);
             writer.write(userCode);
             writer.close();
 
-            // B2: Biên dịch (javac)
+            
             ProcessBuilder compileBuilder = new ProcessBuilder("javac", "Main.java");
             compileBuilder.redirectErrorStream(true);
             Process compileProcess = compileBuilder.start();
@@ -46,7 +46,7 @@ public class CodeCompiler {
                 return "❌ LỖI BIÊN DỊCH JAVA:\n" + compileError;
             }
 
-            // B3: Chạy (java)
+            
             ProcessBuilder runBuilder = new ProcessBuilder("java", "Main");
             runBuilder.redirectErrorStream(true);
             Process runProcess = runBuilder.start();
@@ -75,24 +75,24 @@ public class CodeCompiler {
         File exeFile = new File(exeName);
 
         try {
-            // B1: Ghi file
+            
             FileWriter writer = new FileWriter(sourceFile);
             writer.write(userCode);
             writer.close();
 
-            // B2: Biên dịch (g++)
-            // LƯU Ý: Máy anh phải cài MinGW và gõ được lệnh 'g++' trong CMD thì mới chạy được nhé
+            
+            
             ProcessBuilder compileBuilder = new ProcessBuilder("g++", "Solution.cpp", "-o", "Solution");
             compileBuilder.redirectErrorStream(true);
             Process compileProcess = compileBuilder.start();
 
             String compileError = readStream(compileProcess.getInputStream());
-            // C++ biên dịch lâu hơn chút, chờ 10s
+            
             if (!compileProcess.waitFor(10, TimeUnit.SECONDS) || compileProcess.exitValue() != 0) {
                 return "❌ LỖI BIÊN DỊCH C/C++:\n" + compileError;
             }
 
-            // B3: Chạy file .exe
+            
             ProcessBuilder runBuilder = new ProcessBuilder(exeFile.getAbsolutePath());
             runBuilder.redirectErrorStream(true);
             Process runProcess = runBuilder.start();
@@ -114,7 +114,7 @@ public class CodeCompiler {
         return output.toString().trim();
     }
 
-    // --- 3. XỬ LÝ NODE.JS ---
+    
     private String runNodeJsCode(String userCode) {
         StringBuilder output = new StringBuilder();
         File sourceFile = new File("script.js");

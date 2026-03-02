@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ThemeManager {
-    private static boolean isDarkMode = false; // Mặc định là Sáng
+    private static boolean isDarkMode = false; 
     private static final List<WeakReference<Parent>> trackedRoots = new ArrayList<>();
 
     public static boolean isDarkMode() {
@@ -19,15 +19,15 @@ public class ThemeManager {
         applyToAllTrackedRoots();
     }
 
-    // Hàm áp dụng theme cho bất kỳ giao diện nào (gọi khi chuyển trang)
+    
     public static void applyTheme(Parent root) {
         if (root == null)
             return;
 
-        // Theo dõi root này để update sau này
+        
         trackRoot(root);
 
-        // Xóa class cũ để tránh trùng lặp
+        
         root.getStyleClass().remove("dark-theme");
 
         if (isDarkMode) {
@@ -36,11 +36,11 @@ public class ThemeManager {
     }
 
     private static void trackRoot(Parent root) {
-        // Xóa các root đã bị thu hồi (garbage collected) và kiểm tra xem đã track chưa
+        
         trackedRoots.removeIf(ref -> ref.get() == null);
         for (WeakReference<Parent> ref : trackedRoots) {
             if (ref.get() == root) {
-                return; // Đã theo dõi root này
+                return; 
             }
         }
         trackedRoots.add(new WeakReference<>(root));

@@ -2,17 +2,15 @@ package org.example.model;
 
 public class CodingExercise {
     private int id;
-    private int courseId; // ID của khóa học chứa bài tập này
+    private int courseId;
     private String title;
     private String description;
     private String starterCode;
     private String expectedOutput;
     private String language;
 
-    // 1. Constructor mặc định
     public CodingExercise() {}
 
-    // 2. Constructor đầy đủ tham số (Dùng khi lấy dữ liệu từ DB mới)
     public CodingExercise(int id, int courseId, String title, String description, String starterCode, String expectedOutput, String language) {
         this.id = id;
         this.courseId = courseId;
@@ -23,15 +21,13 @@ public class CodingExercise {
         this.language = language;
     }
 
-    // 3. Constructor hỗ trợ tương thích ngược (Mặc định là java)
     public CodingExercise(int id, int courseId, String title, String description, String starterCode, String expectedOutput) {
         this(id, courseId, title, description, starterCode, expectedOutput, "java");
     }
 
-    // --- GETTER METHODS ---
     public int getId() { return id; }
 
-    public int getCourseId() { return courseId; } // Đã bổ sung Getter này
+    public int getCourseId() { return courseId; }
 
     public String getTitle() { return title; }
 
@@ -43,10 +39,9 @@ public class CodingExercise {
 
     public String getLanguage() { return language; }
 
-    // --- SETTER METHODS ---
     public void setId(int id) { this.id = id; }
 
-    public void setCourseId(int courseId) { this.courseId = courseId; } // Đã bổ sung Setter này
+    public void setCourseId(int courseId) { this.courseId = courseId; }
 
     public void setTitle(String title) { this.title = title; }
 

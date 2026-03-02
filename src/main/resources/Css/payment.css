@@ -1,8 +1,8 @@
-/* ================================================================= */
-/* GIAO DIỆN THANH TOÁN HIỆN ĐẠI (ĐÃ FIX LỖI DARK MODE)              */
-/* ================================================================= */
 
-/* --- KHUNG CHÍNH MODAL --- */
+
+
+
+
 .payment-modal {
     -fx-background-color: white;
     -fx-background-radius: 20;
@@ -19,7 +19,7 @@
     -fx-alignment: CENTER;
 }
 
-/* --- HỘP TÓM TẮT KHÓA HỌC --- */
+
 .course-summary-box {
     -fx-background-color: #F8FAFC;
     -fx-padding: 15;
@@ -47,14 +47,14 @@
     -fx-text-fill: #059669;
 }
 
-/* --- TIÊU ĐỀ MỤC --- */
+
 .section-label {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #4A5568;
 }
 
-/* --- RADIO BUTTON (DẠNG THẺ) --- */
+
 .radio-button {
     -fx-padding: 12 15;
     -fx-background-color: white;
@@ -84,7 +84,7 @@
     -fx-background-insets: 0;
 }
 
-/* --- QR CODE --- */
+
 .qr-box {
     -fx-background-color: #F7FAFC;
     -fx-padding: 20;
@@ -104,7 +104,7 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
 }
 
-/* --- BUTTONS --- */
+
 .btn-confirm {
     -fx-background-color: linear-gradient(to right, #059669, #10B981);
     -fx-text-fill: white;
@@ -137,23 +137,23 @@
     -fx-border-color: #CBD5E0;
 }
 
-/* ================================================================= */
-/* 🌙 DARK MODE (ĐÃ SỬA LỖI CHO KHUNG GỐC)                           */
-/* ================================================================= */
 
-/* 1. SỬA LỖI QUAN TRỌNG: Viết liền .payment-modal.dark-theme */
+
+
+
+
 .payment-modal.dark-theme,
-.dark-theme .payment-modal { /* Dự phòng cả 2 trường hợp */
-    -fx-background-color: #1E293B; /* Slate 800 - Nền tối */
+.dark-theme .payment-modal { 
+    -fx-background-color: #1E293B; 
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 30, 0, 0, 10);
     -fx-border-color: #334155;
 }
 
-/* Các thành phần con bên trong */
+
 .dark-theme .modal-title { -fx-text-fill: #F8FAFC; }
 
 .dark-theme .course-summary-box {
-    -fx-background-color: #0F172A; /* Slate 900 - Đậm hơn nền chính */
+    -fx-background-color: #0F172A; 
     -fx-border-color: #334155;
 }
 .dark-theme .summary-title { -fx-text-fill: #E2E8F0; }

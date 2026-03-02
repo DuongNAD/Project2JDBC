@@ -28,10 +28,10 @@ public class Validator {
     public static boolean isValidPassword(String password) {
         if (password == null || password.length() < 6) return false;
         return true;
-        // Dùng khi test
+        
 
-//        if (password == null) return false;
-//        return Pattern.matches(PASSWORD_STRONG_REGEX, password);
-        // Dùng khi đưa vào hoạt động
+
+
+        
     }
 }

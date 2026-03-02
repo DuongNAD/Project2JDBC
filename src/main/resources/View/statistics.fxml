@@ -50,24 +50,23 @@
                         <Label styleClass="stat-label" text="Đang học" />
                     </VBox>
 
-                    <VBox styleClass="stat-card, card-purple" HBox.hgrow="ALWAYS">
-                        <Label styleClass="stat-icon" text="🏆" />
-                        <Region VBox.vgrow="ALWAYS" />
-                        <Label fx:id="lblAvgScore" styleClass="stat-value" text="0.0" />
-                        <Label styleClass="stat-label" text="Điểm trung bình" />
-                    </VBox>
                 </HBox>
 
                 <HBox spacing="20.0" VBox.vgrow="ALWAYS">
 
                     <VBox styleClass="chart-container" HBox.hgrow="ALWAYS">
-                        <Label styleClass="chart-title" text="Thời gian học 7 ngày qua (Giờ)" />
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label styleClass="chart-title" text="Thời gian học 7 ngày qua" />
+                            <Label text="(Giờ)" style="-fx-text-fill: #64748B; -fx-font-size: 14px;" />
+                        </HBox>
+                        
                         <BarChart fx:id="barChartActivity" legendVisible="false" minHeight="350.0">
                             <xAxis>
                                 <CategoryAxis label="Ngày" side="BOTTOM" />
                             </xAxis>
                             <yAxis>
-                                <NumberAxis label="Giờ" side="LEFT" />
+                                
+                                <NumberAxis side="LEFT" />
                             </yAxis>
                         </BarChart>
                     </VBox>

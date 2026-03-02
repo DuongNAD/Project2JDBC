@@ -19,17 +19,22 @@ import java.util.ResourceBundle;
 
 public class StatisticsController implements Initializable {
 
-    @FXML private HeaderController headerController;
+    @FXML
+    private HeaderController headerController;
 
-    // Các thẻ chỉ số
-    @FXML private Label lblTotalHours;
-    @FXML private Label lblCompletedCourses;
-    @FXML private Label lblInProgress;
-    @FXML private Label lblAvgScore;
+    
+    @FXML
+    private Label lblTotalHours;
+    @FXML
+    private Label lblCompletedCourses;
+    @FXML
+    private Label lblInProgress;
 
-    // Các biểu đồ
-    @FXML private BarChart<String, Number> barChartActivity;
-    @FXML private PieChart pieChartSubjects;
+    
+    @FXML
+    private BarChart<String, Number> barChartActivity;
+    @FXML
+    private PieChart pieChartSubjects;
 
     private StatisticsDao statsDao = new StatisticsDao();
 
@@ -55,28 +60,26 @@ public class StatisticsController implements Initializable {
     }
 
     private void loadRealData() {
-        // Lấy ID user hiện tại
+        
         int userId = UserSession.getInstance().getUser().getId();
 
-        // 1. Load các thẻ số liệu (Chạy luồng riêng cho mượt)
+        
         new Thread(() -> {
             int totalLessons = statsDao.getTotalLessonsCompleted(userId);
             int completedCourses = statsDao.getCompletedCoursesCount(userId);
             int inProgress = statsDao.getInProgressCoursesCount(userId);
-            double avgScore = statsDao.getAverageScore(userId);
 
             Platform.runLater(() -> {
-                lblTotalHours.setText(String.valueOf(totalLessons)); // Số bài học đã xong
+                lblTotalHours.setText(String.valueOf(totalLessons)); 
                 lblCompletedCourses.setText(String.valueOf(completedCourses));
                 lblInProgress.setText(String.valueOf(inProgress));
-                lblAvgScore.setText(String.valueOf(avgScore));
             });
         }).start();
 
-        // 2. Load Biểu đồ Cột (7 ngày qua)
+        
         loadBarChart(userId);
 
-        // 3. Load Biểu đồ Tròn (Danh mục)
+        
         loadPieChart(userId);
     }
 
@@ -87,7 +90,7 @@ public class StatisticsController implements Initializable {
         series.setName("Bài học hoàn thành");
 
         if (weeklyData.isEmpty()) {
-            // Nếu chưa học gì, hiển thị cột giả định bằng 0 cho đẹp
+            
             series.getData().add(new XYChart.Data<>("Hôm nay", 0));
         } else {
             for (Map.Entry<String, Integer> entry : weeklyData.entrySet()) {

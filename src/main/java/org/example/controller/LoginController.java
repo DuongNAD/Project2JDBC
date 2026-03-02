@@ -30,11 +30,12 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 
+import org.example.util.Config;
+
 public class LoginController {
 
-    private static final String CLIENT_ID = "431759732134-18vnbj5ulag83ro6n73moka4ej7chb0s.apps.googleusercontent.com"
-            .trim();
-    private static final String CLIENT_SECRET = "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".trim();
+    private static final String CLIENT_ID = Config.get("google.client_id");
+    private static final String CLIENT_SECRET = Config.get("google.client_secret");
 
     private static final String REDIRECT_URI = "http://127.0.0.1:8888/callback";
     private static final String SCOPE = "email profile openid";
@@ -42,10 +43,10 @@ public class LoginController {
     private static final String TOKEN_URL = "https://oauth2.googleapis.com/token";
     private static final String USER_INFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo";
 
-    private static final String FB_APP_ID = "YOUR_FB_APP_ID"; // Replace with your FB App ID
-    private static final String FB_APP_SECRET = "YOUR_FB_APP_SECRET"; // Replace with your FB App Secret
+    private static final String FB_APP_ID = Config.get("facebook.app_id");
+    private static final String FB_APP_SECRET = Config.get("facebook.app_secret");
     private static final String FB_REDIRECT_URI = "http://localhost:8889/fb-callback";
-    private static final String FB_SCOPE = "email,public_profile";
+    private static final String FB_SCOPE = "public_profile";
     private static final String FB_AUTH_URL = "https://www.facebook.com/v19.0/dialog/oauth";
     private static final String FB_TOKEN_URL = "https://graph.facebook.com/v19.0/oauth/access_token";
     private static final String FB_USER_INFO_URL = "https://graph.facebook.com/me";
@@ -153,29 +154,31 @@ public class LoginController {
                 HttpResponse<String> infoResponse = client.send(infoRequest, HttpResponse.BodyHandlers.ofString());
                 JsonObject userInfo = JsonParser.parseString(infoResponse.body()).getAsJsonObject();
 
+                String googleId = userInfo.has("sub") ? userInfo.get("sub").getAsString() : "";
                 String name = userInfo.has("name") ? userInfo.get("name").getAsString() : "Google User";
                 String email = userInfo.has("email") ? userInfo.get("email").getAsString() : "";
                 String pictureUrl = userInfo.has("picture") ? userInfo.get("picture").getAsString() : "";
 
-                // Login to firebase
                 FirebaseAuthUtil.signInWithGoogleIdToken(idToken);
 
                 Platform.runLater(() -> {
 
-                    User user = userDao.getUserByEmail(email);
+                    User user = userDao.getUserByProvider("GOOGLE", googleId);
 
                     if (user == null) {
                         User newUser = new User();
-                        newUser.setUsername(email);
+                        newUser.setUsername("gg_" + googleId);
                         newUser.setFullname(name);
                         newUser.setEmail(email);
-                        newUser.setPasswordHash("GOOGLE_LOGIN_AUTH");
+                        newUser.setPasswordHash(null);
                         newUser.setRole("Student");
                         newUser.setAvatarUrl(pictureUrl);
+                        newUser.setAuthProvider("GOOGLE");
+                        newUser.setProviderId(googleId);
 
                         boolean isRegistered = userDao.register(newUser);
                         if (isRegistered) {
-                            user = userDao.getUserByEmail(email);
+                            user = userDao.getUserByProvider("GOOGLE", googleId);
                         } else {
                             showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tạo tài khoản mới từ Google!");
                             return;
@@ -297,8 +300,10 @@ public class LoginController {
                 HttpResponse<String> infoResponse = client.send(infoRequest, HttpResponse.BodyHandlers.ofString());
                 JsonObject userInfo = JsonParser.parseString(infoResponse.body()).getAsJsonObject();
 
+                String fbId = userInfo.has("id") ? userInfo.get("id").getAsString() : "";
                 String name = userInfo.has("name") ? userInfo.get("name").getAsString() : "Facebook User";
-                String email = userInfo.has("email") ? userInfo.get("email").getAsString() : "";
+                String email = userInfo.has("email") ? userInfo.get("email").getAsString() : null;
+
                 String pictureUrl = "";
                 if (userInfo.has("picture")) {
                     JsonObject pictureObj = userInfo.getAsJsonObject("picture");
@@ -307,30 +312,27 @@ public class LoginController {
                     }
                 }
 
-                if (email.isEmpty() && userInfo.has("id")) {
-                    email = userInfo.get("id").getAsString() + "@facebook.com";
-                }
-
-                // Login to firebase
                 FirebaseAuthUtil.signInWithFacebookToken(accessToken);
 
-                String finalEmail = email;
                 String finalPictureUrl = pictureUrl;
+
                 Platform.runLater(() -> {
-                    User user = userDao.getUserByEmail(finalEmail);
+                    User user = userDao.getUserByProvider("FACEBOOK", fbId);
 
                     if (user == null) {
                         User newUser = new User();
-                        newUser.setUsername(finalEmail);
+                        newUser.setUsername("fb_" + fbId);
                         newUser.setFullname(name);
-                        newUser.setEmail(finalEmail);
-                        newUser.setPasswordHash("FACEBOOK_LOGIN_AUTH");
+                        newUser.setEmail(email);
+                        newUser.setPasswordHash(null);
                         newUser.setRole("Student");
                         newUser.setAvatarUrl(finalPictureUrl);
+                        newUser.setAuthProvider("FACEBOOK");
+                        newUser.setProviderId(fbId);
 
                         boolean isRegistered = userDao.register(newUser);
                         if (isRegistered) {
-                            user = userDao.getUserByEmail(finalEmail);
+                            user = userDao.getUserByProvider("FACEBOOK", fbId);
                         } else {
                             showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tạo tài khoản mới từ Facebook!");
                             return;
@@ -344,7 +346,6 @@ public class LoginController {
                         }
 
                         UserSession.getInstance().setUser(user);
-
                         showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xin chào: " + user.getFullname());
                         switchToHome();
                     }
@@ -377,10 +378,9 @@ public class LoginController {
         }
 
         try {
-            // Validate via Firebase directly
+
             FirebaseAuthUtil.signInWithEmailPassword(loginKey, password);
 
-            // On success, get local user data from MySQL database
             User user = userDao.login(loginKey, password);
 
             if (user != null) {

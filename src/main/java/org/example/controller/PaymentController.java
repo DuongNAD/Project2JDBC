@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.example.dao.CourseDao;
-import org.example.dao.NotificationDao; // 1. NHỚ IMPORT CÁI NÀY
+import org.example.dao.NotificationDao; 
 import org.example.model.Course;
 import org.example.util.UserSession;
 
@@ -43,24 +43,24 @@ public class PaymentController {
         btnConfirm.setOnAction(e -> handleProcessPayment());
     }
 
-    // --- ĐÂY LÀ CHỖ CẦN SỬA ---
+    
     private void handleProcessPayment() {
         if (UserSession.getInstance().getUser() == null) return;
 
         int userId = UserSession.getInstance().getUser().getId();
 
-        // 1. Gọi DAO để đăng ký khóa học
+        
         boolean success = courseDao.registerCourse(userId, course.getCourseId());
 
         if (success) {
-            // --- [MỚI] TẠO THÔNG BÁO GỬI VỀ CHUÔNG ---
+            
             NotificationDao notiDao = new NotificationDao();
             String title = "Đăng ký thành công";
             String message = "Bạn đã sở hữu khóa học: " + course.getTitle() + ". Hãy bắt đầu học ngay!";
 
-            // Loại "SUCCESS" để hiện icon màu xanh
+            
             notiDao.createNotification(userId, title, message, "SUCCESS");
-            // ------------------------------------------
+            
 
             showAlert(Alert.AlertType.INFORMATION, "Thanh toán thành công! Chào mừng bạn vào học.");
             closeWindow();

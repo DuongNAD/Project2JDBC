@@ -10,7 +10,7 @@ import java.util.List;
 
 public class NotificationDao {
 
-    // 1. Tạo thông báo mới cho 1 người
+    
     public void createNotification(int userId, String title, String message, String type) {
         String sql = "INSERT INTO notifications (user_id, title, message, type) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseConnect.getConnection();
@@ -18,16 +18,16 @@ public class NotificationDao {
             stmt.setInt(1, userId);
             stmt.setString(2, title);
             stmt.setString(3, message);
-            stmt.setString(4, type); // SUCCESS, INFO, WARNING
+            stmt.setString(4, type);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // 2. Gửi thông báo cho TẤT CẢ người dùng (Dùng cho Tin tức mới)
+    
     public void notifyAllUsers(String title, String message) {
-        // Cách tối ưu: Insert Select (Copy ID từ bảng User sang Notification)
+        
         String sql = "INSERT INTO notifications (user_id, title, message, type) " +
                 "SELECT user_id, ?, ?, 'INFO' FROM users";
         try (Connection conn = DatabaseConnect.getConnection();
@@ -40,7 +40,7 @@ public class NotificationDao {
         }
     }
 
-    // 3. Lấy danh sách thông báo của User (Mới nhất lên đầu)
+    
     public List<Notification> getMyNotifications(int userId) {
         List<Notification> list = new ArrayList<>();
         String sql = "SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC LIMIT 10";
@@ -65,7 +65,7 @@ public class NotificationDao {
         return list;
     }
 
-    // 4. Đếm số thông báo chưa đọc (Để hiện chấm đỏ trên chuông)
+    
     public int countUnread(int userId) {
         String sql = "SELECT COUNT(*) FROM notifications WHERE user_id = ? AND is_read = FALSE";
         try (Connection conn = DatabaseConnect.getConnection();
@@ -79,7 +79,7 @@ public class NotificationDao {
         return 0;
     }
 
-    // 5. Đánh dấu đã đọc
+    
     public void markAsRead(int userId) {
         String sql = "UPDATE notifications SET is_read = TRUE WHERE user_id = ?";
         try (Connection conn = DatabaseConnect.getConnection();

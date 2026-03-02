@@ -37,8 +37,8 @@
                                     <Label fx:id="lblWelcome" styleClass="hero-title" text="Xin chào..." />
                                     <Label styleClass="hero-subtitle" text="Cập nhật những xu hướng công nghệ mới nhất hôm nay." />
                                     <HBox spacing="10.0">
-                                        <Button styleClass="btn-hero-primary" text="Khám phá ngay" />
-                                        <Button styleClass="btn-hero-secondary" text="Thống kê cá nhân" />
+                                        <Button styleClass="btn-hero-primary" text="Khám phá ngay" onAction="#handleExploreNow" />
+                                        <Button styleClass="btn-hero-secondary" text="Thống kê cá nhân" onAction="#handlePersonalStats" />
                                     </HBox>
                                 </children>
                             </VBox>
@@ -65,7 +65,7 @@
                             </HBox>
 
                             <FlowPane fx:id="newsContainer" hgap="20.0" vgap="20.0">
-                                <!-- Du lieu duoc do tu HomeController -->
+                                
                             </FlowPane>
                         </children>
                     </VBox>

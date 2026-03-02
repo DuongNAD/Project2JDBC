@@ -43,7 +43,7 @@
 
     <Button fx:id="toggleBtn" onAction="#onToggleSidebar" styleClass="btn-sidebar-close" text="❮" StackPane.alignment="CENTER_RIGHT">
         <StackPane.margin>
-            <Insets right="5.0" />
+            <Insets right="9.0" />
         </StackPane.margin>
     </Button>
 

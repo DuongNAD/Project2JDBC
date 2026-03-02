@@ -8,11 +8,12 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import org.example.util.Config;
+
 public class FirebaseAuthUtil {
 
-    private static final String FIREBASE_API_KEY = "AIzaSyC5mqx0tUP4KUlC9ST1MVF-SiKHOl5vb1M";
+    private static final String FIREBASE_API_KEY = Config.get("firebase.api_key");
 
-    // REST API URLs
     private static final String SIGN_UP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="
             + FIREBASE_API_KEY;
     private static final String SIGN_IN_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="
@@ -20,11 +21,6 @@ public class FirebaseAuthUtil {
     private static final String SIGN_IN_WITH_IDP_URL = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithIdp?key="
             + FIREBASE_API_KEY;
 
-    /**
-     * Creates a new user in Firebase Auth with email and password.
-     * 
-     * @return Firebase ID Token if successful, or null on error.
-     */
     public static String registerUserWithEmailPassword(String email, String password) throws Exception {
         JsonObject jsonBody = new JsonObject();
         jsonBody.addProperty("email", email);
@@ -41,11 +37,6 @@ public class FirebaseAuthUtil {
         }
     }
 
-    /**
-     * Signs in a user to Firebase Auth with email and password.
-     * 
-     * @return Firebase ID Token if successful, or null on error.
-     */
     public static String signInWithEmailPassword(String email, String password) throws Exception {
         JsonObject jsonBody = new JsonObject();
         jsonBody.addProperty("email", email);
@@ -62,10 +53,6 @@ public class FirebaseAuthUtil {
         }
     }
 
-    /**
-     * Authenticates with Firebase using a Google OAuth ID Token (from the Google
-     * standard OAuth flow)
-     */
     public static String signInWithGoogleIdToken(String idToken) throws Exception {
         String postBody = "postBody="
                 + java.net.URLEncoder.encode("id_token=" + idToken + "&providerId=google.com", "UTF-8")
@@ -75,9 +62,6 @@ public class FirebaseAuthUtil {
         return signInWithIdp(postBody);
     }
 
-    /**
-     * Authenticates with Firebase using a Facebook Access Token
-     */
     public static String signInWithFacebookToken(String accessToken) throws Exception {
         String postBody = "postBody="
                 + java.net.URLEncoder.encode("access_token=" + accessToken + "&providerId=facebook.com", "UTF-8")

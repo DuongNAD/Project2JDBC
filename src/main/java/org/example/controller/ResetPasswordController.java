@@ -38,7 +38,7 @@ public class ResetPasswordController {
         String newPass = newPasswordField.getText().trim();
         String confirmPass = confirmPasswordField.getText().trim();
 
-        // Kiểm tra dữ liệu đầu vào
+        
         if (newPass.isEmpty() || confirmPass.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Cảnh báo", "Vui lòng nhập đầy đủ thông tin!");
             return;

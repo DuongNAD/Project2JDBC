@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.example.util.Navigation; // Import class Navigation "thần thánh"
+import org.example.util.Navigation; 
 import org.example.util.UserSession;
 
 import java.io.IOException;
@@ -25,21 +25,30 @@ import java.util.ResourceBundle;
 
 public class SidebarController implements Initializable {
 
-    @FXML private StackPane sidebarRoot;
-    @FXML private VBox sidebarPane;
-    @FXML private Button toggleBtn;
+    @FXML
+    private StackPane sidebarRoot;
+    @FXML
+    private VBox sidebarPane;
+    @FXML
+    private Button toggleBtn;
 
-    // Các nút Menu
-    @FXML private Button homeBtn;
-    @FXML private Button myCoursesBtn;
-    @FXML private Button shopBtn;
-    @FXML private Button statisticsBtn;
-    @FXML private Button settingsBtn;
-    @FXML private Button newsBtn;
-    @FXML private Button logoutBtn;
+    
+    @FXML
+    private Button homeBtn;
+    @FXML
+    private Button myCoursesBtn;
+    @FXML
+    private Button shopBtn;
+    @FXML
+    private Button statisticsBtn;
+    @FXML
+    private Button settingsBtn;
+    @FXML
+    private Button newsBtn;
+    @FXML
+    private Button logoutBtn;
 
     private boolean isSidebarOpen = true;
-
 
     private StackPane mainContentArea;
 
@@ -52,7 +61,7 @@ public class SidebarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Setup giao diện Sidebar (Clip, Size...)
+        
         Rectangle clip = new Rectangle();
         clip.widthProperty().bind(sidebarRoot.widthProperty());
         clip.heightProperty().bind(sidebarRoot.heightProperty());
@@ -61,7 +70,6 @@ public class SidebarController implements Initializable {
         sidebarRoot.setPrefWidth(OPEN_WIDTH);
         sidebarRoot.setMinWidth(OPEN_WIDTH);
         sidebarRoot.setMaxWidth(OPEN_WIDTH);
-        toggleBtn.setStyle("-fx-background-radius: 5 0 0 5;");
     }
 
     @FXML
@@ -69,43 +77,39 @@ public class SidebarController implements Initializable {
         Timeline timeline = new Timeline();
 
         if (isSidebarOpen) {
-            // Đóng Sidebar
+            
             KeyFrame keyFrame = new KeyFrame(Duration.millis(250),
                     new KeyValue(sidebarRoot.prefWidthProperty(), CLOSED_WIDTH),
                     new KeyValue(sidebarRoot.minWidthProperty(), CLOSED_WIDTH),
-                    new KeyValue(sidebarRoot.maxWidthProperty(), CLOSED_WIDTH)
-            );
+                    new KeyValue(sidebarRoot.maxWidthProperty(), CLOSED_WIDTH));
             timeline.getKeyFrames().add(keyFrame);
             timeline.setOnFinished(e -> {
                 sidebarPane.setVisible(false);
                 sidebarPane.setManaged(false);
                 toggleBtn.setText("❯");
-                toggleBtn.setStyle("-fx-background-radius: 0 5 5 0;");
             });
         } else {
-            // Mở Sidebar
+            
             sidebarPane.setVisible(true);
             sidebarPane.setManaged(true);
             KeyFrame keyFrame = new KeyFrame(Duration.millis(250),
                     new KeyValue(sidebarRoot.prefWidthProperty(), OPEN_WIDTH),
                     new KeyValue(sidebarRoot.minWidthProperty(), OPEN_WIDTH),
-                    new KeyValue(sidebarRoot.maxWidthProperty(), OPEN_WIDTH)
-            );
+                    new KeyValue(sidebarRoot.maxWidthProperty(), OPEN_WIDTH));
             timeline.getKeyFrames().add(keyFrame);
             timeline.setOnFinished(e -> {
                 toggleBtn.setText("❮");
-                toggleBtn.setStyle("-fx-background-radius: 5 0 0 5;");
             });
         }
         timeline.play();
         isSidebarOpen = !isSidebarOpen;
     }
 
-    // --- CÁC HÀM CHUYỂN TRANG DÙNG NAVIGATION ---
+    
 
     @FXML
     public void onHomeClick(ActionEvent event) {
-        // Gọi Navigation: Tự động hiện Loading -> Fade -> Hiện trang Home
+        
         Navigation.to(event, Navigation.HOME_VIEW);
         updateActiveButton(homeBtn);
     }
@@ -140,7 +144,8 @@ public class SidebarController implements Initializable {
         UserSession.getInstance().cleanUserSession();
 
         try {
-            // Lưu ý: File login.fxml của anh nằm ngay thư mục gốc resources, nên dùng "/login.fxml"
+            
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
             Parent root = loader.load();
 
@@ -156,7 +161,7 @@ public class SidebarController implements Initializable {
         }
     }
 
-    // --- HÀM STYLE CHO NÚT ---
+    
     private void updateActiveButton(Button activeBtn) {
         resetButtonStyle(homeBtn);
         resetButtonStyle(newsBtn);

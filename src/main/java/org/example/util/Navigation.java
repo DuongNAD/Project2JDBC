@@ -16,10 +16,10 @@ import java.util.function.Consumer;
 
 public class Navigation {
 
-    private static final String SHELL_FXML = "/View/hello-view.fxml"; // File Vỏ (Sidebar + Header)
-    private static final String LOADING_FXML = "/View/loading.fxml";  // File Loading
+    private static final String SHELL_FXML = "/View/hello-view.fxml"; 
+    private static final String LOADING_FXML = "/View/loading.fxml";  
     public static final String LOGIN_VIEW = "/login.fxml";
-    // Danh sách các view
+    
     public static final String HOME_VIEW = "/View/home.fxml";
     public static final String MY_COURSES_VIEW = "/View/my-courses.fxml";
     public static final String COURSES_VIEW = "/View/courses.fxml";
@@ -30,21 +30,17 @@ public class Navigation {
     public static final String COURSE_DETAIL_VIEW = "/View/course-detail.fxml";
     public static final String ARTICLE_DETAIL_VIEW = "/View/article-detail.fxml";;
     public static final String STATISTICS_VIEW =  "/View/statistics.fxml";
-    /**
-     * @param event Sự kiện (Nút bấm/Click chuột)
-     * @param fxmlPath Đường dẫn file đích
-     * @param onLoaded Hàm callback trả về Controller sau khi tải xong (có thể null)
-     */
+    
     public static <T> void toSync(Event event, String fxmlPath, Consumer<T> onLoaded) {
         try {
             Node source = (Node) event.getSource();
             Stage stage = (Stage) source.getScene().getWindow();
             Parent currentRoot = stage.getScene().getRoot();
 
-            // 1. Tìm vùng hiển thị
+            
             StackPane contentArea = (StackPane) currentRoot.lookup("#contentArea");
 
-            // Nếu đang Fullscreen -> Nạp lại Shell trước
+            
             if (contentArea == null) {
                 FXMLLoader shellLoader = new FXMLLoader(Navigation.class.getResource(SHELL_FXML));
                 Parent shellRoot = shellLoader.load();
@@ -54,12 +50,12 @@ public class Navigation {
             }
 
             if (contentArea != null) {
-                // 2. Tải FXML ngay lập tức (Trên luồng chính - An toàn cho WebView)
+                
                 FXMLLoader loader = new FXMLLoader(Navigation.class.getResource(fxmlPath));
                 Parent targetView = loader.load();
                 ThemeManager.applyTheme(targetView);
 
-                // 3. Hiệu ứng chuyển cảnh (Fade)
+                
                 targetView.setOpacity(0);
                 contentArea.getChildren().clear();
                 contentArea.getChildren().add(targetView);
@@ -69,7 +65,7 @@ public class Navigation {
                 fade.setToValue(1);
                 fade.play();
 
-                // 4. Gọi callback trả về Controller
+                
                 if (onLoaded != null) {
                     onLoaded.accept(loader.getController());
                 }

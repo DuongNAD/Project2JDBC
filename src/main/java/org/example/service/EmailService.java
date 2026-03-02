@@ -8,9 +8,11 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+import org.example.util.Config;
+
 public class EmailService {
-    private final String FROM_EMAIL = "duonganhdn2000@gmail.com";
-    private final String PASSWORD = "zqwu gxwi bomc mfif";
+    private final String FROM_EMAIL = Config.get("email.address");
+    private final String PASSWORD = Config.get("email.password");
 
     public boolean sendEmail(String toEmail, String subject, String htmlBody) {
         Properties props = new Properties();
@@ -18,8 +20,6 @@ public class EmailService {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.port", "587");
-
-//        props.put("mail.debug", "true"); // debug trong trường hợp gửi mail lỗi
 
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
@@ -47,6 +47,7 @@ public class EmailService {
             return false;
         }
     }
+
     public String getOtpEmailTemplate(String name, String otp) {
         try {
             InputStream inputStream = getClass().getResourceAsStream("/email_template.html");

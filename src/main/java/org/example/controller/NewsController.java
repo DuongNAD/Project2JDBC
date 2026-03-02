@@ -44,7 +44,7 @@ public class NewsController implements Initializable {
 
         ScrollUtil.applySmoothScrolling(mainScrollPane);
 
-        // Đảm bảo trang áp dụng Theme Sáng/Tối
+        
         Platform.runLater(() -> {
             if (allNewsContainer.getScene() != null) {
                 ThemeManager.applyTheme(allNewsContainer.getScene().getRoot());
@@ -89,7 +89,7 @@ public class NewsController implements Initializable {
         card.setPrefWidth(300);
         card.getStyleClass().add("news-card-vertical");
 
-        // Sự kiện click để mở chi tiết
+        
         card.setOnMouseClicked(e -> openArticleDetail(a,e));
 
         ImageView img = new ImageView();
@@ -107,14 +107,14 @@ public class NewsController implements Initializable {
             img.setImage(new Image(getClass().getResourceAsStream("/View/avatar.jpg")));
         }
 
-        // Bo tròn ảnh khớp với Card
+        
         javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(300, 160);
         clip.setArcWidth(16);
         clip.setArcHeight(16);
         img.setClip(clip);
 
         VBox content = new VBox(8);
-        content.setStyle("-fx-padding: 0 15 15 15;"); // Padding nội dung
+        content.setStyle("-fx-padding: 0 15 15 15;"); 
 
         Label title = new Label(a.getTitle());
         title.getStyleClass().add("news-title");

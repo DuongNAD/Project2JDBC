@@ -30,21 +30,21 @@ public class ArticleDetailController implements Initializable {
     @FXML private Label lblContent;
     @FXML private Label lblTags;
 
-    // --- 1. KẾT NỐI VỚI HEADER ---
-    // Tên biến phải trùng với fx:id trong FXML: <fx:include fx:id="headerController" ... />
+    
+    
     @FXML private HeaderController headerController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ScrollUtil.applySmoothScrolling(mainScrollPane);
 
-        // --- 2. CẤU HÌNH HEADER ---
+        
         if (headerController != null) {
             headerController.setTitle("Chi tiết bài viết");
-            headerController.showThemeButton(true); // Hiện nút đổi theme
+            headerController.showThemeButton(true); 
         }
 
-        // Đảm bảo nhận Theme hiện tại
+        
         Platform.runLater(() -> {
             if (lblTitle.getScene() != null) {
                 ThemeManager.applyTheme(lblTitle.getScene().getRoot());
@@ -62,8 +62,8 @@ public class ArticleDetailController implements Initializable {
             lblTags.setText(article.getTags() != null ? article.getTags() : "#TechNews");
         }
 
-        // Nếu tiêu đề quá dài, có thể cập nhật lại Header cho gọn
-        // if (headerController != null) headerController.setTitle(article.getTitle());
+        
+        
 
         String realContent = (article.getContent() != null && !article.getContent().trim().isEmpty())
                 ? article.getContent()

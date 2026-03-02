@@ -45,7 +45,7 @@
                             <children>
                                 <VBox alignment="TOP_CENTER" spacing="15.0">
                                     <children>
-                                        <ImageView fx:id="avatarPreview" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="avatarPreview" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="false">
                                             <image><Image url="https://i.pravatar.cc/150?img=12" /></image>
                                             <clip><Circle centerX="60" centerY="60" radius="60" /></clip> </ImageView>
                                         <Button fx:id="btnUploadAvatar" styleClass="btn-secondary" text="📷 Đổi ảnh" />
@@ -57,6 +57,12 @@
                                         <VBox spacing="8.0">
                                             <Label styleClass="input-label" text="Họ và tên hiển thị" />
                                             <TextField fx:id="txtFullName" promptText="VD: Nguyễn Anh Dương" styleClass="settings-input" />
+                                        </VBox>
+
+                                        <VBox spacing="8.0">
+                                            <Label styleClass="input-label" text="Tên đăng nhập" />
+                                            <TextField fx:id="txtUsername" promptText="VD: duongnguyen123" styleClass="settings-input" />
+                                            <Label fx:id="lblUsernameHelper" styleClass="helper-text" text="Tên đăng nhập có thể tạo 1 lần duy nhất cho tài khoản Google/Facebook." />
                                         </VBox>
 
                                         <VBox spacing="8.0">
@@ -83,7 +89,7 @@
 
                         <VBox spacing="20.0" maxWidth="600">
                             <children>
-                                <VBox spacing="8.0">
+                                <VBox fx:id="vboxCurrentPass" spacing="8.0">
                                     <Label styleClass="input-label" text="Mật khẩu hiện tại" />
                                     <PasswordField fx:id="txtCurrentPass" promptText="••••••••" styleClass="settings-input" />
                                 </VBox>
@@ -100,7 +106,7 @@
                                 </HBox>
 
                                 <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-padding: 10 0 0 0;">
-                                    <Button onAction="#handleChangePassword" styleClass="btn-primary" text="Đổi mật khẩu" />
+                                    <Button fx:id="btnChangePassword" onAction="#handleChangePassword" styleClass="btn-primary" text="Đổi mật khẩu" />
                                     <Label fx:id="lblPasswordMessage" styleClass="msg-success" text=""/>
                                 </HBox>
                             </children>

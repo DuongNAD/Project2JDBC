@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class StatisticsDao {
 
-    // 1. Đếm tổng số bài học đã hoàn thành (Dùng làm "Giờ học" hoặc "Bài học")
-    // Dựa vào bảng `lesson_progress` anh gửi
+    
+    
     public int getTotalLessonsCompleted(int userId) {
         String sql = "SELECT COUNT(*) FROM lesson_progress WHERE user_id = ?";
         try (Connection conn = DatabaseConnect.getConnection();
@@ -26,8 +26,8 @@ public class StatisticsDao {
         return 0;
     }
 
-    // 2. Đếm số khóa học ĐÃ HOÀN THÀNH
-    // Dựa vào bảng `enrollments`, cột `status` = 'completed'
+    
+    
     public int getCompletedCoursesCount(int userId) {
         String sql = "SELECT COUNT(*) FROM enrollments WHERE user_id = ? AND status = 'completed'";
         try (Connection conn = DatabaseConnect.getConnection();
@@ -41,8 +41,8 @@ public class StatisticsDao {
         return 0;
     }
 
-    // 3. Đếm số khóa ĐANG HỌC
-    // Dựa vào bảng `enrollments`, cột `status` = 'active'
+    
+    
     public int getInProgressCoursesCount(int userId) {
         String sql = "SELECT COUNT(*) FROM enrollments WHERE user_id = ? AND status = 'active'";
         try (Connection conn = DatabaseConnect.getConnection();
@@ -56,8 +56,8 @@ public class StatisticsDao {
         return 0;
     }
 
-    // 4. Tính điểm trung bình bài tập
-    // (Giả sử bảng exercise_completions có cột score và user_id)
+    
+    
     public double getAverageScore(int userId) {
         String sql = "SELECT AVG(score) FROM exercise_completions WHERE user_id = ?";
         try (Connection conn = DatabaseConnect.getConnection();
@@ -66,23 +66,23 @@ public class StatisticsDao {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 double avg = rs.getDouble(1);
-                // Làm tròn 1 chữ số thập phân (VD: 8.5)
+                
                 return Math.round(avg * 10.0) / 10.0;
             }
         } catch (Exception e) {
-            // Nếu chưa có bảng này hoặc lỗi thì trả về 0.0
+            
             System.err.println("Lỗi tính điểm trung bình (có thể chưa có dữ liệu): " + e.getMessage());
         }
         return 0.0;
     }
 
-    // 5. BIỂU ĐỒ CỘT: Hoạt động học tập 7 ngày qua
-    // Lấy từ bảng `lesson_progress`, cột `completed_at`
+    
+    
     public Map<String, Integer> getWeeklyActivity(int userId) {
         Map<String, Integer> data = new LinkedHashMap<>();
 
-        // Query: Lấy ngày (định dạng dd/MM) và đếm số bài học xong trong ngày đó
-        // Chỉ lấy trong 7 ngày gần nhất
+        
+        
         String sql = "SELECT DATE_FORMAT(completed_at, '%d/%m') as date_str, COUNT(*) as count " +
                 "FROM lesson_progress " +
                 "WHERE user_id = ? " +
@@ -104,14 +104,14 @@ public class StatisticsDao {
         return data;
     }
 
-    // 6. BIỂU ĐỒ TRÒN: Phân bố theo Danh mục
-    // Join: enrollments -> courses -> categories
+    
+    
     public Map<String, Integer> getCourseCategoriesDistribution(int userId) {
         Map<String, Integer> data = new HashMap<>();
 
-        // Lưu ý: Cần chắc chắn bảng `courses` có cột `category_id` và `course_id`
-        // Bảng `enrollments` có `course_id`
-        // Bảng `categories` có `category_id` và `name` (như trong ảnh anh gửi)
+        
+        
+        
         String sql = "SELECT c.name, COUNT(e.course_id) as count " +
                 "FROM enrollments e " +
                 "JOIN courses co ON e.course_id = co.course_id " +

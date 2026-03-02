@@ -41,18 +41,18 @@ public class HeaderController implements Initializable {
     @FXML
     private TextField txtSearch;
 
-    // --- BIẾN CHO THÔNG BÁO ---
+    
     @FXML
-    private ImageView iconBell; // Cái chuông (fx:id="iconBell" bên FXML)
+    private ImageView iconBell; 
     @FXML
-    private Label lblUnreadCount; // Chấm đỏ (fx:id="lblUnreadCount" bên FXML)
+    private Label lblUnreadCount; 
 
     private NotificationDao notiDao = new NotificationDao();
-    private ContextMenu notiMenu; // Menu thả xuống
+    private ContextMenu notiMenu; 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // 1. Load thông tin User
+        
         User user = UserSession.getInstance().getUser();
         if (user != null) {
             if (lblUserName != null)
@@ -75,26 +75,32 @@ public class HeaderController implements Initializable {
             btnThemeToggle.setOnAction(e -> toggleTheme());
         }
 
-        // --- BẮT ĐẦU CHẠY THÔNG BÁO ---
+        
         if (iconBell != null) {
-            // Khởi tạo ContextMenu một lần
+            
             notiMenu = new ContextMenu();
-            notiMenu.getStyleClass().add("notification-context-menu"); // Class CSS khung ngoài (trong suốt)
+            notiMenu.getStyleClass().add("notification-context-menu"); 
 
-            // Click vào chuông thì hiện danh sách
-            iconBell.setOnMouseClicked(event -> handleShowNotifications());
+            
+            notiMenu.setOnAction(e -> {
+            }); 
+            notiMenu.getScene().setOnMouseExited(e -> notiMenu.hide()); 
+                                                                        
 
-            // Tự động kiểm tra tin nhắn mới mỗi 5 giây
+            
+            iconBell.setOnMouseEntered(event -> handleShowNotifications());
+
+            
             startNotiPolling();
         }
     }
 
-    // --- LOGIC 1: CHẠY NGẦM ĐẾM SỐ TIN CHƯA ĐỌC ---
+    
     private void startNotiPolling() {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), e -> updateUnreadCount()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-        updateUnreadCount(); // Chạy ngay lần đầu
+        updateUnreadCount(); 
     }
 
     private void updateUnreadCount() {
@@ -117,20 +123,20 @@ public class HeaderController implements Initializable {
         }).start();
     }
 
-    // --- LOGIC 2: HIỂN THỊ POPUP THÔNG BÁO (QUAN TRỌNG NHẤT) ---
+    
     private void handleShowNotifications() {
         User user = UserSession.getInstance().getUser();
         if (user == null)
             return;
 
-        // Xóa menu cũ để vẽ lại từ đầu
+        
         notiMenu.getItems().clear();
 
-        // 1. Tạo Container Chính (VBox) - Nơi chứa toàn bộ nội dung popup
+        
         VBox container = new VBox();
-        container.getStyleClass().add("notification-container"); // Class CSS nền trắng/đen, bo góc
+        container.getStyleClass().add("notification-container"); 
 
-        // --- A. HEADER (Tiêu đề xanh) ---
+        
         HBox header = new HBox();
         header.getStyleClass().add("notification-header");
 
@@ -138,104 +144,116 @@ public class HeaderController implements Initializable {
         lblHeader.getStyleClass().add("notification-header-label");
         header.getChildren().add(lblHeader);
 
-        // --- B. BODY (Danh sách thông báo) ---
-        VBox listItems = new VBox(); // Không cần spacing vì CSS item đã có padding/border
+        
+        VBox listItems = new VBox(); 
 
         List<Notification> list = notiDao.getMyNotifications(user.getId());
 
         if (list.isEmpty()) {
             Label emptyLbl = new Label("Bạn chưa có thông báo nào.");
             emptyLbl.setStyle("-fx-padding: 20; -fx-text-fill: #94A3B8; -fx-font-style: italic;");
-            // Căn giữa thông báo rỗng
+            
             HBox emptyBox = new HBox(emptyLbl);
             emptyBox.setAlignment(javafx.geometry.Pos.CENTER);
             listItems.getChildren().add(emptyBox);
         } else {
             for (Notification n : list) {
-                // Thêm từng dòng thông báo vào list
+                
                 listItems.getChildren().add(createNotificationItemRow(n));
             }
         }
 
-        // --- C. FOOTER (Nút đánh dấu đã đọc) ---
+        
         HBox footer = new HBox();
         footer.getStyleClass().add("notification-footer");
 
         Button btnMarkRead = new Button("Đánh dấu tất cả là đã đọc");
         btnMarkRead.getStyleClass().add("btn-mark-read");
+        
+        btnMarkRead.setStyle("-fx-background-color: transparent; -fx-cursor: hand;");
 
-        // Sự kiện click nút đánh dấu
+        
         btnMarkRead.setOnAction(e -> {
             new Thread(() -> {
                 notiDao.markAsRead(user.getId());
                 Platform.runLater(() -> {
                     updateUnreadCount();
-                    notiMenu.hide(); // Ẩn menu sau khi bấm
+                    notiMenu.hide(); 
                 });
             }).start();
         });
 
         footer.getChildren().add(btnMarkRead);
 
-        // --- GHÉP LẠI ---
+        
         container.getChildren().addAll(header, listItems, footer);
 
-        // Đưa Container vào MỘT CustomMenuItem duy nhất
+        
+        ThemeManager.applyTheme(container);
+
+        
         CustomMenuItem item = new CustomMenuItem(container);
-        item.setHideOnClick(false); // Bấm vào vùng trống không bị tắt popup
+        
+        item.setHideOnClick(false);
+
+        
+        container.setOnMouseExited(e -> {
+            notiMenu.hide();
+        });
 
         notiMenu.getItems().add(item);
 
-        // Hiển thị Popup ngay dưới nút chuông, lệch sang trái một chút cho đẹp
-        notiMenu.show(iconBell, Side.BOTTOM, -280, 10);
+        
+        
+        notiMenu.show(iconBell, Side.BOTTOM, -200, 15);
     }
 
-    // --- LOGIC 3: TẠO GIAO DIỆN TỪNG DÒNG (HBox) ---
-    // Trả về HBox để add vào container, KHÔNG PHẢI trả về CustomMenuItem
+    
+    
     private HBox createNotificationItemRow(Notification n) {
         HBox row = new HBox(12);
-        row.getStyleClass().add("notification-item"); // Class CSS hover hiệu ứng
+        row.getStyleClass().add("notification-item"); 
 
-        // 1. Icon bên trái (Dựa trên loại thông báo)
-        String iconText = "ℹ️"; // Mặc định
+        
+        String iconText = "ℹ️"; 
         if ("SUCCESS".equals(n.getType()))
             iconText = "✅";
         else if ("WARNING".equals(n.getType()))
             iconText = "⚠️";
 
         Label lblIcon = new Label(iconText);
-        lblIcon.setStyle("-fx-font-size: 18px;"); // Icon to rõ
+        lblIcon.setStyle("-fx-font-size: 18px;"); 
 
         VBox iconBox = new VBox(lblIcon);
-        iconBox.getStyleClass().add("notif-icon-box"); // Căn chỉnh vị trí icon
+        iconBox.getStyleClass().add("notif-icon-box"); 
 
-        // 2. Nội dung bên phải
+        
         VBox content = new VBox(2);
 
         Label lblTitle = new Label(n.getTitle());
-        lblTitle.getStyleClass().add("notif-title"); // CSS Title đậm
+        lblTitle.getStyleClass().add("notif-title"); 
 
         Label lblMsg = new Label(n.getMessage());
-        lblMsg.getStyleClass().add("notif-msg"); // CSS Message xám
+        lblMsg.getStyleClass().add("notif-msg"); 
         lblMsg.setWrapText(true);
-        lblMsg.setMaxWidth(260); // Giới hạn chiều rộng để tự xuống dòng
+        lblMsg.setMaxWidth(260); 
 
-        // Format thời gian
+        
         String timeStr = (n.getCreatedAt() != null)
                 ? new SimpleDateFormat("HH:mm dd/MM").format(n.getCreatedAt())
                 : "";
         Label lblTime = new Label(timeStr);
-        lblTime.getStyleClass().add("notif-time"); // CSS Time nhỏ
+        lblTime.getStyleClass().add("notif-time"); 
 
         content.getChildren().addAll(lblTitle, lblMsg, lblTime);
 
-        // Ghép icon và content
+        
         row.getChildren().addAll(iconBox, content);
 
         return row;
     }
 
-    // --- CÁC HÀM CŨ (THEME) GIỮ NGUYÊN ---
+    
     public void setTitle(String title) {
         if (lblPageTitle != null)
             lblPageTitle.setText(title);
@@ -304,7 +322,7 @@ public class HeaderController implements Initializable {
             Parent view = loader.load();
             CoursesController controller = loader.getController();
 
-            // Nếu ô tìm kiếm không trống thì fetch data theo query, ngược lại load all.
+            
             if (!query.isEmpty()) {
                 controller.searchCourses(query);
             }

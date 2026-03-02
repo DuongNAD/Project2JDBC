@@ -21,7 +21,7 @@ public class Notification {
         this.isRead = false;
     }
 
-    // --- Getter & Setter ---
+    
     public int getNotificationId() { return notificationId; }
     public void setNotificationId(int notificationId) { this.notificationId = notificationId; }
 
