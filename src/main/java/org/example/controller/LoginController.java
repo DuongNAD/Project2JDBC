@@ -377,25 +377,23 @@ public class LoginController {
             return;
         }
 
-        try {
+        User user = userDao.login(loginKey, password);
 
-            FirebaseAuthUtil.signInWithEmailPassword(loginKey, password);
-
-            User user = userDao.login(loginKey, password);
-
-            if (user != null) {
-                UserSession.getInstance().setUser(user);
-                showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xin chào, " + user.getFullname() + "!");
-
-                switchToHome();
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Thất bại",
-                        "Tài khoản không tồn tại trên hệ thống cục bộ hoặc đã bị khóa!");
+        if (user != null) {
+            try {
+                FirebaseAuthUtil.signInWithEmailPassword(loginKey, password);
+            } catch (Exception e) {
+                System.out.println("Xác thực Firebase không thành công nhưng tài khoản hợp lệ ở máy chủ cục bộ: "
+                        + e.getMessage());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            UserSession.getInstance().setUser(user);
+            showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xin chào, " + user.getFullname() + "!");
+
+            switchToHome();
+        } else {
             showAlert(Alert.AlertType.ERROR, "Thất bại",
-                    "Sai email hoặc mật khẩu (Xác thực Firebase không thành công)!");
+                    "Sai tên đăng nhập hoặc mật khẩu!");
         }
     }
 

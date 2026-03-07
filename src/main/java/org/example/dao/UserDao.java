@@ -52,13 +52,14 @@ public class UserDao {
 
     public User login(String loginKey, String password) {
         String sql = "SELECT * FROM users WHERE (email = ? OR user_name = ?) AND password_hash = ?";
+        String hashedPassword = SecurityUtil.hashPassword(password);
 
         try (Connection conn = DatabaseConnect.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, loginKey);
             stmt.setString(2, loginKey);
-            stmt.setString(3, password);
+            stmt.setString(3, hashedPassword);
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
