@@ -18,6 +18,7 @@ import org.example.model.CodingExercise;
 import org.example.model.Course;
 import org.example.model.Section;
 import org.example.util.UserSession;
+import java.util.Optional;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -53,13 +54,14 @@ public class LearningController implements Initializable {
 
     private Course currentCourse;
     private CourseDao courseDao = new CourseDao();
+    private org.example.dao.ReviewDao reviewDao = new org.example.dao.ReviewDao();
     private WebEngine webEngine;
 
     private final String DEMO_VIDEO_URL = "https://www.youtube.com/embed/grEKMHGYyns?autoplay=1&rel=0";
 
     private static class LessonItem {
         String title;
-        String type; 
+        String type;
         Object data;
 
         public LessonItem(String title, String type, Object data) {
@@ -90,7 +92,7 @@ public class LearningController implements Initializable {
 
         if (!allLessons.isEmpty()) {
             currentIndex = 0;
-            
+
             playLessonAtIndex(currentIndex, null);
         }
 
@@ -159,7 +161,6 @@ public class LearningController implements Initializable {
 
         row.getChildren().addAll(icon, lbl);
 
-        
         row.setOnMouseClicked(e -> {
             currentIndex = index;
             playLessonAtIndex(currentIndex, e);
@@ -168,7 +169,6 @@ public class LearningController implements Initializable {
         return row;
     }
 
-    
     private void playLessonAtIndex(int index, Event event) {
         if (index < 0 || index >= allLessons.size())
             return;
@@ -187,7 +187,7 @@ public class LearningController implements Initializable {
                 webEngine.load(null);
 
             CodingExercise exe = (CodingExercise) item.data;
-            
+
             openCodingPractice(exe, event);
         }
 
@@ -201,7 +201,7 @@ public class LearningController implements Initializable {
     void handlePrevLesson(ActionEvent event) {
         if (currentIndex > 0) {
             currentIndex--;
-            playLessonAtIndex(currentIndex, event); 
+            playLessonAtIndex(currentIndex, event);
         }
     }
 
@@ -210,7 +210,7 @@ public class LearningController implements Initializable {
         markCurrentLessonAsDone();
         if (currentIndex < allLessons.size() - 1) {
             currentIndex++;
-            playLessonAtIndex(currentIndex, event); 
+            playLessonAtIndex(currentIndex, event);
         }
     }
 
@@ -227,13 +227,11 @@ public class LearningController implements Initializable {
         }).start();
     }
 
-    
     private void openCodingPractice(CodingExercise exe, Event event) {
         try {
             if (webEngine != null)
                 webEngine.load(null);
 
-            
             if (event != null) {
                 org.example.util.Navigation.toSync(
                         event,
@@ -242,28 +240,24 @@ public class LearningController implements Initializable {
                             controller.setExerciseData(exe);
                         });
             }
-            
-            
+
             else {
                 System.out.println("⚠️ Cảnh báo: Event null, đang thử lấy Stage thủ công...");
                 if (lblCourseTitle.getScene() != null) {
                     Stage stage = (Stage) lblCourseTitle.getScene().getWindow();
 
-                    
                     javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
                             getClass().getResource(org.example.util.Navigation.CODING_VIEW));
                     javafx.scene.Parent root = loader.load();
 
                     org.example.util.ThemeManager.applyTheme(root);
 
-                    
                     javafx.scene.layout.StackPane contentArea = (javafx.scene.layout.StackPane) stage.getScene()
                             .lookup("#contentArea");
                     if (contentArea != null) {
                         contentArea.getChildren().clear();
                         contentArea.getChildren().add(root);
 
-                        
                         org.example.controller.CodingPracticeController controller = loader.getController();
                         controller.setExerciseData(exe);
                     }
@@ -285,47 +279,107 @@ public class LearningController implements Initializable {
 
     @FXML
     void handleRating1(ActionEvent event) {
-        submitRating(1);
+        openReviewDialog(1);
     }
 
     @FXML
     void handleRating2(ActionEvent event) {
-        submitRating(2);
+        openReviewDialog(2);
     }
 
     @FXML
     void handleRating3(ActionEvent event) {
-        submitRating(3);
+        openReviewDialog(3);
     }
 
     @FXML
     void handleRating4(ActionEvent event) {
-        submitRating(4);
+        openReviewDialog(4);
     }
 
     @FXML
     void handleRating5(ActionEvent event) {
-        submitRating(5);
+        openReviewDialog(5);
     }
 
-    private void submitRating(int rating) {
+    private void openReviewDialog(int initialRating) {
         if (UserSession.getInstance().getUser() == null || currentCourse == null)
             return;
         int userId = UserSession.getInstance().getUser().getId();
 
-        boolean success = courseDao.updateCourseRating(userId, currentCourse.getCourseId(), rating);
-        if (success) {
-            updateStarsUI(rating);
-            System.out.println("✅ Đã cập nhật đánh giá khóa học: " + rating + " sao");
+        javafx.scene.control.Dialog<javafx.scene.control.ButtonType> dialog = new javafx.scene.control.Dialog<>();
+        dialog.setTitle("Đánh giá khóa học");
+        dialog.setHeaderText("Chia sẻ cảm nhận của bạn về khóa học này");
 
-            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
-                    javafx.scene.control.Alert.AlertType.INFORMATION);
-            alert.setTitle("Thông báo");
-            alert.setHeaderText(null);
-            alert.setContentText("Cảm ơn bạn đã đánh giá khóa học " + rating + " sao!");
-            alert.showAndWait();
-        } else {
-            System.err.println("❌ Lỗi khi cập nhật đánh giá khóa học.");
+        javafx.scene.control.ButtonType submitBtnType = new javafx.scene.control.ButtonType("Gửi đánh giá",
+                javafx.scene.control.ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(submitBtnType, javafx.scene.control.ButtonType.CANCEL);
+
+        VBox content = new VBox(15);
+        content.setStyle("-fx-padding: 20; -fx-background-color: transparent;");
+
+        HBox starBox = new HBox(5);
+        Label[] starLabels = new Label[5];
+        final int[] currentRatingArray = { initialRating };
+
+        for (int i = 0; i < 5; i++) {
+            starLabels[i] = new Label("★");
+            boolean active = i < initialRating;
+            starLabels[i].setStyle("-fx-font-size: 28px; -fx-cursor: hand; "
+                    + (active ? "-fx-text-fill: #F6AD55;" : "-fx-text-fill: #CBD5E0;"));
+            int starValue = i + 1;
+
+            starLabels[i].setOnMouseClicked(e -> {
+                currentRatingArray[0] = starValue;
+                for (int j = 0; j < 5; j++) {
+                    starLabels[j].setStyle("-fx-font-size: 28px; -fx-cursor: hand; "
+                            + (j < starValue ? "-fx-text-fill: #F6AD55;" : "-fx-text-fill: #CBD5E0;"));
+                }
+            });
+            starBox.getChildren().add(starLabels[i]);
+        }
+
+        javafx.scene.control.TextArea txtComment = new javafx.scene.control.TextArea();
+        txtComment.setPromptText("Viết nhận xét của bạn...");
+        txtComment.setPrefRowCount(4);
+        txtComment.setWrapText(true);
+        txtComment.setStyle("-fx-font-family: inherit; -fx-font-size: 14px;");
+
+        org.example.model.Review existingReview = reviewDao.getReviewByUser(userId, currentCourse.getCourseId());
+        if (existingReview != null) {
+            currentRatingArray[0] = existingReview.getRating();
+            for (int j = 0; j < 5; j++) {
+                starLabels[j].setStyle("-fx-font-size: 28px; -fx-cursor: hand; "
+                        + (j < currentRatingArray[0] ? "-fx-text-fill: #F6AD55;" : "-fx-text-fill: #CBD5E0;"));
+            }
+            txtComment.setText(existingReview.getComment() != null ? existingReview.getComment() : "");
+        }
+
+        content.getChildren().addAll(new Label("Xếp hạng:"), starBox, txtComment);
+        dialog.getDialogPane().setContent(content);
+
+        // Styling the dialog
+        org.example.util.ThemeManager.applyTheme(dialog.getDialogPane());
+
+        Optional<javafx.scene.control.ButtonType> result = dialog.showAndWait();
+        if (result.isPresent() && result.get() == submitBtnType) {
+            boolean success = reviewDao.submitReview(userId, currentCourse.getCourseId(), currentRatingArray[0],
+                    txtComment.getText());
+            if (success) {
+                updateStarsUI(currentRatingArray[0]);
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                        javafx.scene.control.Alert.AlertType.INFORMATION);
+                alert.setTitle("Thành công");
+                alert.setHeaderText(null);
+                alert.setContentText("Cảm ơn bạn đã đánh giá khóa học!");
+                alert.showAndWait();
+            } else {
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                        javafx.scene.control.Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Có lỗi xảy ra khi gửi đánh giá.");
+                alert.showAndWait();
+            }
         }
     }
 

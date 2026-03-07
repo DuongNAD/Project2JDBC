@@ -11,7 +11,7 @@
 
 <VBox fx:id="rootPane" prefHeight="768.0" prefWidth="1024.0" spacing="20.0"
       styleClass="root-pane"
-      stylesheets="@/Css/courses.css"
+      stylesheets="@/Css/global.css, @/Css/courses.css"
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.example.controller.CoursesController">
 

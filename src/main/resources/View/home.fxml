@@ -54,6 +54,40 @@
                         </padding>
                     </HBox>
 
+                    <!-- Recommended Courses Section -->
+                    <VBox fx:id="recommendedSection" spacing="15.0" managed="false" visible="false">
+                        <children>
+                            <HBox alignment="CENTER_LEFT">
+                                <children>
+                                    <Label styleClass="section-header" text="✨ Dành riêng cho bạn" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                </children>
+                            </HBox>
+                            <ScrollPane fitToHeight="true" vbarPolicy="NEVER" hbarPolicy="AS_NEEDED" style="-fx-background-color: transparent; -fx-background: transparent;">
+                                <content>
+                                    <HBox fx:id="recommendedContainer" spacing="20.0" style="-fx-padding: 10 5 20 5;" />
+                                </content>
+                            </ScrollPane>
+                        </children>
+                    </VBox>
+
+                    <!-- Trending Courses Section -->
+                    <VBox fx:id="trendingSection" spacing="15.0">
+                        <children>
+                            <HBox alignment="CENTER_LEFT">
+                                <children>
+                                    <Label styleClass="section-header" text="🚀 Khóa học thịnh hành" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                </children>
+                            </HBox>
+                            <ScrollPane fitToHeight="true" vbarPolicy="NEVER" hbarPolicy="AS_NEEDED" style="-fx-background-color: transparent; -fx-background: transparent;">
+                                <content>
+                                    <HBox fx:id="trendingContainer" spacing="20.0" style="-fx-padding: 10 5 20 5;" />
+                                </content>
+                            </ScrollPane>
+                        </children>
+                    </VBox>
+
                     <VBox spacing="20.0">
                         <children>
                             <HBox alignment="CENTER_LEFT">

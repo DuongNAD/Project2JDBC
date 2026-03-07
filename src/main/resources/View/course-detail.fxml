@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" stylesheets="@../Css/course-detail.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.CourseDetailController">
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" stylesheets="@../Css/global.css, @../Css/course-detail.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.CourseDetailController">
     <content>
         <VBox spacing="30.0" >
             <padding>
@@ -98,8 +99,59 @@
                                 </VBox>
                             </content>
                         </Tab>
+                        <Tab text="Đánh giá">
+                            <content>
+                                <VBox spacing="20.0" style="-fx-padding: 20 0;">
+                                    
+                                    <!-- Review Statistics Header -->
+                                    <HBox alignment="CENTER" spacing="40.0" styleClass="review-stats-container">
+                                        <VBox alignment="CENTER" spacing="5.0">
+                                            <Label fx:id="lblAverageRating" text="0.0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #F6AD55;" />
+                                            <Label fx:id="lblStarsAverage" text="⭐⭐⭐⭐⭐" style="-fx-font-size: 18px;" />
+                                            <Label fx:id="lblTotalReviews" text="Từ 0 đánh giá" styleClass="text-description" />
+                                        </VBox>
+                                        <VBox fx:id="ratingBarsContainer" spacing="5.0" HBox.hgrow="ALWAYS">
+                                            <!-- Rating distribution bars will be injected here if needed, or static for now -->
+                                        </VBox>
+                                    </HBox>
+                                    
+                                    <Separator />
+                                    
+                                    <!-- Write Review Form (Hidden if not enrolled/logged in) -->
+                                    <VBox fx:id="writeReviewContainer" spacing="15.0" styleClass="write-review-box" visible="false" managed="false">
+                                        <Label text="Đánh giá của bạn" styleClass="section-header" style="-fx-font-size: 16px;" />
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                            <Label text="Xếp hạng:" style="-fx-font-weight: bold; -fx-text-fill: #4A5568;" />
+                                            <HBox fx:id="starSelectionBox" spacing="5.0" />
+                                            <Label fx:id="lblRatingText" text="Tuyệt vời" style="-fx-text-fill: #718096; -fx-font-size: 12px; -fx-padding: 0 0 0 10;" />
+                                        </HBox>
+                                        <TextArea fx:id="txtReviewContent" promptText="Hãy chia sẻ cảm nhận của bạn về khóa học này..." prefRowCount="3" wrapText="true" styleClass="review-textarea" />
+                                        <HBox alignment="CENTER_RIGHT">
+                                            <Button text="Gửi đánh giá" onAction="#handleSubmitReview" styleClass="btn-submit-review" />
+                                        </HBox>
+                                    </VBox>
+                                    
+                                    <!-- Reviews List -->
+                                    <Label text="Đánh giá từ người học" styleClass="section-header" style="-fx-font-size: 16px;" />
+                                    <VBox fx:id="reviewsListContainer" spacing="15.0" />
+                                    
+                                </VBox>
+                            </content>
+                        </Tab>
                     </tabs>
                 </TabPane>
+
+                <!-- Related Courses Section -->
+                <VBox fx:id="relatedSection" spacing="15.0" managed="false" visible="false">
+                    <children>
+                        <Label styleClass="section-header" text="🔗 Khóa học liên quan" />
+                        <ScrollPane fitToHeight="true" vbarPolicy="NEVER" hbarPolicy="AS_NEEDED" style="-fx-background-color: transparent; -fx-background: transparent;">
+                            <content>
+                                <HBox fx:id="relatedContainer" spacing="20.0" style="-fx-padding: 10 5 20 5;" />
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </VBox>
 
             </children>
         </VBox>

@@ -14,8 +14,6 @@ import java.util.List;
 
 public class CourseDao {
 
-    
-
     public List<Course> getAllCourses() {
         List<Course> list = new ArrayList<>();
         String sql = "SELECT c.*, cat.name AS category_name " +
@@ -137,7 +135,6 @@ public class CourseDao {
         return list;
     }
 
-    
     private Course mapCourse(ResultSet rs) throws SQLException {
         Course c = new Course();
         c.setCourseId(rs.getInt("course_id"));
@@ -152,15 +149,13 @@ public class CourseDao {
             String catName = rs.getString("category_name");
             c.setCategoryName(catName != null ? catName : "Chưa phân loại");
         } catch (SQLException ignored) {
-        } 
+        }
 
         if (c.getThumbnailUrl() == null || c.getThumbnailUrl().isEmpty()) {
             c.setThumbnailUrl(getClass().getResource("/Images/default.png").toExternalForm());
         }
         return c;
     }
-
-    
 
     public List<Section> getCurriculum(int courseId) {
         List<Section> sections = new ArrayList<>();
@@ -210,7 +205,7 @@ public class CourseDao {
             ResultSet rs = psCheck.executeQuery();
 
             if (rs.next() && rs.getInt(1) > 0) {
-                return false; 
+                return false;
             }
 
             PreparedStatement psInsert = conn.prepareStatement(insertSql);
@@ -226,9 +221,6 @@ public class CourseDao {
         }
     }
 
-    
-
-    
     public List<CodingExercise> getExercises(int courseId) {
         List<CodingExercise> list = new ArrayList<>();
         String sql = "SELECT * FROM coding_exercises WHERE course_id = ?";
@@ -244,10 +236,9 @@ public class CourseDao {
                 if (lang == null || lang.isEmpty())
                     lang = "java";
 
-                
                 list.add(new CodingExercise(
                         rs.getInt("exercise_id"),
-                        rs.getInt("course_id"), 
+                        rs.getInt("course_id"),
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getString("starter_code"),
@@ -260,7 +251,6 @@ public class CourseDao {
         return list;
     }
 
-    
     public CodingExercise getNextExercise(int currentCourseId, int currentExerciseId) {
         String sql = "SELECT * FROM coding_exercises WHERE course_id = ? AND exercise_id > ? ORDER BY exercise_id ASC LIMIT 1";
 
@@ -326,32 +316,17 @@ public class CourseDao {
     }
 
     private void updateCourseProgress(Connection conn, int userId, int courseId) throws SQLException {
-        String countTotalSql = "SELECT COUNT(*) FROM coding_exercises WHERE course_id = ?";
-        String countDoneSql = "SELECT COUNT(*) FROM exercise_completions WHERE user_id = ? AND course_id = ?";
-        String updateProgressSql = "UPDATE enrollments SET progress_percent = ? WHERE user_id = ? AND course_id = ?";
+        int completed = getCompletedLessonCount(userId, courseId);
+        int total = getTotalLessonCount(courseId);
 
-        int totalExercises = 0;
-        int completedExercises = 0;
-
-        try (PreparedStatement psTotal = conn.prepareStatement(countTotalSql)) {
-            psTotal.setInt(1, courseId);
-            ResultSet rsTotal = psTotal.executeQuery();
-            if (rsTotal.next())
-                totalExercises = rsTotal.getInt(1);
-        }
-
-        if (totalExercises == 0)
+        if (total == 0)
             return;
 
-        try (PreparedStatement psDone = conn.prepareStatement(countDoneSql)) {
-            psDone.setInt(1, userId);
-            psDone.setInt(2, courseId);
-            ResultSet rsDone = psDone.executeQuery();
-            if (rsDone.next())
-                completedExercises = rsDone.getInt(1);
-        }
+        int percent = (int) (((double) completed / total) * 100);
+        if (percent > 100)
+            percent = 100;
 
-        int percent = (int) (((double) completedExercises / totalExercises) * 100);
+        String updateProgressSql = "UPDATE enrollments SET progress_percent = ? WHERE user_id = ? AND course_id = ?";
 
         try (PreparedStatement psUpdate = conn.prepareStatement(updateProgressSql)) {
             psUpdate.setInt(1, percent);
@@ -362,7 +337,7 @@ public class CourseDao {
     }
 
     public org.example.model.Course getCourseById(int courseId) {
-        String sql = "SELECT * FROM courses WHERE course_id = ?";
+        String sql = "SELECT c.*, cat.name AS category_name FROM courses c LEFT JOIN categories cat ON c.category_id = cat.category_id WHERE c.course_id = ?";
         try (java.sql.Connection conn = org.example.connect.DatabaseConnect.getConnection();
                 java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -375,6 +350,13 @@ public class CourseDao {
                 c.setTitle(rs.getString("title"));
                 c.setDescription(rs.getString("description"));
                 c.setThumbnailUrl(rs.getString("thumbnail_url"));
+                c.setPrice(rs.getDouble("price"));
+                c.setSalePrice(rs.getDouble("sale_price"));
+                c.setCategoryId(rs.getInt("category_id"));
+                try {
+                    c.setCategoryName(rs.getString("category_name"));
+                } catch (SQLException ignore) {
+                }
                 return c;
             }
         } catch (Exception e) {
@@ -400,18 +382,31 @@ public class CourseDao {
     }
 
     public int getCompletedLessonCount(int userId, int courseId) {
-        String sql = "SELECT COUNT(*) FROM lesson_progress WHERE user_id = ? AND course_id = ?";
-        try (Connection conn = DatabaseConnect.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
-            stmt.setInt(2, courseId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next())
-                return rs.getInt(1);
+        String sqlVideo = "SELECT COUNT(*) FROM lesson_progress WHERE user_id = ? AND course_id = ?";
+        String sqlCode = "SELECT COUNT(*) FROM exercise_completions WHERE user_id = ? AND course_id = ?";
+
+        int completed = 0;
+        try (Connection conn = DatabaseConnect.getConnection()) {
+
+            try (PreparedStatement ps1 = conn.prepareStatement(sqlVideo)) {
+                ps1.setInt(1, userId);
+                ps1.setInt(2, courseId);
+                ResultSet rs1 = ps1.executeQuery();
+                if (rs1.next())
+                    completed += rs1.getInt(1);
+            }
+
+            try (PreparedStatement ps2 = conn.prepareStatement(sqlCode)) {
+                ps2.setInt(1, userId);
+                ps2.setInt(2, courseId);
+                ResultSet rs2 = ps2.executeQuery();
+                if (rs2.next())
+                    completed += rs2.getInt(1);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return completed;
     }
 
     public int getTotalLessonCount(int courseId) {
@@ -420,14 +415,14 @@ public class CourseDao {
 
         int total = 0;
         try (Connection conn = DatabaseConnect.getConnection()) {
-            
+
             try (PreparedStatement ps1 = conn.prepareStatement(sqlVideo)) {
                 ps1.setInt(1, courseId);
                 ResultSet rs1 = ps1.executeQuery();
                 if (rs1.next())
                     total += rs1.getInt(1);
             }
-            
+
             try (PreparedStatement ps2 = conn.prepareStatement(sqlCode)) {
                 ps2.setInt(1, courseId);
                 ResultSet rs2 = ps2.executeQuery();
@@ -463,7 +458,6 @@ public class CourseDao {
         }
     }
 
-    
     public int getCourseRating(int userId, int courseId) {
         String sql = "SELECT rating FROM enrollments WHERE user_id = ? AND course_id = ?";
         try (Connection conn = DatabaseConnect.getConnection();
@@ -477,7 +471,7 @@ public class CourseDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0; 
+        return 0;
     }
 
     public boolean updateCourseRating(int userId, int courseId, int rating) {

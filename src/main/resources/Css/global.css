@@ -1,11 +1,8 @@
-
-
-
 .root {
     -fx-font-family: "Segoe UI", "Inter", sans-serif;
     -fx-background-color: #F8FAFC;
-    
-    
+
+
     -fx-font-smoothing-type: lcd;
 }
 
@@ -57,7 +54,7 @@
     -fx-font-size: 24px;
     -fx-font-weight: 800;
     -fx-text-fill: #0F172A;
-    
+
 }
 
 .course-title {
@@ -76,7 +73,7 @@
 .news-desc,
 .news-meta {
     -fx-text-fill: #64748B;
-    
+
 }
 
 .article-tag {
@@ -89,7 +86,7 @@
 
 .global-header {
     -fx-background-color: rgba(255, 255, 255, 0.90);
-    
+
     -fx-effect: dropshadow(gaussian, rgba(148, 163, 184, 0.08), 20, 0, 0, 4);
     -fx-padding: 15 30;
     -fx-border-color: transparent transparent #F1F5F9 transparent;
@@ -180,7 +177,7 @@
 
 .nav-btn:hover {
     -fx-background-color: rgba(59, 130, 246, 0.05);
-    
+
     -fx-text-fill: #3B82F6;
 }
 
@@ -198,8 +195,7 @@
 
 
 .content-card,
-.news-card-vertical,
-.course-card {
+.news-card-vertical {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 16;
     -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.04), 15, 0, 0, 6);
@@ -208,21 +204,76 @@
     -fx-border-width: 1;
 }
 
-.news-card-vertical:hover,
-.course-card:hover {
+.news-card-vertical:hover {
     -fx-translate-y: -3;
-    
     -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.08), 20, 0, 0, 8);
     -fx-cursor: hand;
 }
 
+/* Premium Course Card Styles */
+.course-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.06), 25, 0, 8, 8);
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s;
+}
+
+.course-card:hover {
+    -fx-translate-y: -6;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.15), 30, 0, 10, 10);
+    -fx-border-color: #93C5FD;
+}
+
+.course-image {
+    -fx-background-radius: 16 16 0 0;
+}
+
+.card-content {
+    -fx-padding: 16 20 20 20;
+}
+
 .course-category {
     -fx-font-size: 11px;
-    -fx-font-weight: bold;
+    -fx-font-weight: 800;
+    -fx-text-fill: #2563EB;
+    -fx-padding: 5 10;
+    -fx-background-color: #DBEAFE;
+    -fx-background-radius: 12;
+}
+
+.course-price-new {
+    -fx-font-size: 18px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #0F172A;
+}
+
+.btn-view-detail {
+    -fx-background-color: rgba(59, 130, 246, 0.05);
     -fx-text-fill: #3B82F6;
-    -fx-padding: 4 8;
-    -fx-background-color: #EFF6FF;
-    -fx-background-radius: 20;
+    -fx-background-radius: 12;
+    -fx-font-weight: 800;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 10 16;
+    -fx-border-width: 0;
+}
+
+.btn-view-detail:hover {
+    -fx-background-color: #3B82F6;
+    -fx-text-fill: #FFFFFF;
+}
+
+.badge-best-seller {
+    -fx-background-color: linear-gradient(to bottom right, #EF4444, #B91C1C);
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-font-weight: 900;
+    -fx-padding: 4 10;
+    -fx-background-radius: 6;
 }
 
 
@@ -241,7 +292,7 @@
 
 .progress-bar>.bar {
     -fx-background-color: linear-gradient(to right, #3B82F6, #10B981);
-    
+
     -fx-background-radius: 10;
     -fx-background-insets: 0;
     -fx-padding: 4;
@@ -278,7 +329,7 @@
 
 .dark-theme {
     -fx-background-color: #0B0F19;
-    
+
 }
 
 
@@ -287,7 +338,7 @@
 .dark-theme .section-header,
 .dark-theme .course-title {
     -fx-text-fill: #F8FAFC;
-    
+
 }
 
 .dark-theme .label,
@@ -295,7 +346,7 @@
 .dark-theme .text-description,
 .dark-theme .news-desc {
     -fx-text-fill: #CBD5E1;
-    
+
 }
 
 
@@ -362,24 +413,46 @@
 
 
 .dark-theme .content-card,
-.dark-theme .news-card-vertical,
-.dark-theme .course-card {
+.dark-theme .news-card-vertical {
     -fx-background-color: #1A2235;
-    
     -fx-border-color: #2A3447;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 5);
 }
 
-.dark-theme .news-card-vertical:hover,
-.dark-theme .course-card:hover {
+.dark-theme .news-card-vertical:hover {
     -fx-border-color: #38BDF8;
-    
     -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.15), 25, 0, 0, 0);
 }
 
+/* Premium Course Card Styles - Dark Mode */
+.dark-theme .course-card {
+    -fx-background-color: #1E293B;
+    -fx-border-color: #334155;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 20, 0, 8, 8);
+}
+
+.dark-theme .course-card:hover {
+    -fx-border-color: #3B82F6;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.2), 30, 0, 10, 10);
+}
+
 .dark-theme .course-category {
-    -fx-background-color: rgba(59, 130, 246, 0.2);
+    -fx-background-color: rgba(59, 130, 246, 0.15);
+    -fx-text-fill: #93C5FD;
+}
+
+.dark-theme .course-price-new {
+    -fx-text-fill: #E2E8F0;
+}
+
+.dark-theme .btn-view-detail {
+    -fx-background-color: rgba(96, 165, 250, 0.1);
     -fx-text-fill: #60A5FA;
+}
+
+.dark-theme .btn-view-detail:hover {
+    -fx-background-color: #3B82F6;
+    -fx-text-fill: #FFFFFF;
 }
 
 
@@ -418,11 +491,11 @@
 .logo-label {
     -fx-font-size: 28px;
     -fx-font-weight: 900;
-    
+
     -fx-font-family: "Segoe UI Black", "Arial Black", sans-serif;
     -fx-text-fill: #FFFFFF;
-    
-    
+
+
     -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.6), 15, 0, 0, 0);
 }
 
@@ -431,9 +504,9 @@
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: #94A3B8;
-    
+
     -fx-padding: -5 0 0 0;
-    
+
 }
 
 
@@ -442,42 +515,42 @@
 
 
 .btn-hero-primary {
-    
+
     -fx-background-color: linear-gradient(to bottom right, #60A5FA, #2563EB);
     -fx-text-fill: white;
     -fx-font-weight: 900;
-    
+
     -fx-font-size: 15px;
     -fx-background-radius: 30;
-    
+
     -fx-padding: 12 32;
-    
+
     -fx-cursor: hand;
 
-    
+
     -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.4), 15, 0, 0, 5);
 }
 
 
 .btn-hero-primary:hover {
-    
+
     -fx-background-color: linear-gradient(to bottom right, #93C5FD, #3B82F6);
 
-    
+
     -fx-translate-y: -3;
 
-    
+
     -fx-effect: dropshadow(three-pass-box, rgba(37, 99, 235, 0.7), 25, 0, 0, 8);
 }
 
 
 .btn-hero-primary:pressed {
     -fx-translate-y: 1;
-    
+
     -fx-background-color: #1E40AF;
-    
+
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 2);
-    
+
 }
 
 
@@ -487,12 +560,12 @@
 .notification-context-menu {
     -fx-background-color: transparent;
     -fx-padding: 0;
-    
+
     -fx-border-color: transparent;
     -fx-border-width: 0;
     -fx-background-insets: 0;
     -fx-background-radius: 16;
-    
+
     -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.15), 35, 0, 0, 10);
 }
 
@@ -543,7 +616,7 @@
     -fx-text-fill: #64748B;
     -fx-wrap-text: true;
     -fx-padding: 2 0 6 0;
-    
+
 }
 
 .notif-time {
@@ -633,23 +706,23 @@
     -fx-font-size: 15px;
     -fx-font-weight: 900;
     -fx-background-radius: 50%;
-    
+
     -fx-min-width: 32px;
     -fx-min-height: 32px;
     -fx-max-width: 32px;
     -fx-max-height: 32px;
     -fx-padding: 0;
     -fx-alignment: center;
-    
+
     -fx-cursor: hand;
     -fx-border-color: #E2E8F0;
-    
+
     -fx-border-width: 1;
     -fx-border-radius: 50%;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 8, 0, 0, 2);
-    
+
     -fx-transition: all 0.2s;
-    
+
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
@@ -657,19 +730,19 @@
 .btn-sidebar-close:hover {
     -fx-background-color: #F8FAFC;
     -fx-text-fill: #3B82F6;
-    
+
     -fx-border-color: #CBD5E1;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 12, 0, 0, 4);
-    
+
     -fx-scale-x: 1.05;
-    
+
     -fx-scale-y: 1.05;
 }
 
 .btn-sidebar-close:pressed {
     -fx-background-color: #F1F5F9;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.04), 4, 0, 0, 1);
-    
+
     -fx-scale-x: 0.95;
     -fx-scale-y: 0.95;
 }
@@ -677,7 +750,7 @@
 
 .dark-theme .btn-sidebar-close {
     -fx-background-color: #1A2235;
-    
+
     -fx-text-fill: #94A3B8;
     -fx-border-color: #334155;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
@@ -687,12 +760,12 @@
 
 .dark-theme .btn-sidebar-close:hover {
     -fx-background-color: #1E293B;
-    
+
     -fx-border-color: #38BDF8;
-    
+
     -fx-text-fill: #38BDF8;
     -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.25), 15, 0, 0, 2);
-    
+
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
 }
